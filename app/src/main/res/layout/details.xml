@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?><!-- This file is res/layout/details.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewGridView"
@@ -25,10 +26,9 @@
     <GridView
 
         android:id="@+id/gridview"
-        style="@android:style/Widget.Material.GridView"
+        style="@android:style/Widget.Holo.Light.GridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textViewGridView"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
@@ -40,4 +40,4 @@
         android:verticalSpacing="@dimen/activity_vertical_margin" />
 
 
-</RelativeLayout>
+</LinearLayout>

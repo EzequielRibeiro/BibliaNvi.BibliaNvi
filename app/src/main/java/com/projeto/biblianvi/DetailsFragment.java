@@ -2,23 +2,30 @@ package com.projeto.biblianvi;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.projeto.biblianvi.biblianvi.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsFragment extends Fragment {
 
     private int mIndex = 0;
     private GridView gridview;
+    private BibliaBancoDadosHelper bibliaHelp;
+    private static Biblia biblia;
+    private CapituloGridViewAdapter capituloGridViewAdapter;
+    private List<Integer> idColorListChapter;
 
 
     public static DetailsFragment newInstance(int index) {
@@ -98,7 +105,7 @@ public class DetailsFragment extends Fragment {
         TextView textViewGridView = v.findViewById(R.id.textViewGridView);
         textViewGridView.setText(getString(R.string.capitulo));
 
-        BibliaBancoDadosHelper bibliaHelp = new BibliaBancoDadosHelper(getActivity().getApplicationContext());
+        bibliaHelp = new BibliaBancoDadosHelper(getActivity().getApplicationContext());
         List<Biblia> bookNameList = bibliaHelp.getAllBooksName();
 
         String[] livro = new String[bookNameList.size()];
@@ -107,13 +114,22 @@ public class DetailsFragment extends Fragment {
             livro[i] = bookNameList.get(i).getBooksName();
         }
 
+
         int capitulos = bibliaHelp.getQuantidadeCapitulos(livro[mIndex]);
 
-        Biblia biblia = new Biblia();
+        idColorListChapter = new ArrayList<>();
+        for (int i = 0; i < capitulos; i++) {
+            idColorListChapter.add(R.color.white);
+        }
+
+        biblia = new Biblia();
         biblia.setBooksName(livro[mIndex]);
 
         gridview = v.findViewById(R.id.gridview);
-        gridview.setAdapter(new CapituloGridView(getActivity(), getActivity(), bibliaHelp, capitulos, biblia, textViewGridView));
+        capituloGridViewAdapter = new CapituloGridViewAdapter(idColorListChapter, getActivity(), biblia, textViewGridView);
+        gridview.setAdapter(capituloGridViewAdapter);
+
+        new DownloadFilesTask(capituloGridViewAdapter, idColorListChapter, getActivity(), "chapter").execute(null, null, null);
 
         return v;
     }
@@ -199,4 +215,46 @@ public class DetailsFragment extends Fragment {
         Log.v(MainActivityFragment.TAG, "in DetailsFragment onDetach");
         super.onDetach();
     }
+
+    public static class DownloadFilesTask extends AsyncTask<Void, Void, Void> {
+
+        private List<Integer> list;
+        private BibliaBancoDadosHelper bancoDadosHelper;
+        private String checkByChapterVerse;
+        private BaseAdapter adapter;
+
+        protected void onProgressUpdate(Void... progress) {
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            adapter.notifyDataSetChanged();
+        }
+
+        public DownloadFilesTask(BaseAdapter adapter, List<Integer> list, Activity activity, String checkByChapterVerse) {
+            this.list = list;
+            bancoDadosHelper = new BibliaBancoDadosHelper(activity);
+            this.checkByChapterVerse = checkByChapterVerse;
+            this.adapter = adapter;
+        }
+
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            for (int i = 0; i < list.size(); i++) {
+
+                if (checkByChapterVerse.equals("chapter")) {
+                    if (bancoDadosHelper.getIsChapterLido(biblia.getBooksName(), Integer.toString(i + 1)))
+                        list.set(i, R.color.green);
+                } else {
+                    if (bancoDadosHelper.getIsVerseLido(biblia.getBooksName(), biblia.getChapter(), Integer.toString(i + 1)))
+                        list.set(i, R.color.green);
+                }
+            }
+            return null;
+        }
+    }
+
 }
