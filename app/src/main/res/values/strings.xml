@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="idMob" translatable="false">ca-app-pub-0822808376839371/3569436819</string>
+    <string name="idMobEstatistica" translatable="false">ca-app-pub-0822808376839371/6865274217</string>
+    <string name="idMobPesquisar" translatable="false">ca-app-pub-0822808376839371/7056845901</string>
+    <string name="idMobSermao" translatable="false">ca-app-pub-0822808376839371/1175486347</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-0822808376839371/2224016819</string>
+    <string name="app_name">Holy Bible Adonai</string>
+    <string name="settings">Settings</string>
+    <string name="refresh">Refresh</string>
+    <string name="page_title">Sermons</string>
+    <string name="updated">Last update</string>
+    <string name="lost_connection">Connection lost</string>
+    <string name="wifi_connected">Connected Wi-Fi.</string>
+    <string name="connection_error">Unable to load content. Check your network connection.</string>
+    <string name="xml_error">Error parsing XML.</string>
+    <string name="title_activity_mensagem">Online</string>
+    <string name="action_settings">Configuration</string>
+    <string name="action_devocional">Sermons</string>
+    <string name="title_activity_biblia_aberta">Holy Bible Adonai</string>
+    <string name="title_activity_list_view">Holy Bible Adonai</string>
+    <string name="capitulo">Chapter</string>
+    <string name="versiculo">Verse</string>
+    <string name="livro">Book</string>
+    <string name="nvi">Holy Bible Adonai</string>
+    <string name="fechar_app">Close</string>
+    <string name="graph_app">" Statistic"</string>
+    <string name="nviText">New International Version</string>
+    <string name="url_noticias" translatable="false">"http://biblianvi.byethost17.com/aviso.html"</string>
+    <string name="desenvolvedor" translatable="false">Ezequiel A. Ribeiro</string>
+    <string name="bibliaLivEp">Holy Bible</string>
+    <string name="fontePadrao" translatable="false">Arial</string>
+    <string name="title_activity_devocional">Sermons</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
+    <string name="botaoAtualizar" translatable="false">UPDATE</string>
+    <string name="_last_update_test_preferences" translatable="false">Last_Update_Check</string>
+    <string name="_ok" translatable="false">OK</string>
+    <string name="title_activity_tela_drawer" translatable="false">TelaDrawer</string>
+    <string name="title_activity_main2" translatable="false">Main2Activity</string>
+    <string name="cap" translatable="false">Cap:</string>
+    <string name="ver" translatable="false">Ver:</string>
+    <string name="reflexao">Daily Verse</string>
+    <string name="_loading">Checking...</string>
+    <string name="_no">Update Later</string>
+    <string name="_please_wait">Wait a minute.</string>
+    <string name="_update_test">Checking for a new version.</string>
+    <string name="_yes">Update</string>
+    <string name="_you_are_not_updated_message">A new version of the Adonai Bible is available on Google Play</string>
+    <string name="_you_are_not_updated_title">New version available.</string>
+    <string name="_you_are_updated_message">Your application is already updated to the latest version available.</string>
+    <string name="_you_are_updated_title">Updated.</string>
+    <string name="title_activity_grafico">Graphic</string>
+    <string name="mail" translatable="false">aplicativoparamobile@gmail.com</string>
+    <string name="title_activity_grafico_geral">General Chart</string>
+    <string name="title_activity_grafico__dois">Gráfico New Testament</string>
+    <string name="title_activity_activity_busca_avancada">Advanced Search</string>
+    <string name="aviso">App Name: \nHoly Bible Adonai \n\nVersion: \n@app_version@ \n\nTranslation: \n@bible_version@ \n\nThanks for downloading! \n\nIf you find any bugs or have any suggestions for the application, please contact us by email: aplicativoparamobile@gmail.com Developed by: Ezequiel A. Ribeiro</string>
+    <string name="title_activity_activity_anotacao">Annotation</string>
+    <string name="title_activity_activity_nota">Note</string>
+    <string name="title_activity_nota_adicionar">Add Note</string>
+    <string name="title_activity_dicionario">Bible Dictionary</string>
+    <string name="mensagem_texto_topo">And I ask this: that your love grows more and more in science and in all knowledge. Philippians 1: 9</string>
+    <string name="title_activity_activity_favorito">Favorite Verses</string>
+    <string name="action_websearch">Search</string>
+    <string name="estatistica">Statistic</string>
+    <string name="msg_permission">The application needs this permission to create the database.</string>
+    <string name="title_permission">Important permission required</string>
+    <string name="not_internet_avaliable">No connection</string>
+    <string name="confirmar_alarme_aviso">Daily verse scheduled for:</string>
+    <string name="finished_install">Starting to download the Bible in your language. Wait a minute. If it takes too long please check your connection.</string>
+    <string name="busca_avancada_title">Advanced Search</string>
+    <string name="velho_testamento">Old Testament</string>
+    <string name="novo_testamento">New Testament</string>
+    <string name="toda_b_blia">Whole Bible</string>
+    <string name="pesquisar_por">Search for:</string>
+    <string name="pesquisar">Search</string>
+    <string name="pesquisar_somente_em">Search only in:</string>
+    <string name="criar_nota">Create a note</string>
+    <string name="pesquisar_dicionario">Search:</string>
+    <string name="favorito">Favorite</string>
+    <string name="devocional">Sermons</string>
+    <string name="configura_o">Configuration</string>
+    <string name="t_tulo">Title</string>
+    <string name="anota_o">Annotation</string>
+    <string name="cancelar">Cancel</string>
+    <string name="salvar">Save</string>
+    <string name="minuto">Minute</string>
+    <string name="hora">Hour</string>
+    <string name="hora_redefinida">"New schedule: "</string>
+    <string name="cancel">Cancel</string>
+    <string name="versiculo_text">I have told you this, that you may have peace in me; in the world you will have afflictions, but be of good cheer, I have overcome the world.</string>
+    <string name="redefinir">Reset</string>
+    <string name="total_lido">"Verses read: "</string>
+    <string name="marcar_versiculos">Display the verses read in another color.</string>
+    <string name="fonte_texto_title">Text font</string>
+    <string name="marcar_versiculo_title">Mark verses</string>
+    <string name="fonte_text">Change the font of the text</string>
+    <string name="fonte_size_title">Font size</string>
+    <string name="fonte_text_sumary">Choose text size</string>
+    <string name="modo_noturno_title">Dark Mode</string>
+    <string name="modo_noturno_summary">Will display the dark screen background</string>
+    <string name="tela_ativa_title">Active screen</string>
+    <string name="tela_ativa_summary">Keep the screen on while reading</string>
+    <string name="limpar_estatistica_title">Clear statistics</string>
+    <string name="limpar_estatistica_summary">This option will erase your reading progress</string>
+    <string name="versiculo_selecionado_share">No verse was selected!</string>
+    <string name="gostou_do_nosso_app">Did you like our app? \n Please Rate It</string>
+    <string name="sem_conexao">No connection</string>
+    <string name="download_fail">It is not possible to download the Bible. Check your connection.</string>
+    <string name="noticias">News</string>
+    <string name="biblia">Bible</string>
+    <string name="dicionario">Dictionary</string>
+    <string name="versiculos_favoritos_title">Favorite Verses</string>
+    <string name="fechar_about">Close</string>
+    <string name="compartilhar">To share</string>
+    <string name="prosseguir">Next</string>
+    <string name="escrever_mensagem_compartilhar">Add a message to the verse</string>
+    <string name="versiculos_selecionados">"Selected verse: "</string>
+    <string name="digite_palavra">Type a word</string>
+    <string name="nada_encontrado">Nothing found</string>
+    <string name="pesquisando">Searching ...</string>
+    <string name="aguarde_pesquisando">Wait a moment ...</string>
+    <string name="pesquisa_cancelada">Search canceled</string>
+    <string name="salvar_nos_favorito">Save as favorite</string>
+    <string name="salvar_para_compartilhar">Save to share</string>
+    <string name="foram_encontrados">were found</string>
+    <string name="versiculo_do_dia">"Verse of the day: "</string>
+    <string name="livro_evangelho_epistola">Books - Gospel - Epistles</string>
+    <string name="title_activity_main_fragment" translatable="false">MainFragment</string>
+    <string name="drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="app_not_available" translatable="false">Sorry, there\'s no web browser available</string>
+    <string name="capitulo_number" translatable="false">16</string>
+    <string name="versiculo_number" translatable="false">33</string>
+    <string name="compartilharWhat">WhatsApp</string>
+    <string name="aviso_escolha_book" translatable="false">O aplicativo permite escolher entre 13 traduções da Bíblia.\nSerá preciso estar conectado com a internet para fazer o download da versão escolhida.
+    Após o download o aplicativo não mais necessita de conexão para ser utilizado.\nQualquer problema encontrado entre em contado com o desenvolvedor pelo e-mail indicado no MENU->SOBRE.\nObrigado.</string>
+
+    <string name="idVerse" translatable="false">idVerse</string>
+    <string name="idPosition" translatable="false">idPosition</string>
+
+    <string-array name="menu_array">
+        <item> Favorite </item>
+        <item> Annotations </item>
+        <item> Dictionary </item>
+        <item> Sermons </item>
+        <item> Statistics </item>
+        <item> Settings </item>
+        <item> Privacy Policy </item>
+        <item> About </item>
+    </string-array>
+    <string name="livro_carta">Read:</string>
+    <string name="peace">Peace</string>
+    <string name="book_name">John</string>
+    <string name="sermon">Sermão</string>
+    <string name="opcao">Options</string>
+    <string name="nota_save">Annotation saved</string>
+    <string name="digite_algo">Type something!</string>
+    <string name="no_notes">You have no notes.</string>
+    <string name="new_search">New search</string>
+    <string name="sound_off">Notification sound off.</string>
+    <string name="sound_on">Notification sound on.</string>
+
+</resources>

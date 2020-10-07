@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <drawable name="red_color">#ff0000</drawable>
+    <drawable name="white_color">#ffffff</drawable>
+    <drawable name="orange_color">#ffffbb33</drawable>
+    <item name="darkpurple" type="color">#FF9933CC</item>
+    <item name="darkred" type="color">#FFCC0000</item>
+
+    <item name="common_signin_btn_light_text_pressed" type="color">#bfbfbf</item>
+
+    <color name="white" type="color">#FFFFFF</color>
+    <color name="barrasuperior" type="color">#8f8c8c</color>
+    <color name="barrainferior" type="color">#a6a3a3</color>
+    <color name="corpadrao" type="color">#33b4e4</color>
+    <color name="barrainferiorescuro">#696969</color>
+    <color name="barrasuperiorescuro">#484747</color>
+    <color name="cinzaclaro">#DCDCDC</color>
+    <color name="darkgreen">#70a703</color>
+    <color name="cyan">#d6d4d4</color>
+    <color name="blue">#09B2F0</color>
+    <color name="orange">#e7a011</color>
+    <color name="red">#FF4444</color>
+    <color name="darkorange">#ff8800</color>
+    <color name="green">#99cc00</color>
+    <color name="purple">#aa66cc</color>
+    <color name="dark">@color/barrasuperiorescuro</color>
+    <color name="darkblue">#0099cc</color>
+    <color name="black">#000000</color>
+
+
+</resources>
+

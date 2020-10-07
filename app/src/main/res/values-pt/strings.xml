@@ -1,0 +1,153 @@
+<resources>
+
+    <!--  Menu items -->
+    <string name="settings">Opção</string>
+    <string name="refresh">Atualizar</string>
+
+    <!--  NetworkActivityDevocional -->
+    <string name="page_title">Sermões</string>
+    <string name="updated">Última atualização</string>
+    <string name="lost_connection">Conexão perdida</string>
+    <string name="wifi_connected">Conectado Wi-Fi .</string>
+    <string name="connection_error">Não é possível carregar conteúdo. Verifique sua conexão de rede.</string>
+    <string name="xml_error">Error parsing XML.</string>
+
+    <string name="title_activity_mensagem">Online</string>
+    <string name="app_name">Bíblia Adonai</string>
+    <string name="action_devocional">Sermões</string>
+
+    <string name="title_activity_biblia_aberta">Bíblia Sagrada Adonai</string>
+    <string name="title_activity_list_view">Bíblia Sagrada Adonai</string>
+    <string name="capitulo">Capitulo</string>
+    <string name="livro">Livro</string>
+    <string name="nvi">Bíblia Adonai</string>
+    <string name="fechar_app">Fechar</string>
+    <string name="graph_app">Estatística</string>
+    <string name="nviText">Nova Versão Internacional</string>
+    <string name="reflexao">Versículo diário</string>
+    <string name="_loading">Verificando...</string>
+    <string name="_no">Atualizar Depois</string>
+    <string name="_please_wait">Aguarde um instante.</string>
+    <string name="_update_test">Verificando se há nova versão.</string>
+    <string name="_yes">Atualizar</string>
+    <string name="_you_are_not_updated_message">Uma nova versão da Bíblia Adonai está disponível no Google Play</string>
+    <string name="_you_are_not_updated_title">Nova versão disponivel. </string>
+    <string name="_you_are_updated_message">Seu aplicativo já está atualizado para a versão mais recente disponível.</string>
+    <string name="_you_are_updated_title">Atualizado.</string>
+
+
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+
+    <string name="title_activity_grafico">Gráfico</string>
+    <string name="title_activity_grafico_geral">GraficoGeral</string>
+    <string name="title_activity_grafico__dois">Gráfico Dois</string>
+    <string name="title_activity_activity_busca_avancada">Pesquisa avançada</string>
+    <string name="aviso">Nome do App: \nBíblia Sagrada Adonai\n\nVersão: \n@app_version@\n\nTradução:\n @bible_version@\n\nObrigado pelo download !\n\nCaso encontre algum bug ou tenha alguma sugestão para o aplicativo, por favor, entre em contato pelo e-mail: aplicativoparamobile@gmail.com                    Desenvolvido por:                   Ezequiel A. Ribeiro</string>
+    <string name="title_activity_activity_anotacao">Anotação</string>
+    <string name="title_activity_activity_nota">Nota</string>
+    <string name="title_activity_nota_adicionar">"Adicionar Nota "</string>
+    <string name="title_activity_dicionario">Dicionário Bíblico</string>
+
+    <string name="mensagem_texto_topo">E peço isto: que o vosso amor cresça mais e mais em ciência e em todo o conhecimento. Filipenses 1:9</string>
+    <string name="title_activity_activity_favorito">Versículos Favoritos</string>
+
+
+    <string-array name="menu_array">
+        <item>Favorito</item>
+        <item>Anotações</item>
+        <item>Dicionário</item>
+        <item>Sermões</item>
+        <item>Estatística</item>
+        <item>Configurações</item>
+        <item>Política de Privacidade</item>
+        <item>Sobre</item>
+    </string-array>
+
+    <string name="action_websearch">Pesquisa</string>
+
+    <string name="estatistica">Estatística</string>
+    <string name="msg_permission">O aplicativo precisa dessa permissão para criar o banco de dados.</string>
+    <string name="title_permission">Permissão importante necessária</string>
+    <string name="not_internet_avaliable">Sem conexão</string>
+    <string name="confirmar_alarme_aviso">Versículo diário programado para:</string>
+    <string name="finished_install">Estamos fazendo o download da Bíblia em seu idioma. Aguarde um instante. Se demorar por favor verifique sua conexão.</string>
+    <string name="busca_avancada_title">Pesquisa Avançada</string>
+    <string name="velho_testamento">Velho Testamento</string>
+    <string name="novo_testamento">Novo Testamento</string>
+    <string name="toda_b_blia">Toda Bíblia</string>
+    <string name="pesquisar_por">Pesquisar por:</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="pesquisar_somente_em">Pesquisar somente em:</string>
+    <string name="criar_nota">Criar uma nota</string>
+    <string name="pesquisar_dicionario">Pesquisar:</string>
+    <string name="favorito">Favorito</string>
+    <string name="devocional">Sermões</string>
+    <string name="configura_o">Configuração</string>
+    <string name="t_tulo">Título</string>
+    <string name="anota_o">Anotação</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="salvar">Salvar</string>
+    <string name="minuto">Minuto</string>
+    <string name="hora">Hora</string>
+    <string name="hora_redefinida">"Novo agendamento: "</string>
+    <string name="cancel">Cancelar</string>
+    <string name="versiculo_text">Tenho-vos dito isto, para que em mim tenhais paz; no mundo tereis aflições, mas tende bom ânimo, eu venci o mundo.\n</string>
+    <string name="redefinir">Redefinir</string>
+    <string name="total_lido">"Versículos lidos:  "</string>
+    <string name="marcar_versiculos">Exibir os versículos lidos em outra cor.</string>
+    <string name="fonte_texto_title">Fonte do texto</string>
+    <string name="marcar_versiculo_title">Marcar versículos</string>
+    <string name="fonte_text">Altera a fonte do texto</string>
+    <string name="fonte_size_title">Tamanho da fonte</string>
+    <string name="fonte_text_sumary">Escolha o tamanho do texto</string>
+    <string name="modo_noturno_title">Modo Escuro</string>
+    <string name="modo_noturno_summary">Exibirá o fundo de tela escuro</string>
+    <string name="tela_ativa_title">Tela ativa</string>
+    <string name="tela_ativa_summary">Manter a tela ligada durante a leitura</string>
+    <string name="limpar_estatistica_title">Limpar estatística</string>
+    <string name="limpar_estatistica_summary">Essa opção apagará o seu progresso de leitura</string>
+    <string name="versiculo_selecionado_share">Nenhum versículo foi selecionado !</string>
+    <string name="gostou_do_nosso_app">Gostou do nosso app?\n Por favor, Qualifique -o</string>
+    <string name="sem_conexao">Sem conexão</string>
+    <string name="download_fail">Não está sendo possível fazer o download da Bíblia. Verifique sua conexão.</string>
+    <string name="noticias">Notícias</string>
+    <string name="biblia">Bíblia</string>
+    <string name="dicionario">Dicionário</string>
+    <string name="versiculos_favoritos_title">Versículos favoritos</string>
+    <string name="fechar_about">Fechar</string>
+    <string name="action_settings">Configuração</string>
+    <string name="compartilhar">Compartilhar</string>
+    <string name="prosseguir">Prosseguir</string>
+    <string name="escrever_mensagem_compartilhar">Adicionar uma mensagem ao versículo</string>
+    <string name="versiculos_selecionados">"Versículo selecionado: "</string>
+    <string name="digite_palavra">Digite uma palavra</string>
+    <string name="foram_encontrados">" foram encontrados"</string>
+    <string name="nada_encontrado">Nada encontrado</string>
+    <string name="pesquisando">Pesquisando ...</string>
+    <string name="aguarde_pesquisando">Aguarde um momento ...</string>
+    <string name="pesquisa_cancelada">Pesquisa cancelada</string>
+    <string name="salvar_nos_favorito">Favorito</string>
+    <string name="salvar_para_compartilhar">Compartilhar</string>
+    <string name="versiculo_do_dia">\"Versículo do dia: \"</string>
+    <string name="livro_evangelho_epistola">Livros - Evangelho - Epistolas</string>
+    <string name="bibliaLivEp">Bíblia</string>
+    <string name="title_activity_devocional">Sermões</string>
+    <string name="livro_carta">Ler:</string>
+    <string name="compartilharWhat">" WhatsApp "</string>
+    <string name="peace">Paz</string>
+    <string name="book_name">João</string>
+    <string name="sermon">Sermão</string>
+    <string name="opcao">Opções</string>
+    <string name="versiculo">Versículo</string>
+    <string name="nota_save">Sua anotaão foi salva</string>
+    <string name="digite_algo">Digite algo</string>
+    <string name="no_notes">Você não fez anotações</string>
+    <string name="new_search">Nova Pesquisa</string>
+    <string name="sound_on">Som de notificação ligado.</string>
+    <string name="sound_off">Som de notificação desligado.</string>
+
+
+</resources>

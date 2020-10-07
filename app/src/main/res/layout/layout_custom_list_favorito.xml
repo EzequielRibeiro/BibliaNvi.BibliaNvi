@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="right"
+    android:orientation="vertical">
+
+
+    <Button
+        android:id="@+id/buttonDeleteFavorite"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@android:drawable/ic_menu_delete"
+        android:gravity="right"
+        android:onClick="deleteFavorite" />
+
+    <TextView
+
+        android:id="@+id/textViewFavorText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:paddingEnd="5dp"
+        android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        android:textColor="@color/black"
+        android:textIsSelectable="true"
+        android:textSize="18sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,249 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_list"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#e1e0e0"
+    tools:context=".Lista_Biblia"
+
+    >
+
+
+    <FrameLayout
+        android:id="@+id/frameLayoutBiblia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="0dp">
+
+        <androidx.drawerlayout.widget.DrawerLayout
+            android:id="@+id/drawer_layout_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <!-- As the activity_fragment content view, the view below consumes the entire
+         space available using match_parent in both dimensions. -->
+
+            <!-- android:layout_gravity="start" tells DrawerLayout to treat
+         this as a sliding drawer on the left side for left-to-right
+         languages and on the right side for right-to-left languages.
+         The drawer is given a fixed width in dp and extends the full height of
+         the container. A solid background is used for contrast
+         with the content view. -->
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutTopo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="top"
+                        android:orientation="vertical"
+                        android:weightSum="1">
+
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutShareLike"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/barrasuperior"
+                            android:gravity="center_vertical|right"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/buttonSound"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@mipmap/sound_on" />
+
+                            <Button
+                                android:id="@+id/buttonNota"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="20dp"
+                                android:background="@mipmap/nota" />
+
+                            <Button
+                                android:id="@+id/buttonFullScreen"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginEnd="15dp"
+                                android:background="@mipmap/fullsize"
+                                android:text="" />
+
+                            <Button
+                                android:id="@+id/buttonMenuShare"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:background="@mipmap/share"
+                                android:text="" />
+
+                            <TextView
+                                android:id="@+id/textViewComp"
+                                android:layout_width="25dp"
+                                android:layout_height="fill_parent"
+                                android:gravity="bottom"
+                                android:text="0"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#ff0000"
+                                android:textSize="18sp" />
+
+                            <Button
+                                android:id="@+id/buttonMenuOpcao"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@mipmap/menu" />
+
+                            <Button
+                                android:id="@+id/buttonSetaMenu"
+                                android:layout_width="35dp"
+                                android:layout_height="35dp"
+                                android:layout_marginEnd="5dp"
+                                android:background="@mipmap/seta_menu_baixo" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayoutLivCap"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:background="@color/barrainferior"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/buttonRetroceder"
+                                style="?android:attr/buttonStyleSmall"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginStart="40dp"
+                                android:background="@android:drawable/ic_media_rew"
+                                android:textStyle="bold" />
+
+                            <LinearLayout
+                                android:id="@+id/linearLayoutLivCap2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textViewLivro"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:maxLines="1"
+                                    android:textColor="#ff000000"
+                                    android:textSize="22sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/textViewCapit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:gravity="center_vertical"
+                                    android:textAlignment="center"
+                                    android:textColor="#ff000000"
+                                    android:textSize="18sp"
+                                    tools:ignore="RtlCompat" />
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/buttonAvancar"
+                                style="?android:attr/buttonStyleSmall"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_marginEnd="40dp"
+                                android:background="@android:drawable/ic_media_ff"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progressBarBibliaActivity"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp"
+                            android:background="@color/cyan"
+                            android:progress="50" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutBusca"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0dp"
+                        android:layout_below="@+id/linearLayoutTopo"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="vertical">
+
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/listView"
+                        style="@android:style/Widget.AbsListView"
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:layout_above="@+id/linearLayoutListBase"
+                        android:layout_below="@+id/linearLayoutBusca"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:background="@color/white"
+                        android:clickable="false"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:footerDividersEnabled="false"
+                        android:smoothScrollbar="true"
+                        android:textFilterEnabled="false" />
+
+                    <LinearLayout
+                        android:id="@+id/linearLayoutListBase"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:orientation="vertical"></LinearLayout>
+
+
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <ListView
+                android:id="@+id/left_drawer_list"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:background="#111"
+                android:choiceMode="singleChoice"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0dp" />
+
+        </androidx.drawerlayout.widget.DrawerLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>
+
+
+

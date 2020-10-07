@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!-- This file is res/layout/details.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/textViewGridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="left"
+        android:text="@string/capitulo"
+        android:textAllCaps="true"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        android:textStyle="bold|italic" />
+
+    <GridView
+
+        android:id="@+id/gridview"
+        style="@android:style/Widget.Material.GridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textViewGridView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/activity_horizontal_margin"
+        android:numColumns="5"
+        android:scrollbars="horizontal|vertical"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/activity_vertical_margin" />
+
+
+</RelativeLayout>

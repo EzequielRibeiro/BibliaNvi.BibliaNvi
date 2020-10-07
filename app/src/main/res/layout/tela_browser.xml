@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/idLayoutDevoBase"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:id="@+id/linearMobDevo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="false"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adViewBrowser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/idMob"></com.google.android.gms.ads.AdView>
+
+        <WebView
+            android:id="@+id/webViewBrowser"
+            style="@android:style/Widget.DeviceDefault.Light.WebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</RelativeLayout>

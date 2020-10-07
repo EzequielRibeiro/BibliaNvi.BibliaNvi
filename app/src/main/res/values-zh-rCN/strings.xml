@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">圣经阿多奈语</string>
+        
+    <string name="settings">设置</string>
+        
+    <string name="refresh">刷新</string>
+        
+    <string name="page_title">讲道</string>
+        
+    <string name="updated">最近更新</string>
+        
+    <string name="lost_connection">连接丢失</string>
+        
+    <string name="wifi_connected">已连接的Wi-Fi。</string>
+        
+    <string name="connection_error">无法加载内容。检查您的网络连接。</string>
+        
+    <string name="xml_error">解析XML时出错。</string>
+        
+    <string name="title_activity_mensagem">在线</string>
+    <string name="action_settings">配置</string>
+        
+    <string name="action_devocional">布道</string>
+        
+    <string name="title_activity_biblia_aberta">圣经阿多奈语</string>
+        
+    <string name="title_activity_list_view">圣经阿多奈语</string>
+        <string name="capitulo">第</string>章
+        
+    <string name="livro">书</string>
+        
+    <string name="nvi">圣经阿多奈语</string>
+        
+    <string name="fechar_app">关闭</string>
+        
+    <string name="graph_app">"统计信息"</string>
+        
+    <string name="nviText">新的国际版本</string>
+        
+    <string name="bibliaLivEp">圣经</string>
+        
+    <string name="title_activity_devocional">讲道</string>
+        
+    <string name="reflexao">日常诗歌</string>
+        
+    <string name="_loading">正在检查... </string>
+        
+    <string name="_no">稍后更新</string>
+        
+    <string name="_please_wait">等等。</string>
+        
+    <string name="_update_test">正在检查新版本。</string>
+        
+    <string name="_yes">更新</string>
+        
+    <string name="_you_are_not_updated_message">新版本的《阿多奈圣经》已在Google Play上提供</string>
+        
+    <string name="_you_are_not_updated_title">有新版本。</string>
+        
+    <string name="_you_are_updated_message">您的应用程序已更新为可用的最新版本。</string>
+        
+    <string name="_you_are_updated_title">已更新。</string>
+        
+    <string name="livro_carta">阅读：</string>
+    <string name="title_activity_grafico">"图形"</string>
+        
+    <string name="title_activity_grafico_geral">"常规图表"</string>
+        
+    <string name="title_activity_grafico__dois">格拉菲科新约</string>
+        
+    <string name="title_activity_activity_busca_avancada">"高级搜索"</string>
+        
+    <string name="aviso">"应用程序名称：\\n圣经  \\n版本：\\n@app_version@  \\n 翻译：@bible_version@ \\n\\n  感谢您的下载！\\n\\n  如果您发现任何错误或对该应用程序有任何建议, 请通过电子邮件与我们联系：aplicativoparamobile@gmail.com  开发者：Ezequiel A. Ribeiro "</string>
+        
+    <string name="title_activity_activity_anotacao">注释</string>
+        
+    <string name="title_activity_activity_nota">注意</string>
+        
+    <string name="title_activity_nota_adicionar">添加注释</string>
+        
+    <string name="title_activity_dicionario">圣经字典</string>
+        
+    <string name="mensagem_texto_topo">我要问：你的爱在科学和所有知识上越来越多。腓1：9 </string>
+        
+    <string name="title_activity_activity_favorito">最喜欢的诗句</string>
+        
+    <string name="action_websearch">搜索</string>
+        
+    <string name="estatistica">统计</string>
+        
+    <string name="msg_permission">应用程序需要此权限才能创建数据库。</string>
+        
+    <string name="title_permission">需要重要的权限</string>
+        
+    <string name="not_internet_avaliable">无连接</string>
+        
+    <string name="confirmar_alarme_aviso">预定的每日经文：</string>
+        
+    <string name="finished_install">开始以您的语言下载圣经。等一下。如果时间太长，请检查您的连接。</string>
+        
+    <string name="busca_avancada_title">高级搜索</string>
+        
+    <string name="velho_testamento">旧约</string>
+        
+    <string name="novo_testamento">新约</string>
+        
+    <string name="toda_b_blia">整本圣经</string>
+        
+    <string name="pesquisar_por">搜索：</string>
+        
+    <string name="pesquisar">搜索</string>
+        
+    <string name="pesquisar_somente_em">仅在以下位置搜索：</string>
+        
+    <string name="criar_nota">创建笔记</string>
+        
+    <string name="pesquisar_dicionario">搜索：</string>
+        
+    <string name="favorito">收藏</string>
+        
+    <string name="devocional">布道</string>
+        
+    <string name="configura_o">配置</string>
+        
+    <string name="t_tulo">标题</string>
+        
+    <string name="anota_o">注释</string>
+        
+    <string name="cancelar">取消</string>
+        
+    <string name="salvar">保存</string>
+        
+    <string name="minuto">分钟</string>
+        
+    <string name="hora">小时</string>
+        
+    <string name="hora_redefinida">新时间表：</string>
+        
+    <string name="cancel">取消</string>
+        
+    <string name="versiculo_text">我已经告诉你了，你可能会在我里面得到平安；在这个世界上，您将有苦难，但要加油，我已经克服了这个世界。</string>
+        
+    <string name="redefinir">重置</string>
+        
+    <string name="total_lido">"经文显示：</string>
+        
+    <string name="marcar_versiculos">显示以另一种颜色读取的经文。</string>
+        
+    <string name="fonte_texto_title">文本字体</string>
+        
+    <string name="marcar_versiculo_title">马克诗句</string>
+    <string name="fonte_text">更改文本的字体</string>
+        
+    <string name="fonte_size_title">字体大小</string>
+        
+    <string name="fonte_text_sumary">选择文本大小</string>
+        
+    <string name="modo_noturno_title">黑暗模式</string>
+        
+    <string name="modo_noturno_summary">将显示黑屏背景</string>
+        
+    <string name="tela_ativa_title">活动屏幕</string>
+        
+    <string name="tela_ativa_summary">阅读时保持屏幕显示</string>
+        
+    <string name="limpar_estatistica_title">清除统计信息</string>
+        
+    <string name="limpar_estatistica_summary">此选项将清除您的阅读进度</string>
+        
+    <string name="versiculo_selecionado_share">未选中任何经文！</string>
+        
+    <string name="gostou_do_nosso_app">您喜欢我们的应用程序吗？\n请评分</string>
+        
+    <string name="sem_conexao">没有连接</string>
+        
+    <string name="download_fail">无法下载圣经。检查您的连接。</string>
+        
+    <string name="noticias">新闻</string>
+        
+    <string name="biblia">圣经</string>
+        
+    <string name="dicionario">字典</string>
+        
+    <string name="versiculos_favoritos_title">收藏的诗歌</string>
+        
+    <string name="fechar_about">关闭</string>
+        
+    <string name="compartilhar">共享</string>
+        
+    <string name="prosseguir">下一个</string>
+        
+    <string name="escrever_mensagem_compartilhar">在经文中添加一条信息</string>
+        
+    <string name="versiculos_selecionados">选诗</string>
+        
+    <string name="digite_palavra">迪格特·乌姆·帕拉瓦拉</string>
+        
+    <string name="foram_encontrados">"被找到</string>
+        
+    <string name="nada_encontrado">没有发现</string>
+        
+    <string name="pesquisando">正在搜寻...</string>
+        
+    <string name="aguarde_pesquisando">等一下</string>
+        
+    <string name="pesquisa_cancelada">搜索已取消</string>
+        
+    <string name="salvar_nos_favorito">另存为收藏夹</string>
+        
+    <string name="salvar_para_compartilhar">保存以共享</string>
+    <string name="versiculo_do_dia">当天的诗歌：</string>
+    <string name="livro_evangelho_epistola">书籍 - 福音书 - 书信</string>
+
+    <string-array name="menu_array">
+        <item>最喜欢的</item>
+        <item>注释</item>
+        <item>字典</item>
+        <item>讲道</item>
+        <item>统计</item>
+        <item>设置</item>
+        <item>隐私政策</item>
+        <item>关于</item>
+    </string-array>
+    <string name="compartilharWhat" translatable="false">" WhatsApp "</string>
+    <string name="peace">和平</string>
+    <string name="book_name">乔恩</string>
+    <string name="sermon">講道</string>
+    <string name="opcao">選項</string>
+    <string name="versiculo">诗</string>
+    <string name="nota_save">注释已保存</string>
+    <string name="digite_algo">输入一些东西！</string>
+    <string name="no_notes">您还没有笔记。</string>
+    <string name="new_search">新搜寻</string>
+    <string name="sound_off">通知声音关闭。</string>
+    <string name="sound_on">通知音打开。</string>
+
+</resources>

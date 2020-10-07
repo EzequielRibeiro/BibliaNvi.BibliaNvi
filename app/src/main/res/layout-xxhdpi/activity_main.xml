@@ -1,0 +1,322 @@
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/relativeLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:clickable="true"
+    android:gravity="center_vertical|center|center_horizontal"
+    tools:context=".MainActivity">
+
+
+    <androidx.drawerlayout.widget.DrawerLayout
+
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <!-- As the activity_fragment content view, the view below consumes the entire
+             space available using match_parent in both dimensions. -->
+
+        <!-- android:layout_gravity="start" tells DrawerLayout to treat
+             this as a sliding drawer on the left side for left-to-right
+             languages and on the right side for right-to-left languages.
+             The drawer is given a fixed width in dp and extends the full height of
+             the container. A solid background is used for contrast
+             with the content view. -->
+
+        <FrameLayout
+            android:id="@+id/frame_layout_man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="4dp"
+                    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                    ads:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toTopOf="parent"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+                <TextView
+                    android:id="@+id/textViewDeveloper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:background="@drawable/barrinha"
+                    android:gravity="center"
+                    android:text="000000000"
+                    android:textColor="#c33f3e41"
+                    android:textSize="14sp"
+                    ads:layout_constraintBottom_toBottomOf="parent"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/constantLayoutVersiculo" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal"
+                    ads:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                    <Button
+                        android:id="@+id/button_biblia"
+
+                        android:layout_width="80dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/icon_biblia"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/biblia"
+                        android:textColor="@color/blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/button_pesquisar"
+
+                        android:layout_width="80dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/icon_search"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/pesquisar"
+                        android:textColor="@color/blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    ads:layout_constraintBottom_toTopOf="@+id/adView"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+                    <Button
+                        android:id="@+id/button_dicionario"
+
+                        android:layout_width="80dp"
+                        android:layout_height="70dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/icon_dicionario"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/dicionario"
+                        android:textColor="@color/blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/buttonSermon"
+
+                        android:layout_width="80dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/icon_sermon"
+                        android:gravity="bottom|center_horizontal"
+                        android:text="@string/devocional"
+                        android:textColor="@color/blue"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutBarra"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/barrinha"
+                    android:gravity="right"
+                    android:orientation="horizontal"
+                    ads:layout_constraintBottom_toTopOf="@+id/constantLayoutVersiculo"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintHorizontal_bias="0.0"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/layout_qualificar">
+
+                    <Button
+                        android:id="@+id/buttonClock"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@mipmap/alarm_clock" />
+
+                    <Button
+                        android:id="@+id/buttonCompartilharMain"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/share"
+                        android:onClick="compartilharVers" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/constantLayoutVersiculo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    ads:layout_constraintBottom_toTopOf="@+id/textViewDeveloper"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/linearLayoutBarra">
+
+                    <TextView
+                        android:id="@+id/textViewDailyVerse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reflexao"
+                        android:textColor="?android:attr/colorPressedHighlight"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewAssuntoVers"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:background="@color/cyan"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="Assunto"
+                        android:textColor="@color/blue"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textViewVersDia"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+
+                        android:background="@android:color/black"
+                        android:gravity="center"
+                        android:isScrollContainer="true"
+                        android:padding="5dp"
+                        android:scrollbars="horizontal|vertical"
+                        android:scrollHorizontally="true"
+                        android:text="..."
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    ads:adSize="BANNER"
+                    ads:adUnitId="@string/idMob"
+                    ads:layout_constraintBottom_toTopOf="@+id/layout_qualificar"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/linearLayout5"></com.google.android.gms.ads.AdView>
+
+                <LinearLayout
+                    android:id="@+id/layout_qualificar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:orientation="horizontal"
+                    ads:layout_constraintBottom_toTopOf="@+id/linearLayoutBarra"
+                    ads:layout_constraintEnd_toEndOf="parent"
+                    ads:layout_constraintStart_toStartOf="parent"
+                    ads:layout_constraintTop_toBottomOf="@+id/adView">
+
+                    <Button
+                        android:id="@+id/button_qualificar"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/start" />
+
+                    <TextView
+                        android:id="@+id/text_qualificar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:inputType="textMultiLine"
+                        android:text="@string/gostou_do_nosso_app"
+                        android:textColor="@color/orange"
+                        android:textSize="14sp"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/textViewRecados"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:textColor="@color/red"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+
+                <!--
+                        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                            android:id="@+id/adViewMain"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:minHeight="100dp"
+                            android:minWidth="320dp"
+                            ads:adSize="LARGE_BANNER"
+                            ads:adUnitId="@string/idMob"></com.google.android.gms.ads.AdView>
+                            -->
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </FrameLayout>
+
+        <ListView
+            android:id="@+id/left_drawer"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#111"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+
+</RelativeLayout>

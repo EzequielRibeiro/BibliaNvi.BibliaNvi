@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/hiddenLayoutBase"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:gravity="center">
+
+    <SeekBar
+        android:id="@+id/seekBarBrilho"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/devocional"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewSermon"
+        app:layout_constraintStart_toStartOf="@+id/buttonViewSermon"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewSermon" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/configura_o"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewConfMain"
+        app:layout_constraintStart_toStartOf="@+id/buttonViewConfMain"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewConfMain" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/favorito"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewFavorito"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/buttonViewFavorito"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewFavorito" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/pesquisar"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewLupaMain"
+        app:layout_constraintStart_toStartOf="@+id/buttonViewLupaMain"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewLupaMain" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/estatistica"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/buttonViewGrafMain"
+        app:layout_constraintStart_toStartOf="@+id/buttonViewGrafMain"
+        app:layout_constraintTop_toBottomOf="@+id/buttonViewGrafMain" />
+
+    <Button
+        android:id="@+id/buttonViewGrafMain"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/graphi2"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/buttonViewLupaMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarBrilho" />
+
+    <Button
+        android:id="@+id/buttonViewSermon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/sermon"
+        android:gravity="bottom|center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonViewConfMain"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarBrilho" />
+
+    <Button
+        android:id="@+id/buttonViewConfMain"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/settings2"
+        android:gravity="bottom|center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toStartOf="@+id/buttonViewSermon"
+        app:layout_constraintStart_toEndOf="@+id/buttonViewFavorito"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarBrilho" />
+
+    <Button
+        android:id="@+id/buttonViewFavorito"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@mipmap/star_cinza"
+        android:gravity="bottom|center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView6"
+        app:layout_constraintEnd_toStartOf="@+id/buttonViewConfMain"
+        app:layout_constraintStart_toEndOf="@+id/buttonViewLupaMain"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarBrilho" />
+
+    <Button
+        android:id="@+id/buttonViewLupaMain"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/lupa2"
+        android:gravity="bottom|center"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/buttonViewFavorito"
+        app:layout_constraintStart_toEndOf="@+id/buttonViewGrafMain"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarBrilho" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

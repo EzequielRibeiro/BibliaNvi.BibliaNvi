@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name"> "Библия Адонаи" </string>
+        
+    <string name="settings"> Настройки </string>
+        
+    <string name="refresh"> Refresh </string>
+        
+    <string name="page_title"> Проповеди </string>
+        
+    <string name="updated"> Последнее обновление </string>
+        
+    <string name="lost_connection"> Соединение потеряно </string>
+        
+    <string name="wifi_connected"> Подключенный Wi-Fi. </string>
+        
+    <string name="connection_error"> Невозможно загрузить контент. Проверьте подключение к сети. </string>
+        
+    <string name="xml_error"> Ошибка синтаксического анализа XML. </string>
+        
+    <string name="title_activity_mensagem"> Онлайн </string>
+        
+    <string name="action_settings"> Конфигурация </string>
+        
+    <string name="action_devocional"> Проповеди </string>
+        
+    <string name="title_activity_biblia_aberta"> Святая Библия Адонай </string>
+        
+    <string name="title_activity_list_view"> Святая Библия Адонай </string>
+        
+    <string name="capitulo"> Глава </string>
+        
+    <string name="livro"> Книга </string>
+        
+    <string name="nvi"> Библия Адоная </string>
+        
+    <string name="fechar_app"> Закрыть </string>
+        
+    <string name="graph_app"> "Статистика" </string>
+        
+    <string name="nviText"> Новая международная версия </string>
+        
+    <string name="bibliaLivEp"> Библия </string>
+        
+    <string name="title_activity_devocional"> Проповеди </string>
+        
+    <string name="reflexao"> Ежедневный стих </string>
+        
+    <string name="_loading"> Проверка ... </string>
+        
+    <string name="_no"> Обновить позже </string>
+        
+    <string name="_please_wait"> Подождите минуту. </string>
+        
+    <string name="_update_test"> Проверка новой версии. </string>
+        
+    <string name="_yes"> Обновить </string>
+        
+    <string name="_you_are_not_updated_message"> Новая версия Библии Адоная доступна в Google Play </string>
+        
+    <string name="_you_are_not_updated_title"> Доступна новая версия. </string>
+        
+    <string name="_you_are_updated_message"> Ваше приложение уже обновлено до последней доступной версии. </string>
+        
+    <string name="_you_are_updated_title"> Обновлено. </string>
+        
+    <string name="livro_carta"> Чтение: </string>
+        
+    <string name="title_activity_grafico"> "Графика" </string>
+        
+    <string name="title_activity_grafico_geral"> "Общая диаграмма" </string>
+        
+    <string name="title_activity_grafico__dois"> Новый Завет Графика </string>
+        
+    <string name="title_activity_activity_busca_avancada"> «Расширенный поиск» </string>
+        
+    <string name="aviso"> Имя приложения: Библия\n\n Адонаи Версия: \n@app_version@\n\n Перевод: \n@bible_version@\n\n Спасибо за загрузку! \n\nЕсли вы обнаружите какие-либо ошибки или у вас есть предложения по применению, свяжитесь с нами по электронной почте: aplicativoparamobile@gmail.com Разработано: Ezequiel A. Ribeiro </string>
+        
+    <string name="title_activity_activity_anotacao"> Аннотация </string>
+        
+    <string name="title_activity_activity_nota"> Примечание </string>
+        
+    <string name="title_activity_nota_adicionar"> Добавить заметку </string>
+        
+    <string name="title_activity_dicionario"> Библейский словарь </string>
+        
+    <string name="mensagem_texto_topo"> И я спрашиваю: ваша любовь все больше растет в науке и во всех знаниях. Филиппийцам 1: 9 </string>
+        
+    <string name="title_activity_activity_favorito"> Избранные стихи </string>
+        
+    <string name="action_websearch"> Поиск </string>
+        
+    <string name="estatistica"> Статистика </string>
+        
+    <string name="msg_permission"> Приложению требуется это разрешение для создания базы данных. </string>
+        
+    <string name="title_permission"> Требуется важное разрешение </string>
+        
+    <string name="not_internet_avaliable"> Нет соединения </string>
+        
+    <string name="busca_avancada_title"> Расширенный поиск </string>
+        
+    <string name="velho_testamento"> Ветхий Завет </string>
+        
+    <string name="novo_testamento"> Новый Завет </string>
+        
+    <string name="toda_b_blia"> Вся Библия </string>
+        
+    <string name="pesquisar_por"> Поиск: </string>
+        
+    <string name="pesquisar"> Поиск </string>
+        
+    <string name="pesquisar_somente_em"> Искать только в: </string>
+        
+    <string name="criar_nota"> Создать заметку </string>
+        
+    <string name="pesquisar_dicionario"> Поиск: </string>
+        
+    <string name="devocional"> Проповеди </string>
+        
+    <string name="configura_o"> Конфигурация </string>
+        
+    <string name="t_tulo"> Заголовок </string>
+        
+    <string name="anota_o"> Аннотация </string>
+        
+    <string name="cancelar"> Отмена </string>
+        
+    <string name="salvar"> Сохранить </string>
+    <string name="minuto"> Минута </string>
+        
+    <string name="hora"> Час </string>
+        
+    <string name="hora_redefinida"> "Новое расписание:" </string>
+        
+    <string name="cancel"> Cancel </string>
+        
+    <string name="versiculo_text"> Я уже говорил вам, что вы можете иметь мир во мне; в мире у тебя будут страдания, но будь здоров, я победил мир. </string>
+        
+    <string name="redefinir"> Сбросить </string>
+        
+    <string name="total_lido"> "Прочитанные стихи:" </string>
+        
+    <string name="marcar_versiculos"> Показать стихи, прочитанные другим цветом. </string>
+        
+    <string name="fonte_texto_title"> Текстовый шрифт </string>
+        
+    <string name="marcar_versiculo_title"> Отметить стихи </string>
+        
+    <string name="fonte_text"> Изменить шрифт текста </string>
+        
+    <string name="fonte_size_title"> Размер шрифта </string>
+        
+    <string name="fonte_text_sumary"> Выберите размер текста </string>
+        
+    <string name="modo_noturno_title"> Темный режим </string>
+        
+    <string name="modo_noturno_summary"> Отобразит темный фон экрана </string>
+        
+    <string name="tela_ativa_title"> Активный экран </string>
+        
+    <string name="tela_ativa_summary"> Держите экран включенным во время чтения </string>
+        
+    <string name="limpar_estatistica_title"> Очистить статистику </string>
+        
+    <string name="limpar_estatistica_summary"> Этот параметр удалит ваш прогресс чтения </string>
+        
+    <string name="versiculo_selecionado_share"> Стих не выбран! </string>
+        
+    <string name="gostou_do_nosso_app">Пожалуйста, оцените </string>
+        
+    <string name="sem_conexao"> Нет соединения </string>
+        
+    <string name="download_fail"> Невозможно загрузить Библию. Проверьте ваше соединение. </string>
+        
+    <string name="noticias"> Новости </string>
+        
+    <string name="biblia"> Библия </string>
+        
+    <string name="dicionario"> Словарь </string>
+        
+    <string name="versiculos_favoritos_title"> Любимые стихи </string>
+        
+    <string name="fechar_about"> Закрыть </string>
+        
+    <string name="prosseguir"> Далее </string>
+        
+    <string name="escrever_mensagem_compartilhar"> Добавить сообщение в стих </string>
+        
+    <string name="versiculos_selecionados">Избранный стих</string>
+        
+    <string name="digite_palavra">Введите слово</string>
+        
+    <string name="foram_encontrados">"были найдены "</string>
+        
+    <string name="nada_encontrado">Ничего не найдено</string>
+        
+    <string name="pesquisando">"Пескисандо ... "</string>
+        
+    <string name="aguarde_pesquisando">"Подождите минутку "</string>
+        
+    <string name="pesquisa_cancelada">Поиск отменен</string>
+        
+    <string name="salvar_nos_favorito">"Сохранить как избранное "</string>
+        
+    <string name="salvar_para_compartilhar">"Сохранить, чтобы поделиться "</string>
+    <string name="compartilhar">Делиться</string>
+    <string name="confirmar_alarme_aviso">Ежедневный стих запланирован на:</string>
+    <string name="finished_install">Начинаем скачивать Библию на вашем языке. Подожди минуту. Если это занимает слишком много времени, пожалуйста, проверьте ваше соединение.</string>
+    <string name="favorito">любимец</string>
+    <string name="versiculo_do_dia">"Стих дня: "</string>
+    <string name="livro_evangelho_epistola">Книги - Евангелие - Послания</string>
+
+    <string-array name="menu_array">
+        <item> любимые </item>
+        <item> Аннотации </item>
+        <item> Словарь </item>
+        <item> Проповеди </item>
+        <item> Статистика </item>
+        <item> Настройки </item>
+        <item> Политика конфиденциальности </item>
+        <item> информация </item>
+    </string-array>
+    <string name="compartilharWhat" translatable="false">" WhatsApp "</string>
+    <string name="peace">мир</string>
+    <string name="book_name">Джон</string>
+    <string name="sermon">проповедь</string>
+    <string name="opcao">опции</string>
+    <string name="versiculo">Стих</string>
+    <string name="nota_save">Аннотация сохранена</string>
+    <string name="digite_algo">Введите что-либо!</string>
+    <string name="no_notes">У вас нет заметок.</string>
+    <string name="new_search">Новый поиск</string>
+    <string name="sound_off">Звук уведомления отключен.</string>
+    <string name="sound_on">Звук уведомления активен.</string>
+</resources>

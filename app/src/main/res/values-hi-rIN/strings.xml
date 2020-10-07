@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Holy Bible Adonai</string>
+    <string name="settings"> समायोजन </string>
+    <string name="refresh"> ताज़ा करें </string>
+    <string name="page_title"> उपदेश </string>
+    <string name="updated"> अंतिम अपडेट </string>
+    <string name="lost_connection"> कनेक्शन खो गया </string>
+    <string name="wifi_connected"> कनेक्टेड Wi-Fi। </string>
+    <string name="connection_error"> सामग्री लोड करने में असमर्थ। अपना नेटवर्क कनेक्शन जांचें। </string>
+    <string name="xml_error"> XML को पार्स करने में त्रुटि। </string>
+    <string name="title_activity_mensagem"> ऑनलाइन </string>
+    <string name="action_settings"> कॉन्फ़िगरेशन </string>
+    <string name="action_devocional"> उपदेश </string>
+    <string name="title_activity_biblia_aberta"> पवित्र बाइबल अडोनाई </string>
+    <string name="title_activity_list_view"> पवित्र बाइबल अडोनाई </string>
+    <string name="capitulo"> अध्याय </string>
+    <string name="versiculo"> कविता </string>
+    <string name="fechar_app"> बंद करें </string>
+    <string name="graph_app"> "आँकड़ा" </string>
+    <string name="nviText"> नया अंतर्राष्ट्रीय संस्करण </string>
+    <string name="reflexao">दैनिक छंद</string>
+    <string name="busca_avancada_title"> उन्नत खोज </string>
+    <string name="velho_testamento"> पुराना नियम </string>
+    <string name="novo_testamento"> नया नियम </string>
+    <string name="toda_b_blia"> संपूर्ण बाइबिल </string>
+    <string name="pesquisar_por"> इसके लिए खोजें: </string>
+    <string name="pesquisar"> खोज </string>
+    <string name="pesquisar_somente_em"> केवल इसमें खोजें: </string>
+    <string name="criar_nota"> एक नोट बनाएँ </string>
+    <string name="pesquisar_dicionario"> खोजें: </string>
+    <string name="favorito"> पसंदीदा </string>
+    <string name="devocional"> उपदेश </string>
+    <string name="configura_o"> कॉन्फ़िगरेशन </string>
+    <string name="t_tulo"> शीर्षक </string>
+    <string name="anota_o"> एनोटेशन </string>
+    <string name="cancelar"> रद्द करें </string>
+    <string name="salvar"> सहेजें </string>
+    <string name="minuto"> मिनट </string>
+    <string name="hora"> घंटा </string>
+    <string name="hora_redefinida"> नया शेड्यूल: </string>
+    <string name="cancel"> रद्द करें </string>
+    <string name="redefinir"> रीसेट </string>
+    <string name="total_lido"> वर्सेज पढ़ा: </string>
+    <string name="marcar_versiculos"> दूसरे रंग में पढ़े गए छंदों को प्रदर्शित करें। </string>
+    <string name="fonte_texto_title"> टेक्स्ट फ़ॉन्ट </string>
+    <string name="marcar_versiculo_title"> मार्क छंद </string>
+    <string name="fonte_text"> पाठ का फ़ॉन्ट बदलें </string>
+    <string name="fonte_size_title"> फ़ॉन्ट आकार </string>
+    <string name="fonte_text_sumary"> टेक्स्ट का आकार चुनें </string>
+    <string name="modo_noturno_title"> डार्क मोड </string>
+    <string name="modo_noturno_summary"> डार्क स्क्रीन बैकग्राउंड प्रदर्शित करेगा </string>
+    <string name="tela_ativa_title"> सक्रिय स्क्रीन </string>
+    <string name="tela_ativa_summary"> स्क्रीन को पढ़ते समय रखें </string>
+    <string name="limpar_estatistica_title"> स्पष्ट आँकड़े </string>
+    <string name="limpar_estatistica_summary"> यह विकल्प आपकी पढ़ने की प्रगति को मिटा देगा </string>
+    <string name="versiculo_selecionado_share"> कोई कविता नहीं चुनी गई थी! </string>
+    <string name="gostou_do_nosso_app"> क्या आपको हमारा ऐप पसंद आया? \ n कृपया इसे रेट करें </string>
+    <string name="sem_conexao"> कोई कनेक्शन नहीं </string>
+    <string name="download_fail"> बाइबल डाउनलोड करना संभव नहीं है। अपना कनेक्शन जांचें। </string>
+    <string name="noticias"> समाचार </string>
+    <string name="biblia"> बाइबिल </string>
+    <string name="dicionario"> शब्दकोश </string>
+    <string name="versiculos_favoritos_title"> पसंदीदा छंद </string>
+    <string name="fechar_about"> बंद करें </string>
+    <string name="compartilhar"> साझा करने के लिए </string>
+    <string name="prosseguir"> अगला </string>
+    <string name="escrever_mensagem_compartilhar"> कविता में एक संदेश जोड़ें </string>
+    <string name="versiculos_selecionados"> "चयनित कविता:" </string>
+    <string name="digite_palavra"> एक शब्द टाइप करें </string>
+    <string name="nada_encontrado"> कुछ भी नहीं मिला </string>
+    <string name="pesquisando"> खोज ... </string>
+    <string name="aguarde_pesquisando"> एक पल प्रतीक्षा करें ... </string>
+    <string name="pesquisa_cancelada"> खोज रद्द किया गया </string>
+    <string name="salvar_nos_favorito"> पसंदीदा के रूप में सहेजें </string>
+    <string name="salvar_para_compartilhar"> साझा करने के लिए सहेजें </string>
+    <string name="foram_encontrados"> पाए गए थे </string>
+    <string name="versiculo_do_dia"> दिन की कविता: </string>
+    <string name="opcao">विकल्प</string>
+    <string name="nota_save">एनोटेशन बच गया</string>
+    <string name="digite_algo">कुछ लिखो!</string>
+    <string name="no_notes">आपके पास कोई नोट नहीं है।</string>
+    <string name="peace">शांति</string>
+    <string name="versiculo_text">मैंने ये बातें तुमसे इसलिये कहीं कि मेरे द्वारा तुम्हें शांति मिले। जगत में तुम्हें यातना मिली है किन्तु साहस रखो, मैंने जगत को जीत लिया है।</string>
+    <string name="book_name">यूहन्ना</string>
+    <string name="new_search">नयी शोध</string>
+    <string name="sound_off">अधिसूचना ध्वनि बंद।</string>
+    <string name="sound_on">अधिसूचना ध्वनि पर।</string>
+    <string name="estatistica">सांख्यिकीय</string>
+
+    <string-array name="menu_array">
+        <item>पसंदीदा</item>
+        <item>एनोटेशन</item>
+        <item>शब्दकोश</item>
+        <item>उपदेश</item>
+        <item>सांख्यिकी</item>
+        <item>समायोजन</item>
+        <item>गोपनीयता नीति</item>
+        <item>के बारे में</item>
+    </string-array>
+
+
+</resources>

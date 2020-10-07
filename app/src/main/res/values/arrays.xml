@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="listArray">
+        <item>Somente quando conectado por Wi-Fi </item>
+        <item>Qualquer conexão com a internet</item>
+    </string-array>
+    <string-array name="listValues">
+        <item>Wi-Fi</item>
+        <item>Any</item>
+    </string-array>
+
+    <array name="autosize_text_sizes">
+        <item>10sp</item>
+        <item>12sp</item>
+        <item>20sp</item>
+        <item>40sp</item>
+        <item>100sp</item>
+    </array>
+
+    <string-array name="listFonteSize">
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>22</item>
+        <item>24</item>
+        <item>26</item>
+        <item>28</item>
+        <item>30</item>
+        <item>32</item>
+        <item>34</item>
+    </string-array>
+
+    <string-array name="listFonteEstilo">
+        <item>Arial</item>
+        <item>Alex Brush</item>
+        <item>Allura</item>
+        <item>Xpressive Regular</item>
+        <item>OpenSans Bold</item>
+        <item>OpenSans Regular</item>
+        <item>Oswald</item>
+        <item>Quicksand</item>
+        <item>Sources</item>
+    </string-array>
+
+    <string-array name="listFonteEstiloValores">
+        <item>Arial</item>
+        <item>AlexBrush.ttf</item>
+        <item>Allura.otf</item>
+        <item>Xpressive_Regular.ttf</item>
+        <item>OpenSans_Bold.ttf</item>
+        <item>OpenSans_Regular.ttf</item>
+        <item>Oswald.ttf</item>
+        <item>Quicksand.otf</item>
+        <item>SourceSansPro.otf</item>
+    </string-array>
+
+
+</resources>

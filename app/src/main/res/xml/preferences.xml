@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Copyright (C) 2012 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+    <!--
+    <ListPreference
+        android:title="Opção de download Devocional"
+        android:summary="A conexão com a internet é necessária"
+        android:key="listPref"
+        android:defaultValue="Any"
+        android:entries="@array/listArray"
+        android:entryValues="@array/listValues"
+
+     />
+    <CheckBoxPreference
+        android:title="Devocional"
+        android:defaultValue="false"
+        android:summary="Mostrar um sumário para cada título."
+        android:key="summaryPref" />
+    -->
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="mostrarVersiculosLidos"
+        android:summary="@string/marcar_versiculos"
+        android:textColor="@color/dark"
+
+        android:title="@string/marcar_versiculo_title" />
+
+    <ListPreference
+        android:defaultValue="@string/fontePadrao"
+        android:entries="@array/listFonteEstilo"
+        android:entryValues="@array/listFonteEstiloValores"
+        android:key="fonteEstilo"
+        android:summary="@string/fonte_text"
+        android:textColor="@color/dark"
+        android:title="@string/fonte_texto_title" />
+
+    <ListPreference
+        android:defaultValue="18"
+        android:entries="@array/listFonteSize"
+        android:entryValues="@array/listFonteSize"
+        android:key="fontePref"
+        android:summary="@string/fonte_text_sumary"
+        android:textColor="@color/dark"
+        android:title="@string/fonte_size_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="noturnoPref"
+        android:summary="@string/modo_noturno_summary"
+        android:textColor="@color/dark"
+        android:title="@string/modo_noturno_title" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="telaPref"
+        android:summary="@string/tela_ativa_summary"
+        android:textColor="@color/dark"
+        android:title="@string/tela_ativa_title" />
+
+
+    <Preference
+        android:dialogTitle="@string/limpar_estatistica_title"
+        android:key="buttonLimparLidos"
+        android:summary="Versículos marcados como lídos serão desmarcados"
+        android:textColor="@color/dark"
+        android:title="@string/limpar_estatistica_summary" />
+
+    <!--
+    <Preference
+    android:dialogTitle="@string/botaoAtualizar"
+    android:title="@string/botaoAtualizar"
+    android:key="updateButton"
+    android:summary="Verificar atualizações"
+    android:textColor="@color/dark"
+        />
+        -->
+
+</PreferenceScreen>

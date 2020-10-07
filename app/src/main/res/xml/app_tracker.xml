@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- End current session if app sleeps for a period of time -->
+    <integer name="ga_sessionTimeout">300</integer>
+
+    <!-- Enable automatic Activity measurement -->
+    <bool name="ga_autoActivityTracking">true</bool>
+
+    <!--  The property id associated with this analytics tracker -->
+    <string name="ga_trackingId">UA-10736493-8</string>
+
+    <!--
+      See Project Structure -> Analytics -> Google Analytics -> Learn More
+      to learn more about configuring this file.
+    -->
+
+    <screenName name="com.projeto.biblianvi.MainActivity">Home Screen</screenName>
+    <screenName name="com.projeto.biblianvi.Lista_Biblia">List View</screenName>
+    <screenName name="com.projeto.biblianvi.NetworkActivityDevocional">Devocional
+    </screenName>
+    <screenName name="com.projeto.biblianvi.GraficoGeral">Grafico</screenName>
+    <screenName name="com.projeto.biblianvi.Activity_busca_avancada">Pesquisa</screenName>
+
+</resources>
