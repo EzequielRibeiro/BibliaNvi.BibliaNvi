@@ -1,7 +1,6 @@
 package com.projeto.biblianvi;
 
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -765,24 +764,6 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
         return randomNum;
     }
 
-    public void versDoDiaText() {
-
-        VersDoDia v;
-
-        v = getVersDoDia();
-
-        SharedPreferences settings = myContext.getSharedPreferences("versDiaPreference", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("assunto", v.getAssunto());
-        editor.putString("versDia", v.getText());
-        editor.putString("livroNome", v.getBooksName());
-        editor.putString("capVersDia", v.getChapter());
-        editor.putString("verVersDia", v.getVersesNum());
-        editor.commit();
-
-
-    }
-
     public VersDoDia getVersDoDia() {
 
 
@@ -1164,7 +1145,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
     public class VersDoDia extends Biblia {
 
-        private String assunto = "Amor";
+        private String assunto = " ";
 
         public String getAssunto() {
             return assunto;

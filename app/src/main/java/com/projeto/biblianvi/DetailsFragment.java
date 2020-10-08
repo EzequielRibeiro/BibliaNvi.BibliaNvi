@@ -2,6 +2,7 @@ package com.projeto.biblianvi;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.projeto.biblianvi.biblianvi.R;
@@ -26,6 +28,7 @@ public class DetailsFragment extends Fragment {
     private static Biblia biblia;
     private CapituloGridViewAdapter capituloGridViewAdapter;
     private List<Integer> idColorListChapter;
+    private static ProgressBar progressBar;
 
 
     public static DetailsFragment newInstance(int index) {
@@ -104,6 +107,7 @@ public class DetailsFragment extends Fragment {
         View v = inflater.inflate(R.layout.details, container, false);
         TextView textViewGridView = v.findViewById(R.id.textViewGridView);
         textViewGridView.setText(getString(R.string.capitulo));
+        progressBar = (ProgressBar) v.findViewById(R.id.progressBarGrid);
 
         bibliaHelp = new BibliaBancoDadosHelper(getActivity().getApplicationContext());
         List<Biblia> bookNameList = bibliaHelp.getAllBooksName();
@@ -230,6 +234,9 @@ public class DetailsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void result) {
             adapter.notifyDataSetChanged();
+            if (progressBar != null) {
+                progressBar.setVisibility(View.GONE);
+            }
         }
 
         public DownloadFilesTask(BaseAdapter adapter, List<Integer> list, Activity activity, String checkByChapterVerse) {
@@ -243,15 +250,21 @@ public class DetailsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            for (int i = 0; i < list.size(); i++) {
+            try {
 
-                if (checkByChapterVerse.equals("chapter")) {
-                    if (bancoDadosHelper.getIsChapterLido(biblia.getBooksName(), Integer.toString(i + 1)))
-                        list.set(i, R.color.green);
-                } else {
-                    if (bancoDadosHelper.getIsVerseLido(biblia.getBooksName(), biblia.getChapter(), Integer.toString(i + 1)))
-                        list.set(i, R.color.green);
+                for (int i = 0; i < list.size(); i++) {
+
+                    if (checkByChapterVerse.equals("chapter")) {
+                        if (bancoDadosHelper.getIsChapterLido(biblia.getBooksName(), Integer.toString(i + 1)))
+                            list.set(i, R.color.green);
+                    } else {
+                        if (bancoDadosHelper.getIsVerseLido(biblia.getBooksName(), biblia.getChapter(), Integer.toString(i + 1)))
+                            list.set(i, R.color.green);
+                    }
                 }
+            } catch (SQLiteException exception) {
+
+                exception.printStackTrace();
             }
             return null;
         }

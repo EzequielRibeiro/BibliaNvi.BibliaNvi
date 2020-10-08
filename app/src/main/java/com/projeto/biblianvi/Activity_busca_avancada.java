@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -30,6 +31,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.projeto.biblianvi.biblianvi.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -285,18 +287,31 @@ public class Activity_busca_avancada extends Activity {
         }
 
         protected String doInBackground(String... params) {
+            try {
 
-            if (params[0].equals("0")) {
+                if (params[0].equals("0")) {
 
-                lista = bibliaHelp.pesquisarBiblia(params[1]);
+                    lista = bibliaHelp.pesquisarBiblia(params[1]);
 
-            } else if (params[0].equals("1") || params[0].equals("2")) {
+                } else if (params[0].equals("1") || params[0].equals("2")) {
 
-                lista = bibliaHelp.pesquisarBibliaTestamento(params[1], params[0]);
+                    lista = bibliaHelp.pesquisarBibliaTestamento(params[1], params[0]);
 
-            } else if (params[0].equals("3")) {
+                } else if (params[0].equals("3")) {
 
-                lista = bibliaHelp.pesquisarBibliaLivro(params[2], params[1]);
+                    lista = bibliaHelp.pesquisarBibliaLivro(params[2], params[1]);
+
+                }
+            } catch (final SQLiteException ex) {
+                ex.printStackTrace();
+                lista = new ArrayList<>();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getBaseContext(), String.valueOf(ex.getMessage()), Toast.LENGTH_LONG).show();
+                    }
+                });
 
             }
 

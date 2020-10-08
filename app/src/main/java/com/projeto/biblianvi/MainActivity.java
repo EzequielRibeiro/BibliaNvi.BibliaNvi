@@ -877,8 +877,22 @@ public class MainActivity extends AppCompatActivity {
         textViewAssuntoVers.setText(settings.getString("assunto", getString(R.string.peace)));
         textViewAssuntoVers.setMinLines(2);
         textViewAssuntoVers.setTextColor(Color.BLACK);
-        textViewVersDia.setText(Html.fromHtml(settings.getString("versDia", getString(R.string.versiculo_text))
-                + " \n(" + settings.getString("livroNome", getString(R.string.book_name)) + " " +
+        //disabling textViewAssuntoVers
+        ViewGroup.LayoutParams layoutparams;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+            layoutparams = (ConstraintLayout.LayoutParams) textViewAssuntoVers.getLayoutParams();
+
+        } else {
+
+            layoutparams = (LinearLayout.LayoutParams) textViewAssuntoVers.getLayoutParams();
+
+        }
+        layoutparams.height = 0;
+        textViewAssuntoVers.setLayoutParams(layoutparams);
+        //disabling
+        textViewVersDia.setText(Html.fromHtml("<font color='yellow'>" + settings.getString("assunto", getString(R.string.peace)) + "</font><br>" + settings.getString("versDia", getString(R.string.versiculo_text))
+                + "<br>(" + settings.getString("livroNome", getString(R.string.book_name)) + " " +
                 settings.getString("capVersDia", getString(R.string.capitulo_number)) + ":"
                 + settings.getString("verVersDia", getString(R.string.versiculo_number)) + ")"));
 
