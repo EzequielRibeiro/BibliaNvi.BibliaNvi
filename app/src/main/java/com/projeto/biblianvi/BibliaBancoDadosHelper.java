@@ -522,8 +522,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = " +
-                "verses.testament and books.id = verses.book and verses.text like '%" + termo + "%';";
-
+                "verses.testament and books.id = verses.book and verses.text like " + termo;
 
         openDataBase();
 
@@ -535,20 +534,19 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
         if (cursor != null && cursor.getCount() > 0)
             if (cursor.moveToFirst()) {
                 do {
-                    //contains: case sensitive - filtra por caixa alto-baixa
-                    if (cursor.getString(4).contains(termo)) {
-                        biblia = new Biblia();
-                        biblia.setTestamentName(cursor.getString(0));
-                        biblia.setBooksName(cursor.getString(1));
-                        biblia.setChapter(cursor.getString(2));
-                        biblia.setVerseNum(cursor.getString(3));
-                        biblia.setText(cursor.getString(4));
-                        biblia.setLido(cursor.getInt(5));
-                        biblia.setIdVerse(cursor.getString(6));
 
-                        // Add book to books
-                        books.add(biblia);
-                    }
+                    biblia = new Biblia();
+                    biblia.setTestamentName(cursor.getString(0));
+                    biblia.setBooksName(cursor.getString(1));
+                    biblia.setChapter(cursor.getString(2));
+                    biblia.setVerseNum(cursor.getString(3));
+                    biblia.setText(cursor.getString(4));
+                    biblia.setLido(cursor.getInt(5));
+                    biblia.setIdVerse(cursor.getString(6));
+
+                    // Add book to books
+                    books.add(biblia);
+
 
                 } while (cursor.moveToNext());
             }
@@ -559,13 +557,13 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
         return books;
     }
 
-    public List<Biblia> pesquisarBibliaTestamento(String termo, String testamento) {
+    public List<Biblia> pesquisarBibliaTestamento(String testamento, String termo) {
 
         List<Biblia> books = new LinkedList<Biblia>();
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = verses.testament " +
-                "and books.id = verses.book and verses.text like '%" + termo + "%' " +
+                "and books.id = verses.book and verses.text like " + termo +
                 "and [testament].[id] = " + testamento;
 
 
@@ -580,21 +578,17 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
 
-                    //contains: case sensitive - filtra por caixa alto-baixa
-                    if (cursor.getString(4).contains(termo)) {
-                        biblia = new Biblia();
-                        biblia.setTestamentName(cursor.getString(0));
-                        biblia.setBooksName(cursor.getString(1));
-                        biblia.setChapter(cursor.getString(2));
-                        biblia.setVerseNum(cursor.getString(3));
-                        biblia.setText(cursor.getString(4));
-                        biblia.setLido(cursor.getInt(5));
-                        biblia.setIdVerse(cursor.getString(6));
+                    biblia = new Biblia();
+                    biblia.setTestamentName(cursor.getString(0));
+                    biblia.setBooksName(cursor.getString(1));
+                    biblia.setChapter(cursor.getString(2));
+                    biblia.setVerseNum(cursor.getString(3));
+                    biblia.setText(cursor.getString(4));
+                    biblia.setLido(cursor.getInt(5));
+                    biblia.setIdVerse(cursor.getString(6));
 
-                        // Add book to books
-                        books.add(biblia);
-                    }
-
+                    // Add book to books
+                    books.add(biblia);
 
                 } while (cursor.moveToNext());
             }
@@ -611,7 +605,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = verses.testament " +
-                "and books.id = verses.book and verses.text like '%" + termo + "%' " +
+                "and books.id = verses.book and verses.text like " + termo +
                 "and books.[name] = '" + livro + "'";
 
 
@@ -626,21 +620,18 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
             if (cursor.moveToFirst()) {
                 do {
 
-                    //contains: case sensitive - filtra por caixa alto-baixa
-                    if (cursor.getString(4).contains(termo)) {
-                        biblia = new Biblia();
-                        biblia.setTestamentName(cursor.getString(0));
-                        biblia.setBooksName(cursor.getString(1));
-                        biblia.setChapter(cursor.getString(2));
-                        biblia.setVerseNum(cursor.getString(3));
-                        biblia.setText(cursor.getString(4));
-                        biblia.setLido(cursor.getInt(5));
-                        biblia.setIdVerse(cursor.getString(6));
+                    biblia = new Biblia();
+                    biblia.setTestamentName(cursor.getString(0));
+                    biblia.setBooksName(cursor.getString(1));
+                    biblia.setChapter(cursor.getString(2));
+                    biblia.setVerseNum(cursor.getString(3));
+                    biblia.setText(cursor.getString(4));
+                    biblia.setLido(cursor.getInt(5));
+                    biblia.setIdVerse(cursor.getString(6));
 
-                        // Add book to books
-                        books.add(biblia);
+                    // Add book to books
+                    books.add(biblia);
 
-                    }
 
                 } while (cursor.moveToNext());
             }

@@ -3,7 +3,6 @@ package com.projeto.biblianvi;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
@@ -44,7 +43,7 @@ public class Activity_busca_avancada extends Activity {
     private Button botaoPesquisar;
     private EditText editText;
     private Spinner spinnerLivros;
-    private RadioButton radioNovo, radioVelho, radioBib;
+    private RadioButton radioNovo, radioVelho, radioBib, radioLivro;
     private ProgressBar progressBarBusca;
     private LinearLayout linearLayout;
     private AdView mAdView;
@@ -60,6 +59,7 @@ public class Activity_busca_avancada extends Activity {
         radioVelho = findViewById(R.id.radio_velho);
         radioNovo = findViewById(R.id.radio_novo);
         radioBib = findViewById(R.id.radio_Biblia);
+        radioLivro = findViewById(R.id.radio_livro);
         progressBarBusca = findViewById(R.id.progressBarBusca);
         progressBarBusca.setVisibility(View.GONE);
 
@@ -82,7 +82,9 @@ public class Activity_busca_avancada extends Activity {
 
                 if ((actionId == EditorInfo.IME_ACTION_DONE) ||
                         (actionId == EditorInfo.IME_ACTION_NEXT) ||
-                        (actionId == EditorInfo.IME_ACTION_GO)) {
+                        (actionId == EditorInfo.IME_ACTION_GO) ||
+                        (actionId == EditorInfo.IME_ACTION_SEARCH) ||
+                        (actionId == EditorInfo.IME_ACTION_SEND)) {
 
                     pesquisar();
                 }
@@ -104,6 +106,7 @@ public class Activity_busca_avancada extends Activity {
         //Setting the ArrayAdapter data on the Spinner
         spinnerLivros.setAdapter(aa);
 
+
         spinnerLivros.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -111,19 +114,21 @@ public class Activity_busca_avancada extends Activity {
                 radioVelho.setChecked(false);
                 radioNovo.setChecked(false);
                 radioBib.setChecked(false);
+                radioLivro.setChecked(true);
                 tipoDeBusca = "3";
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                tipoDeBusca = "3";
+
             }
 
         });
 
         mAdView = findViewById(R.id.adViewPesq);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        if (mAdView != null)
+            mAdView.loadAd(adRequest);
 
 
     }
@@ -131,15 +136,6 @@ public class Activity_busca_avancada extends Activity {
     private void pesquisar() {
 
         if (editText.getText().length() >= 2) {
-
-            Intent intent = new Intent(getApplicationContext(), Lista_Biblia.class);
-
-            intent.putExtra("livro", spinnerLivros.getSelectedItem().toString());
-            intent.putExtra("capitulo", "0");
-            intent.putExtra("versiculo", "0");
-            intent.putExtra("buscar", "true");
-            intent.putExtra("buscarTestamento", "0");
-            intent.putExtra("termoBusca", editText.getText().toString());
 
             //salva o termo da busca para ser usado por Biblia para realçar a cor da palavra
             SharedPreferences settings = getSharedPreferences("termo_busca", Activity.MODE_PRIVATE);
@@ -151,29 +147,21 @@ public class Activity_busca_avancada extends Activity {
 
             if (tipoDeBusca.equals("0")) {
 
-                intent.putExtra("buscarTestamento", "0");
-                // startActivity(intent);
                 terms = new String[]{"0", editText.getText().toString()};
                 new PesquisarBanco(getApplicationContext()).execute(terms);
 
             } else if (tipoDeBusca.equals("1")) {
 
-                intent.putExtra("buscarTestamento", "1");
-                // startActivity(intent);
                 terms = new String[]{"1", editText.getText().toString()};
                 new PesquisarBanco(getApplicationContext()).execute(terms);
 
             } else if (tipoDeBusca.equals("2")) {
 
-                intent.putExtra("buscarTestamento", "2");
-                // startActivity(intent);
                 terms = new String[]{"2", editText.getText().toString()};
                 new PesquisarBanco(getApplicationContext()).execute(terms);
 
             } else if (tipoDeBusca.equals("3")) {
 
-                intent.putExtra("buscarTestamento", "3");
-                // startActivity(intent);
                 terms = new String[]{"3", editText.getText().toString(), spinnerLivros.getSelectedItem().toString()};
                 new PesquisarBanco(getApplicationContext()).execute(terms);
             }
@@ -199,6 +187,12 @@ public class Activity_busca_avancada extends Activity {
                     if (checked)
                         tipoDeBusca = "2";
                     break;
+
+                case R.id.radio_livro:
+                    if (checked)
+                        tipoDeBusca = "3";
+                    break;
+
                 case R.id.radio_Biblia:
                     if (checked)
                         tipoDeBusca = "0";
@@ -287,6 +281,16 @@ public class Activity_busca_avancada extends Activity {
         }
 
         protected String doInBackground(String... params) {
+
+            String[] query = params[1].split(" ");
+            String temp = " ";
+            if (query.length > 1) {
+                for (int i = 0; i < query.length - 1; i++) {
+                    temp += "AND verses.text LIKE '%" + query[i + 1] + "%' ";
+                }
+            }
+            params[1] = "'%" + query[0] + "%'".concat(temp);
+
             try {
 
                 if (params[0].equals("0")) {
@@ -295,17 +299,18 @@ public class Activity_busca_avancada extends Activity {
 
                 } else if (params[0].equals("1") || params[0].equals("2")) {
 
-                    lista = bibliaHelp.pesquisarBibliaTestamento(params[1], params[0]);
+                    lista = bibliaHelp.pesquisarBibliaTestamento(params[0], params[1]);
 
                 } else if (params[0].equals("3")) {
 
                     lista = bibliaHelp.pesquisarBibliaLivro(params[2], params[1]);
-
                 }
+
+                Log.e("list", String.valueOf(lista.size()));
+
             } catch (final SQLiteException ex) {
                 ex.printStackTrace();
                 lista = new ArrayList<>();
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

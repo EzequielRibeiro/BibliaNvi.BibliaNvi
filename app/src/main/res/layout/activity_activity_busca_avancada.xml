@@ -62,6 +62,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:checkedButton="@id/radio_Biblia"
+                    android:focusable="auto"
                     android:gravity="left"
                     android:orientation="vertical"
                     app:layout_constraintStart_toStartOf="parent"
@@ -71,6 +73,7 @@
                         android:id="@+id/radio_velho"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:checked="false"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/velho_testamento"
                         android:textColor="#040404"
@@ -80,6 +83,7 @@
                         android:id="@+id/radio_novo"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:checked="false"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/novo_testamento"
                         android:textColor="#040404"
@@ -89,10 +93,22 @@
                         android:id="@+id/radio_Biblia"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
+                        android:checked="false"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/toda_b_blia"
                         android:textColor="#040404"
                         android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/radio_livro"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:onClick="onRadioButtonClicked"
+                        android:text="@string/pesquisar_somente_em"
+                        android:textColor="#040404"
+                        android:textSize="18sp" />
+
                 </RadioGroup>
 
                 <TextView
@@ -152,22 +168,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-                <TextView
-                    android:id="@+id/textViewPesquisarSomente"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:paddingStart="5dp"
-                    android:text="@string/pesquisar_somente_em"
-                    android:textColor="#000000"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
                 <Spinner
                     android:id="@+id/spinnerBuscaAvanc"
                     style="@android:style/Widget.DeviceDefault.Light.Spinner"
@@ -175,10 +175,9 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
                     android:gravity="start"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewPesquisarSomente" />
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
