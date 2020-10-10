@@ -105,7 +105,6 @@ public class ListaAdaptador extends BaseAdapter {
 
         //Habilita o botão de abrir livro quando for pesquisa
         if (pesquiar) {
-
             itemSuporteBiblia.buttonAbrirLivro.setVisibility(View.VISIBLE);
             itemSuporteBiblia.buttonAbrirLivro.setEnabled(true);
             itemSuporteBiblia.textoAberto.setText(Html.fromHtml(biblia.toPesquisarString()));
@@ -181,10 +180,6 @@ public class ListaAdaptador extends BaseAdapter {
 
     @Override
     public Biblia getItem(int position) {
-
-        if (pesquiar)
-            itensList.get(position).setContext(context);
-
         return itensList.get(position);
 
     }

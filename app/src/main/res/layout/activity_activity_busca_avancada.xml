@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|center_horizontal"
                     android:layout_marginTop="8dp"
-                    app:adSize="BANNER"
+                    app:adSize="LARGE_BANNER"
                     app:adUnitId="@string/idMobPesquisar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

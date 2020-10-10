@@ -38,20 +38,22 @@ public class ListGraficoAdapter<B> extends ArrayAdapter {
         TextView textViewGrafNameBook = convertView.findViewById(R.id.textViewGrafNameBook);
         textViewGrafNameBook.setText(b.getBooksName());
 
-        LinearLayout linearLayout = convertView.findViewById(R.id.linearLayoutProgress3);
-        linearLayout.getLayoutParams().width = 100;
-
-        int per = (b.getTotalDeVersosLidos() * 100) / b.getTotalDeVersiculos();
-        TextView textViewGrafBar = convertView.findViewById(R.id.textViewGrafBar);
         try {
-            textViewGrafBar.getLayoutParams().width = per;
+            LinearLayout linearLayout = convertView.findViewById(R.id.linearLayoutProgress3);
+            int per = (b.getTotalDeVersosLidos() * 100) / b.getTotalDeVersiculos();
+            TextView textViewGrafBar = convertView.findViewById(R.id.textViewGrafBar);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) textViewGrafBar.getLayoutParams();
+            params.width = (per * linearLayout.getWidth()) / 100;
+            textViewGrafBar.setLayoutParams(params);
+
+            TextView textViewGrafPercent = convertView.findViewById(R.id.textViewGrafPercent);
+            textViewGrafPercent.setText(Integer.toString(per) + '%');
+
         } catch (ArithmeticException a) {
             Log.e("error", a.getMessage());
         }
 
-        TextView textViewGrafPercent = convertView.findViewById(R.id.textViewGrafPercent);
-        textViewGrafPercent.setText(Integer.toString(per) + '%');
-
+        ListGraficoAdapter.this.notifyDataSetChanged();
         return convertView;
     }
 

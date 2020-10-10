@@ -282,13 +282,17 @@ public class Activity_busca_avancada extends Activity {
 
         protected String doInBackground(String... params) {
 
-            String[] query = params[1].split(" ");
+            String[] query = params[1].trim().split("\\s+");
             String temp = " ";
             if (query.length > 1) {
+                temp = "";
                 for (int i = 0; i < query.length - 1; i++) {
-                    temp += "AND verses.text LIKE '%" + query[i + 1] + "%' ";
+                    if (!query[i + 1].equals(" "))
+                        temp += " AND verses.text LIKE '%" + query[i + 1].trim() + "%' ";
                 }
+
             }
+
             params[1] = "'%" + query[0] + "%'".concat(temp);
 
             try {

@@ -543,7 +543,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
                     biblia.setText(cursor.getString(4));
                     biblia.setLido(cursor.getInt(5));
                     biblia.setIdVerse(cursor.getString(6));
-
+                    biblia.setTermoBusca(termo);
                     // Add book to books
                     books.add(biblia);
 
@@ -586,7 +586,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
                     biblia.setText(cursor.getString(4));
                     biblia.setLido(cursor.getInt(5));
                     biblia.setIdVerse(cursor.getString(6));
-
+                    biblia.setTermoBusca(termo);
                     // Add book to books
                     books.add(biblia);
 
@@ -608,7 +608,6 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
                 "and books.id = verses.book and verses.text like " + termo +
                 "and books.[name] = '" + livro + "'";
 
-
         openDataBase();
 
         cursor = myDataBase.rawQuery(query, null);
@@ -628,7 +627,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
                     biblia.setText(cursor.getString(4));
                     biblia.setLido(cursor.getInt(5));
                     biblia.setIdVerse(cursor.getString(6));
-
+                    biblia.setTermoBusca(termo);
                     // Add book to books
                     books.add(biblia);
 

@@ -5,14 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.projeto.biblianvi.biblianvi.R;
@@ -74,35 +73,48 @@ public class GraficoGeral extends TabActivity {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int adError) {
+                LinearLayout myLayoutBase = findViewById(R.id.linearLayoutGrafAd);
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myLayoutBase.getLayoutParams();
+                params.height = 0;
+                mAdView.setLayoutParams(params);
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
 
     }
 
     protected void onResume() {
         super.onResume();
-
-        LinearLayout myLayoutBase = findViewById(R.id.linearLayoutGrafAd);
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) myLayoutBase.getLayoutParams();
-
-        if (MainActivity.isNetworkAvailable(getApplicationContext())) {
-
-            params.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-
-            //propaganda Google
-            AdView mAdView = findViewById(R.id.adViewGraf);
-            if (mAdView != null) {
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest);
-            } else {
-                Log.e("Erro Admob", "Tela Gráfico");
-            }
-
-
-        } else {
-
-            //  params.height = 0;
-
-        }
-
         textViewTotalLido.setText(String.format("%.2f", quantVersosLidos(getApplicationContext())) + "%");
 
     }

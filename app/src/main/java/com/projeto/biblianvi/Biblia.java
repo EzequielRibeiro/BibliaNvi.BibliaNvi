@@ -1,6 +1,5 @@
 package com.projeto.biblianvi;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -11,7 +10,7 @@ public class Biblia {
 
     private SharedPreferences prefs = null;
     private Context context = null;
-    private String termoBusca;
+    private String[] termoBusca;
     private int id;
     private int idBook;
     private int totalDeVersosLidos;
@@ -28,6 +27,17 @@ public class Biblia {
 
     public Biblia() {
 
+
+    }
+
+
+    public String[] getTermoBusca() {
+        return termoBusca;
+    }
+
+    public void setTermoBusca(String termoBusca) {
+
+        this.termoBusca = termoBusca.split("%");
 
     }
 
@@ -176,41 +186,16 @@ public class Biblia {
     }
 
     public void setText(String t) {
-
-        text = t.replace(";", "");
-
+        text = t;
     }
 
     public String toPesquisarString() {
 
-        String texto = getText();
-
-        //for more one term
-        String[] temp = termoBusca.split(" ");
-        if (temp.length > 1) {
-
-            for (int i = 0; i < temp.length; i++) {
-
-                texto = texto.replace(temp[i], "<font color=\"red\">" + temp[i] + "</font>");
-
-            }
-
-        } else {
-            texto = getText().replace(termoBusca, "<font color=\"red\">" + termoBusca + "</font>");
+        for (String t : getTermoBusca()) {
+            setText(getText().replace(t, "<font color=\"red\">" + t + "</font>"));
         }
-
         return "<p>" + booksName + " " + versesChapter + ":" + versesNum + "</p>" +
-                "<p>" + texto + "</p>";
+                "<p>" + getText() + "</p>";
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-
-        if (context != null) {
-
-            prefs = context.getSharedPreferences("termo_busca", Activity.MODE_PRIVATE);
-            termoBusca = prefs.getString("busca", "a");
-        }
-
-    }
 }

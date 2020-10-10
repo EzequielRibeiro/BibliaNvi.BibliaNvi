@@ -26,7 +26,7 @@
         <LinearLayout
             android:id="@+id/linearLayoutBusca"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -54,7 +54,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp">
+                android:layout_height="match_parent">
 
                 <RadioGroup
                     android:id="@+id/radioGroup"
@@ -165,6 +165,20 @@
                     android:gravity="start"
                     app:layout_constraintBottom_toTopOf="@+id/editTextAvanc"
                     app:layout_constraintStart_toEndOf="@+id/radioGroup" />
+
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adViewPesq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|center_horizontal"
+                    android:layout_marginStart="8dp"
+                    app:adSize="LARGE_BANNER"
+                    app:adUnitId="@string/idMobPesquisar"
+                    app:layout_constraintBottom_toTopOf="@+id/spinnerBuscaAvanc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/radioGroup"
+                    app:layout_constraintTop_toTopOf="parent"></com.google.android.gms.ads.AdView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
