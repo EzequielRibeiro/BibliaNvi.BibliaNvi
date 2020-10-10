@@ -3,7 +3,6 @@ package com.projeto.biblianvi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * Created by Ezequiel on 08/07/2015.
@@ -193,15 +192,13 @@ public class Biblia {
             for (int i = 0; i < temp.length; i++) {
 
                 texto = texto.replace(temp[i], "<font color=\"red\">" + temp[i] + "</font>");
-                Log.e("termo: ", temp[i]);
-                Log.e("text", texto);
+
             }
 
         } else {
             texto = getText().replace(termoBusca, "<font color=\"red\">" + termoBusca + "</font>");
         }
 
-        Log.e("text: ", texto);
         return "<p>" + booksName + " " + versesChapter + ":" + versesNum + "</p>" +
                 "<p>" + texto + "</p>";
     }
