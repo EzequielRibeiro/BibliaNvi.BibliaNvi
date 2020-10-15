@@ -55,20 +55,21 @@ public class VersiculoDiario extends BroadcastReceiver {
     private void versiculoDoDia() throws ParseException {
 
         bibliaHelp = new BibliaBancoDadosHelper(context);
-        BibliaBancoDadosHelper.VersDoDia versDoDia = bibliaHelp.getVersDoDia();
+        BibliaBancoDadosHelper.VersDoDia versDoDia = new BibliaBancoDadosHelper.VersDoDia();
+    
+       do{  
 
-        if (versDoDia.getText().isEmpty()) {
-            versiculoDoDia();
-        }
-        {
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putString("assunto", versDoDia.getAssunto());
-            editor.putString("versDia", versDoDia.getText());
-            editor.putString("livroNome", versDoDia.getBooksName());
-            editor.putString("capVersDia", versDoDia.getChapter());
-            editor.putString("verVersDia", versDoDia.getVersesNum());
-            editor.commit();
-        }
+         BibliaBancoDadosHelper.VersDoDia versDoDia = bibliaHelp.getVersDoDia();
+         
+         SharedPreferences.Editor editor = settings.edit();
+         editor.putString("assunto", versDoDia.getAssunto());
+         editor.putString("versDia", versDoDia.getText());
+         editor.putString("livroNome", versDoDia.getBooksName());
+         editor.putString("capVersDia", versDoDia.getChapter());
+         editor.putString("verVersDia", versDoDia.getVersesNum());
+         editor.commit();
+   
+       }while (versDoDia.getText().isEmpty());
 
 
     }
