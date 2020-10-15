@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.projeto.biblianvi.biblianvi.R;
 
@@ -67,8 +66,6 @@ public class VersiculoGridViewAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 Button b = (Button) v;
-                Toast.makeText(activity, b.getText(), Toast.LENGTH_LONG).show();
-
                 biblia.setVerseNum(b.getText().toString());
 
                 Intent intent = new Intent(activity, Lista_Biblia.class);

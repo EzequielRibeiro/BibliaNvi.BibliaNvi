@@ -147,7 +147,7 @@
     <string name="pesquisa_cancelada">Búsqueda cancelada</string>
     <string name="salvar_nos_favorito">Guardar como favorita</string>
     <string name="salvar_para_compartilhar">Guardar para compartir</string>
-    <string name="versiculo_do_dia">Verso del día:</string>
+    <string name="versiculo_do_dia">Verso del día</string>
 
     <string-array name="menu_array">
         <item> Favorito </item>

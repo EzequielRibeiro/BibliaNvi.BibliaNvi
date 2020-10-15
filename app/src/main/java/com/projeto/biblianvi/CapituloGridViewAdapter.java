@@ -87,7 +87,7 @@ public class CapituloGridViewAdapter extends BaseAdapter {
                     gridViewVersiculos.setAdapter(versiculoGridViewAdapter);
                     textViewGridView.setText(R.string.versiculo);
 
-                    new DetailsFragment.DownloadFilesTask(versiculoGridViewAdapter, idColorListVerse, activity, "verse").execute(null, null, null);
+                    new DetailsFragment.LoadChapterTask(versiculoGridViewAdapter, idColorListVerse, activity, "verse").execute(null, null, null);
 
                 } catch (Exception ex) {
                     ex.printStackTrace();

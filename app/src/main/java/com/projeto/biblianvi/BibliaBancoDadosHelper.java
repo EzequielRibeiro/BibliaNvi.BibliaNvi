@@ -770,7 +770,6 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         openDataBase();
 
-
         cursor = myDataBase.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -1135,7 +1134,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
     public class VersDoDia extends Biblia {
 
-        private String assunto = " ";
+        private String assunto;
 
         public String getAssunto() {
             return assunto;

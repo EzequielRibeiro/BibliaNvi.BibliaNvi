@@ -130,7 +130,6 @@ public class ListaAdaptador extends BaseAdapter {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         String t = sharedPrefs.getString("fontePref", "18");
         text.textoAberto.setTextSize(Integer.parseInt(t));
-
     }
 
 
@@ -170,8 +169,6 @@ public class ListaAdaptador extends BaseAdapter {
         intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-
-
     }
 
     public int getCount() {
@@ -181,7 +178,6 @@ public class ListaAdaptador extends BaseAdapter {
     @Override
     public Biblia getItem(int position) {
         return itensList.get(position);
-
     }
 
     @Override

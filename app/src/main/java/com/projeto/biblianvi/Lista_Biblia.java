@@ -50,6 +50,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.projeto.biblianvi.biblianvi.R;
 
 import java.util.ArrayList;
@@ -98,12 +99,12 @@ public class Lista_Biblia extends Activity {
     private Button buttonNota;
     private Button buttonSound;
     private SharedPreferences sharedPrefs;
-    private AudioManager amanager;
     private boolean keepScreenOn = false;
     private PopupWindow pw;
     private FirebaseAnalytics mFirebaseAnalytics;
     private int REQUEST_CODE;
     private ProgressBar progressBar, progressBarSearch;
+    private boolean isSoundMuted = false;
 
     // Get the screen current brightness
     static public int getScreenBrightness(Context context) {
@@ -314,7 +315,6 @@ public class Lista_Biblia extends Activity {
             public void onClick(View v) {
 
                 Intent it = new Intent(Lista_Biblia.this, ActivityAnotacao.class);
-
                 startActivity(it);
 
             }
@@ -323,29 +323,19 @@ public class Lista_Biblia extends Activity {
 
         boolean visivel = true;
         linearLayoutLivCap.setOnClickListener(new LayoutTopo(visivel));
-        amanager = (AudioManager) getSystemService(AUDIO_SERVICE);
 
         buttonSound.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
 
-                boolean on = getSharedPreferences("sound", Activity.MODE_PRIVATE).getBoolean("sound", false);
-
-                if (!on) {
-
-                    amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true);
-                    getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", true).commit();
-                    buttonSound.setBackgroundResource(R.mipmap.sound_off);
-                    Toast.makeText(Lista_Biblia.this, R.string.sound_off, Toast.LENGTH_LONG).show();
-
+                if (!isSoundMuted) {
+                    isSoundMuted = true;
                 } else {
-
-                    amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-                    getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", false).commit();
-                    buttonSound.setBackgroundResource(R.mipmap.sound_on);
-                    Toast.makeText(Lista_Biblia.this, R.string.sound_on, Toast.LENGTH_LONG).show();
-
+                    isSoundMuted = false;
                 }
+                getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", isSoundMuted).commit();
+                adjustAudio(isSoundMuted, true);
+
             }
         });
 
@@ -395,6 +385,52 @@ public class Lista_Biblia extends Activity {
             }
         };
 
+
+    }
+
+    public void adjustAudio(boolean setMute, boolean showMessage) {
+
+        try {
+
+            AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                int adJustMute;
+                if (setMute) {
+                    adJustMute = AudioManager.ADJUST_MUTE;
+                } else {
+                    adJustMute = AudioManager.ADJUST_UNMUTE;
+                }
+                audioManager.adjustStreamVolume(AudioManager.STREAM_NOTIFICATION, adJustMute, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM, adJustMute, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, adJustMute, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_RING, adJustMute, 0);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, adJustMute, 0);
+            } else {
+                audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, setMute);
+                audioManager.setStreamMute(AudioManager.STREAM_ALARM, setMute);
+                audioManager.setStreamMute(AudioManager.STREAM_MUSIC, setMute);
+                audioManager.setStreamMute(AudioManager.STREAM_RING, setMute);
+                audioManager.setStreamMute(AudioManager.STREAM_SYSTEM, setMute);
+            }
+
+            if (setMute) {
+                buttonSound.setBackgroundResource(R.mipmap.sound_off);
+                if (showMessage)
+                    Toast.makeText(Lista_Biblia.this, R.string.sound_off, Toast.LENGTH_LONG).show();
+
+            } else {
+                buttonSound.setBackgroundResource(R.mipmap.sound_on);
+                if (showMessage)
+                    Toast.makeText(Lista_Biblia.this, R.string.sound_on, Toast.LENGTH_LONG).show();
+            }
+
+        } catch (SecurityException securityException) {
+
+            Toast.makeText(Lista_Biblia.this, "Is not allowed", Toast.LENGTH_LONG).show();
+            FirebaseCrashlytics.getInstance().recordException(securityException);
+
+        }
 
     }
 
@@ -568,7 +604,7 @@ public class Lista_Biblia extends Activity {
             seekBarBrilho.setVisibility(View.VISIBLE);
             // seekBarBrilho.setKeyProgressIncrement(25);
             seekBarBrilho.setOnSeekBarChangeListener(new OnSeekBar());
-            seekBarBrilho.setProgress(settings.getInt(SEEK_VALOR_KEY, (getScreenBrightness(getApplicationContext()))));
+            seekBarBrilho.setProgress(settings.getInt(SEEK_VALOR_KEY, ((getScreenBrightness(getApplicationContext()) * 100) / 255)));
 
         }
 
@@ -761,8 +797,9 @@ public class Lista_Biblia extends Activity {
                     }
 
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    FirebaseCrashlytics.getInstance().recordException(exception);
                 }
 
             }
@@ -813,10 +850,7 @@ public class Lista_Biblia extends Activity {
 
     }
 
-    protected void onStart() {
-        super.onStart();
 
-    }
 
     private void compartilharRedeSocial(StringBuffer stringBuffer) {
 
@@ -878,21 +912,31 @@ public class Lista_Biblia extends Activity {
 
     public void onBackPressed() {
         super.onBackPressed();
-
-    }
-
-    public void onPause() {
-        super.onPause();
         SharedPreferences settings = getSharedPreferences("seekbar", Activity.MODE_PRIVATE);
         alterarBrilhoTela(settings.getInt("brilhoAtual", getScreenBrightness(getApplicationContext())));
 
     }
 
+
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+
+    public void onPause() {
+        super.onPause();
+        SharedPreferences settings = getSharedPreferences("seekbar", Activity.MODE_PRIVATE);
+        alterarBrilhoTela(settings.getInt("brilhoAtual", getScreenBrightness(getApplicationContext())));
+        getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", isSoundMuted).commit();
+        adjustAudio(false, false);
+
+    }
+
     public void onStop() {
         super.onStop();
-        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-        getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", false).commit();
-        buttonSound.setBackgroundResource(R.mipmap.sound_on);
+
 
     }
 
@@ -902,8 +946,9 @@ public class Lista_Biblia extends Activity {
         try {
             Biblia b = (Biblia) listView.getItemAtPosition(0);
             setProgressBar(b.getIdBook());
-        } catch (NullPointerException e) {
-            e.printStackTrace();
+        } catch (NullPointerException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
         }
 
         textViewComp.setText(Integer.toString(new BibliaBancoDadosHelper(Lista_Biblia.this).getQuantCompartilhar()));
@@ -930,20 +975,17 @@ public class Lista_Biblia extends Activity {
             startActivity(in);
 
         }
-
         modoNoturno();
+        isSoundMuted = getSharedPreferences("sound", Activity.MODE_PRIVATE).getBoolean("sound", false);
+        adjustAudio(isSoundMuted, true);
     }
 
     protected void onDestroy() {
         super.onDestroy();
 
-        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, false);
-        getSharedPreferences("sound", Activity.MODE_PRIVATE).edit().putBoolean("sound", false).commit();
-
         if (bibliaHelp != null) {
             bibliaHelp.close();
         }
-
 
     }
 
@@ -1205,10 +1247,15 @@ public class Lista_Biblia extends Activity {
     }
 
     private void changeBright(int i) {
-        i = (i * 255) / 100;
 
-        Settings.System.putInt(getContentResolver(),
-                Settings.System.SCREEN_BRIGHTNESS, i);
+        try {
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.SCREEN_BRIGHTNESS, i);
+        } catch (IllegalArgumentException exception) {
+            Toast.makeText(this, exception.getMessage(), Toast.LENGTH_LONG).show();
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
+        }
 
         Log.e("brilho: ", Integer.toString(i));
     }
@@ -1309,7 +1356,7 @@ public class Lista_Biblia extends Activity {
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
             if (progress >= 1 && progress <= 100) {
-                alterarBrilhoTela(progress);
+                alterarBrilhoTela((progress * 255) / 100);
 
             }
 

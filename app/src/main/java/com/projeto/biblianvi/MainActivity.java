@@ -67,6 +67,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.projeto.biblianvi.biblianvi.R;
 
@@ -274,8 +275,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
             VERSIONAPP = pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (PackageManager.NameNotFoundException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
         }
 
 
@@ -430,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
 
         // MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
         mAdView = findViewById(R.id.adView);
+        mAdView.setVisibility(View.GONE);
         final AdRequest adRequest = new AdRequest.Builder().build();
 
         mAdView.postDelayed(new Runnable() {
@@ -444,14 +447,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAdLoaded() {
-
+                mAdView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                // Code to be executed when an ad request fails.
-
-                mAdView.setVisibility(View.GONE);
 
                 int orientation = getResources().getConfiguration().orientation;
                 if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -487,7 +487,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences("seekbar", Activity.MODE_PRIVATE);
         editor = settings.edit();
-        editor.putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext()) * 100) / 255);
+        editor.putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext())));
         editor.commit();
 
 
@@ -599,22 +599,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == REQUEST_STORAGE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (!isDataBaseDownload(getApplicationContext())) {
-                    if (isNetworkAvailable(this)) {
-                        runDownloadFromDownloadTask();
-                    } else {
-                        Toast.makeText(getApplicationContext(), R.string.not_internet_avaliable, Toast.LENGTH_LONG).show();
+        try {
+
+            if (requestCode == REQUEST_STORAGE) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (!isDataBaseDownload(getApplicationContext())) {
+                        if (isNetworkAvailable(this)) {
+                            runDownloadFromDownloadTask();
+                        } else {
+                            Toast.makeText(getApplicationContext(), R.string.not_internet_avaliable, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                } else {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                            || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+
                     }
                 }
-            } else {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                        || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
-
-                }
             }
+
+        } catch (ArrayIndexOutOfBoundsException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
+
         }
 
     }
@@ -948,8 +956,9 @@ public class MainActivity extends AppCompatActivity {
                     agendarAlarmeVersiculo();
 
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } catch (ParseException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
         }
 
     }
@@ -1119,8 +1128,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             version = getPackageManager()
                     .getPackageInfo(getPackageName(), 0).versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
+        } catch (PackageManager.NameNotFoundException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
         }
 
         t = getString(R.string.aviso).replace("@app_version@", version);

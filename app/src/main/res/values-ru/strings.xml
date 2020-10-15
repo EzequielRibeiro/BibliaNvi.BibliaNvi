@@ -208,7 +208,7 @@
     <string name="confirmar_alarme_aviso">Ежедневный стих запланирован на:</string>
     <string name="finished_install">Начинаем скачивать Библию на вашем языке. Подожди минуту. Если это занимает слишком много времени, пожалуйста, проверьте ваше соединение.</string>
     <string name="favorito">любимец</string>
-    <string name="versiculo_do_dia">"Стих дня: "</string>
+    <string name="versiculo_do_dia">Стих дня </string>
     <string name="livro_evangelho_epistola">Книги - Евангелие - Послания</string>
 
     <string-array name="menu_array">

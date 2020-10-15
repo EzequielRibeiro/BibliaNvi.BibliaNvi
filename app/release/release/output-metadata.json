@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.projeto.biblianvi.biblianvi",
+  "variantName": "processReleaseResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 63,
+      "versionName": "1.65.3",
+      "outputFile": "app-release.apk"
+    }
+  ]
+}

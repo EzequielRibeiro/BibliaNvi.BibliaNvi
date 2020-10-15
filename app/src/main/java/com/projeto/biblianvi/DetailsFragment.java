@@ -29,6 +29,7 @@ public class DetailsFragment extends Fragment {
     private CapituloGridViewAdapter capituloGridViewAdapter;
     private List<Integer> idColorListChapter;
     private static ProgressBar progressBar;
+    private TextView textViewGridView;
 
 
     public static DetailsFragment newInstance(int index) {
@@ -105,7 +106,7 @@ public class DetailsFragment extends Fragment {
 
 
         View v = inflater.inflate(R.layout.details, container, false);
-        TextView textViewGridView = v.findViewById(R.id.textViewGridView);
+        textViewGridView = v.findViewById(R.id.textViewGridView);
         textViewGridView.setText(getString(R.string.capitulo));
         progressBar = (ProgressBar) v.findViewById(R.id.progressBarGrid);
 
@@ -133,11 +134,10 @@ public class DetailsFragment extends Fragment {
         capituloGridViewAdapter = new CapituloGridViewAdapter(idColorListChapter, getActivity(), biblia, textViewGridView);
         gridview.setAdapter(capituloGridViewAdapter);
 
-        new DownloadFilesTask(capituloGridViewAdapter, idColorListChapter, getActivity(), "chapter").execute(null, null, null);
+        new LoadChapterTask(capituloGridViewAdapter, idColorListChapter, getActivity(), "chapter").execute(null, null, null);
 
         return v;
     }
-
 
     @Override
     public void onViewCreated(View view, Bundle icicle) {
@@ -220,7 +220,7 @@ public class DetailsFragment extends Fragment {
         super.onDetach();
     }
 
-    public static class DownloadFilesTask extends AsyncTask<Void, Void, Void> {
+    public static class LoadChapterTask extends AsyncTask<Void, Void, Void> {
 
         private List<Integer> list;
         private BibliaBancoDadosHelper bancoDadosHelper;
@@ -239,7 +239,7 @@ public class DetailsFragment extends Fragment {
             }
         }
 
-        public DownloadFilesTask(BaseAdapter adapter, List<Integer> list, Activity activity, String checkByChapterVerse) {
+        public LoadChapterTask(BaseAdapter adapter, List<Integer> list, Activity activity, String checkByChapterVerse) {
             this.list = list;
             bancoDadosHelper = new BibliaBancoDadosHelper(activity);
             this.checkByChapterVerse = checkByChapterVerse;

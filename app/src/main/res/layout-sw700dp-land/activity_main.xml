@@ -89,7 +89,7 @@
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constantLayoutVersiculo"
+                    android:id="@+id/linearLayoutVersiculo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@color/black"
@@ -247,7 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
-                        ads:adSize="BANNER"
+                        ads:adSize="LARGE_BANNER"
                         ads:adUnitId="@string/idMob"></com.google.android.gms.ads.AdView>
 
                 </LinearLayout>
@@ -279,7 +279,7 @@
                     ads:layout_constraintBottom_toBottomOf="parent"
                     ads:layout_constraintEnd_toEndOf="parent"
                     ads:layout_constraintStart_toStartOf="parent"
-                    ads:layout_constraintTop_toBottomOf="@+id/constantLayoutVersiculo" />
+                    ads:layout_constraintTop_toBottomOf="@+id/linearLayoutVersiculo" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

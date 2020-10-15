@@ -14,11 +14,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
-
 import androidx.core.app.NotificationCompat;
 
+import com.projeto.biblianvi.BibliaBancoDadosHelper.VersDoDia;
 import com.projeto.biblianvi.biblianvi.R;
-
 import java.text.ParseException;
 
 /**
@@ -26,11 +25,6 @@ import java.text.ParseException;
  */
 
 public class VersiculoDiario extends BroadcastReceiver {
-
-    String assunto;
-    String livro;
-    String cap;
-    String vers;
     private int notifyID = 125;
     private BibliaBancoDadosHelper bibliaHelp;
     private Context context;
@@ -55,12 +49,10 @@ public class VersiculoDiario extends BroadcastReceiver {
     private void versiculoDoDia() throws ParseException {
 
         bibliaHelp = new BibliaBancoDadosHelper(context);
-        BibliaBancoDadosHelper.VersDoDia versDoDia = new BibliaBancoDadosHelper.VersDoDia();
+        VersDoDia versDoDia;
     
-       do{  
-
-         BibliaBancoDadosHelper.VersDoDia versDoDia = bibliaHelp.getVersDoDia();
-         
+       do{
+           versDoDia = bibliaHelp.getVersDoDia();
          SharedPreferences.Editor editor = settings.edit();
          editor.putString("assunto", versDoDia.getAssunto());
          editor.putString("versDia", versDoDia.getText());
@@ -68,9 +60,8 @@ public class VersiculoDiario extends BroadcastReceiver {
          editor.putString("capVersDia", versDoDia.getChapter());
          editor.putString("verVersDia", versDoDia.getVersesNum());
          editor.commit();
-   
-       }while (versDoDia.getText().isEmpty());
 
+       }while (versDoDia.getText().isEmpty());
 
     }
 
@@ -106,7 +97,7 @@ public class VersiculoDiario extends BroadcastReceiver {
         }
 
         Bitmap bipmap = BitmapFactory.decodeResource(context.getResources(),
-                R.drawable.ic_stat_name);
+                R.drawable.large_icon_bible);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
@@ -117,10 +108,10 @@ public class VersiculoDiario extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentTitle(context.getResources().getString(R.string.app_name))
                         .setSubText(context.getString(R.string.versiculo_do_dia))
-                        .setContentText(settings.getString("assunto", "...") +
-                                " (" + settings.getString("livroNome", "...") +
-                                " " + settings.getString("capVersDia", "...") +
-                                ":" + settings.getString("verVersDia", "...") + ")");
+                        .setContentText(settings.getString("assunto", " ") +
+                                " - " + settings.getString("livroNome", " ") +
+                                " " + settings.getString("capVersDia", " ") +
+                                ":" + settings.getString("verVersDia", " ") + " ");
 
         mBuilder.setContentIntent(resultPendingIntent);
         notificationManager.notify(notifyID, mBuilder.build());

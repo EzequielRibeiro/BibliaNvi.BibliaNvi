@@ -124,7 +124,7 @@
     <string name="salvar_nos_favorito">Save as favorite</string>
     <string name="salvar_para_compartilhar">Save to share</string>
     <string name="foram_encontrados">were found</string>
-    <string name="versiculo_do_dia">"Verse of the day: "</string>
+    <string name="versiculo_do_dia">Verse of the day </string>
     <string name="livro_evangelho_epistola">Books - Gospel - Epistles</string>
     <string name="title_activity_main_fragment" translatable="false">MainFragment</string>
     <string name="drawer_open" translatable="false">Open navigation drawer</string>

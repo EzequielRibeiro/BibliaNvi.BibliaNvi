@@ -282,7 +282,7 @@ public class Activity_busca_avancada extends Activity {
 
         protected String doInBackground(String... params) {
 
-            String[] query = params[1].trim().split("\\s+");
+            String[] query = params[1].replaceAll(" +", " ").split("\\s+");
             String temp = " ";
             if (query.length > 1) {
                 temp = "";

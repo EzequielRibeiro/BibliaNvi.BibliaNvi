@@ -72,7 +72,7 @@
                     ads:layout_constraintBottom_toBottomOf="parent"
                     ads:layout_constraintEnd_toEndOf="parent"
                     ads:layout_constraintStart_toStartOf="parent"
-                    ads:layout_constraintTop_toBottomOf="@+id/constantLayoutVersiculo" />
+                    ads:layout_constraintTop_toBottomOf="@+id/linearLayoutVersiculo" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
@@ -157,7 +157,7 @@
                     android:background="@drawable/barrinha"
                     android:gravity="right"
                     android:orientation="horizontal"
-                    ads:layout_constraintBottom_toTopOf="@+id/constantLayoutVersiculo"
+                    ads:layout_constraintBottom_toTopOf="@+id/linearLayoutVersiculo"
                     ads:layout_constraintEnd_toEndOf="parent"
                     ads:layout_constraintHorizontal_bias="0.0"
                     ads:layout_constraintStart_toStartOf="parent"
@@ -182,7 +182,7 @@
 
 
                 <LinearLayout
-                    android:id="@+id/constantLayoutVersiculo"
+                    android:id="@+id/linearLayoutVersiculo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:background="@null"

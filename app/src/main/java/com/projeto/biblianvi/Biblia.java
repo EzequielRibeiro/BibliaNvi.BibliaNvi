@@ -11,23 +11,21 @@ public class Biblia {
     private SharedPreferences prefs = null;
     private Context context = null;
     private String[] termoBusca;
-    private int id;
-    private int idBook;
+    private int id = 0;
+    private int idBook = 0;
     private int totalDeVersosLidos;
     private int totalDeVersiculos;
-    private String titleCapitulo;
-    private String testamentName;
-    private String bookVersion;
-    private String booksName = " ";
-    private String versesChapter = " ";
-    private String versesNum = " ";
-    private String text = " ";
-    private int lido;
-    private String idVerse;
+    private String titleCapitulo = "";
+    private String testamentName = "";
+    private String bookVersion = "";
+    private String booksName = "";
+    private String versesChapter = "";
+    private String versesNum = "";
+    private String text = "";
+    private int lido = 0;
+    private String idVerse = "";
 
     public Biblia() {
-
-
     }
 
 
@@ -90,18 +88,15 @@ public class Biblia {
     }
 
     public void setVerseNum(String i) {
-
         versesNum = i;
     }
 
     public int getLido() {
-
         return lido;
 
     }
 
     public void setLido(int lido) {
-
         this.lido = lido;
     }
 
@@ -110,40 +105,27 @@ public class Biblia {
     }
 
     public void setTestamentName(String n) {
-
         testamentName = n;
     }
 
     public String getIdVerse() {
-
         return idVerse;
     }
 
     public void setIdVerse(String i) {
-
         idVerse = i;
-
     }
 
     public String getBooksName() {
-
-        if (booksName != null)
-            return booksName;
-        else
-            return "0";
+        return booksName;
     }
 
     public void setBooksName(String b) {
-
         booksName = b;
-
     }
 
     public String getChapter() {
-        if (versesChapter != null)
-            return versesChapter;
-        else
-            return "0";
+        return versesChapter;
     }
 
     public void setChapter(String c) {
@@ -152,11 +134,7 @@ public class Biblia {
     }
 
     public String getVersesNum() {
-
-        if (versesNum != null)
-            return versesNum;
-        else
-            return "0";
+        return versesNum;
 
     }
 
@@ -173,16 +151,10 @@ public class Biblia {
             return txt.replace("XXX", "green");
         else
             return txt;
-
-
     }
 
     public String getText() {
-
-        if (text != null)
-            return text;
-        else
-            return "0";
+        return text;
     }
 
     public void setText(String t) {
@@ -192,7 +164,7 @@ public class Biblia {
     public String toPesquisarString() {
 
         for (String t : getTermoBusca()) {
-            setText(getText().replace(t, "<font color=\"red\">" + t + "</font>"));
+            setText(getText().replaceAll(t, "<font color=\"red\">" + t + "</font>"));
         }
         return "<p>" + booksName + " " + versesChapter + ":" + versesNum + "</p>" +
                 "<p>" + getText() + "</p>";
