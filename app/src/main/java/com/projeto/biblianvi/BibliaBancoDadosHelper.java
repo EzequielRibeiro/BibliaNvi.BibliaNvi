@@ -6,9 +6,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteCantOpenDatabaseException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -82,8 +85,9 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
             Log.e("DATABASEIntegrity: ", sb.toString());
 
 
-        } catch (NonFatalError e) {
+        } catch (NonFatalError | SQLiteCantOpenDatabaseException exception) {
 
+            FirebaseCrashlytics.getInstance().recordException(exception);
             File file = new File(DB_PATH);
             file.delete();
 
@@ -759,7 +763,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         int id = versDoDiaId(getQuantVersDoDia());
 
-        String query = "select books.[name],verses.[chapter],verses.[verse],verses.[text],selecionados.[assunto]" +
+        String query = "select [selecionados].[id],books.[name],verses.[chapter],verses.[verse],verses.[text],selecionados.[assunto]" +
                 " from verses,books,selecionados where [verses].[book] = books.[id]" +
                 " and [selecionados].[livro] = books.[id]" +
                 " and [selecionados].[cap] = verses.[chapter]" +
@@ -773,16 +777,14 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
         cursor = myDataBase.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
-            v.setBooksName(cursor.getString(0));
-            v.setChapter(Integer.toString(cursor.getInt(1)));
-            v.setVerseNum(Integer.toString(cursor.getInt(2)));
-            v.setText(cursor.getString(3));
-            v.setAssunto(cursor.getString(4));
+            v.setIdSelecionado(cursor.getInt(0));
+            v.setBooksName(cursor.getString(1));
+            v.setChapter(Integer.toString(cursor.getInt(2)));
+            v.setVerseNum(Integer.toString(cursor.getInt(3)));
+            v.setText(cursor.getString(4));
+            v.setAssunto(cursor.getString(5));
         }
-
-
         close();
-
         return v;
 
     }
@@ -1135,6 +1137,15 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
     public class VersDoDia extends Biblia {
 
         private String assunto;
+        private int idSelecionado = -1;
+
+        public int getIdSelecionado() {
+            return idSelecionado;
+        }
+
+        public void setIdSelecionado(int idSelecionado) {
+            this.idSelecionado = idSelecionado;
+        }
 
         public String getAssunto() {
             return assunto;

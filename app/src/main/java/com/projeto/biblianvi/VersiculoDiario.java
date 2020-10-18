@@ -30,12 +30,14 @@ public class VersiculoDiario extends BroadcastReceiver {
     private Context context;
     public static final String NOTIFICATION_CHANNEL_ID = "101016";
     private SharedPreferences settings;
+    private SharedPreferences.Editor editor;
 
     @Override
     public void onReceive(Context context, Intent intent) {
 
         this.context = context;
         settings = context.getSharedPreferences("versDiaPreference", Activity.MODE_PRIVATE);
+        editor = settings.edit();
 
         try {
             if (MainActivity.isDataBaseDownload(context))
@@ -50,18 +52,19 @@ public class VersiculoDiario extends BroadcastReceiver {
 
         bibliaHelp = new BibliaBancoDadosHelper(context);
         VersDoDia versDoDia;
-    
-       do{
-           versDoDia = bibliaHelp.getVersDoDia();
-         SharedPreferences.Editor editor = settings.edit();
-         editor.putString("assunto", versDoDia.getAssunto());
-         editor.putString("versDia", versDoDia.getText());
-         editor.putString("livroNome", versDoDia.getBooksName());
-         editor.putString("capVersDia", versDoDia.getChapter());
-         editor.putString("verVersDia", versDoDia.getVersesNum());
-         editor.commit();
+        int id = settings.getInt("id", -1);
 
-       }while (versDoDia.getText().isEmpty());
+        do {
+            versDoDia = bibliaHelp.getVersDoDia();
+        } while (versDoDia.getIdSelecionado() == id);
+
+        editor.putInt("id", versDoDia.getIdSelecionado());
+        editor.putString("assunto", versDoDia.getAssunto());
+        editor.putString("versDia", versDoDia.getText());
+        editor.putString("livroNome", versDoDia.getBooksName());
+        editor.putString("capVersDia", versDoDia.getChapter());
+        editor.putString("verVersDia", versDoDia.getVersesNum());
+        editor.commit();
 
     }
 
