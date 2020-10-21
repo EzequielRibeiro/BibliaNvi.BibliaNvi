@@ -55,7 +55,7 @@
     <string name="limpar_estatistica_title"> स्पष्ट आँकड़े </string>
     <string name="limpar_estatistica_summary"> यह विकल्प आपकी पढ़ने की प्रगति को मिटा देगा </string>
     <string name="versiculo_selecionado_share"> कोई कविता नहीं चुनी गई थी! </string>
-    <string name="gostou_do_nosso_app"> क्या आपको हमारा ऐप पसंद आया? \ n कृपया इसे रेट करें </string>
+    <string name="gostou_do_nosso_app">व्यवधान को क्षमा करें - क्या आप हमें एक टिप्पणी छोड़ने का मन करेंगे?</string>
     <string name="sem_conexao"> कोई कनेक्शन नहीं </string>
     <string name="download_fail"> बाइबल डाउनलोड करना संभव नहीं है। अपना कनेक्शन जांचें। </string>
     <string name="noticias"> समाचार </string>

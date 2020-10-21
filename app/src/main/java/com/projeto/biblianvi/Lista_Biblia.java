@@ -49,6 +49,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.projeto.biblianvi.biblianvi.R;
@@ -105,6 +107,9 @@ public class Lista_Biblia extends Activity {
     private int REQUEST_CODE;
     private ProgressBar progressBar, progressBarSearch;
     private boolean isSoundMuted = false;
+    private boolean flag = true;
+    private FloatingActionButton fab1, fab2, fab3;
+    private int position = 0;
 
     // Get the screen current brightness
     static public int getScreenBrightness(Context context) {
@@ -161,6 +166,10 @@ public class Lista_Biblia extends Activity {
         buttonAvancar.setOnClickListener(av);
         buttonRetroceder.setOnClickListener(av);
 
+        fab1 = (FloatingActionButton) findViewById(R.id.fabFavorite);
+        fab2 = (FloatingActionButton) findViewById(R.id.fabShare);
+        fab3 = (FloatingActionButton) findViewById(R.id.fabClose);
+
         newString = new String[6];
 
         Bundle extras = getIntent().getExtras();
@@ -187,12 +196,47 @@ public class Lista_Biblia extends Activity {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                callPopup(i);
-
+                position = i;
+                loadButtonsFab();
                 return false;
             }
         });
+
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadButtonsFab();
+                final Biblia bi = (Biblia) listView.getAdapter().getItem(position);
+                dbAdapterFavoritoNota.open();
+                dbAdapterFavoritoNota.insertFavorite(bi.getChapter(), bi.getVersesNum(), bi.getText(), bi.getBookVersion(), bi.getBooksName());
+                dbAdapterFavoritoNota.close();
+                Snackbar.make(view, getString(R.string.favorito) + ": " + bi.getBooksName() + " " + bi.getChapter() + ":" + bi.getVersesNum(), Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+
+            }
+
+        });
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadButtonsFab();
+                final Biblia bi = (Biblia) listView.getAdapter().getItem(position);
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, bi.getText() + " (" + bi.getBooksName() + ' ' + bi.getChapter() + ':' + bi.getVersesNum() + ')');
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getString(R.string.compartilhar)));
+
+
+            }
+        });
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadButtonsFab();
+            }
+        });
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -388,6 +432,33 @@ public class Lista_Biblia extends Activity {
 
     }
 
+    private void loadButtonsFab() {
+
+        if (flag) {
+            fab1.show();
+            fab2.show();
+            fab3.show();
+            fab1.animate().translationY(-(fab1.getCustomSize() + fab2.getCustomSize() + fab3.getCustomSize()));
+            fab2.animate().translationY(-(fab2.getCustomSize() + fab3.getCustomSize()));
+            fab3.animate().translationY(-(fab3.getCustomSize()));
+
+            // fab3.setImageResource(R.drawable.ic_close_black_24dp);
+            flag = false;
+
+        } else {
+            fab1.hide();
+            fab2.hide();
+            fab3.hide();
+            fab1.animate().translationY(0);
+            fab2.animate().translationY(0);
+            fab3.animate().translationY(0);
+
+            // fab3.setImageResource(R.drawable.ic_add_black_24dp);
+            flag = true;
+
+        }
+    }
+
     public void adjustAudio(boolean setMute, boolean showMessage) {
 
         try {
@@ -445,63 +516,64 @@ public class Lista_Biblia extends Activity {
 
     }
 
-    private void callPopup(int i) {
+    /*
+        private void callPopup(int i) {
 
-        LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater inflater = (LayoutInflater) getBaseContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View layout = inflater.inflate(R.layout.layout_popup, null);
+            View layout = inflater.inflate(R.layout.layout_popup, null);
 
-        final AlertDialog dialog;
-        AlertDialog.Builder builder = new AlertDialog.Builder(Lista_Biblia.this);
-        builder.setView(layout);
-        builder.setTitle(R.string.opcao);
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+            final AlertDialog dialog;
+            AlertDialog.Builder builder = new AlertDialog.Builder(Lista_Biblia.this);
+            builder.setView(layout);
+            builder.setTitle(R.string.opcao);
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
 
-        dialog = builder.create();
-
-
-        Button favo = layout.findViewById(R.id.buttonPopFavorito);
-        Button com = layout.findViewById(R.id.buttonPopCompartilhar);
-
-        final Biblia bi = (Biblia) listView.getAdapter().getItem(i);
-
-        favo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dbAdapterFavoritoNota.open();
-                dbAdapterFavoritoNota.insertFavorite(bi.getChapter(), bi.getVersesNum(), bi.getText(), bi.getBookVersion(), bi.getBooksName());
-                dbAdapterFavoritoNota.close();
-
-                dialog.dismiss();
-
-                Toast.makeText(getBaseContext(), getString(R.string.favorito) + ':' + bi.getBooksName() + " " + bi.getChapter() + ":" + bi.getVersesNum(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        com.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            dialog = builder.create();
 
 
-                Toast.makeText(getBaseContext(), getString(R.string.versiculos_selecionados) + bi.getBooksName() + " " + bi.getChapter() + ":" + bi.getVersesNum(), Toast.LENGTH_LONG).show();
+            Button favo = layout.findViewById(R.id.buttonPopFavorito);
+            Button com = layout.findViewById(R.id.buttonPopCompartilhar);
 
-                new BibliaBancoDadosHelper(getApplicationContext()).setVersCompartilhar(bi);
+            final Biblia bi = (Biblia) listView.getAdapter().getItem(i);
 
-                textViewComp.setText(Integer.toString(new BibliaBancoDadosHelper(Lista_Biblia.this).getQuantCompartilhar()));
+            favo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dbAdapterFavoritoNota.open();
+                    dbAdapterFavoritoNota.insertFavorite(bi.getChapter(), bi.getVersesNum(), bi.getText(), bi.getBookVersion(), bi.getBooksName());
+                    dbAdapterFavoritoNota.close();
 
-                dialog.dismiss();
-            }
-        });
+                    dialog.dismiss();
+
+                    Toast.makeText(getBaseContext(), getString(R.string.favorito) + ':' + bi.getBooksName() + " " + bi.getChapter() + ":" + bi.getVersesNum(), Toast.LENGTH_LONG).show();
+
+                }
+            });
+
+            com.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-        dialog.show();
-    }
+                    Toast.makeText(getBaseContext(), getString(R.string.versiculos_selecionados) + bi.getBooksName() + " " + bi.getChapter() + ":" + bi.getVersesNum(), Toast.LENGTH_LONG).show();
 
+                    new BibliaBancoDadosHelper(getApplicationContext()).setVersCompartilhar(bi);
+
+                    textViewComp.setText(Integer.toString(new BibliaBancoDadosHelper(Lista_Biblia.this).getQuantCompartilhar()));
+
+                    dialog.dismiss();
+                }
+            });
+
+
+            dialog.show();
+        }
+        */
     private void menuSuspenso() {
 
         LayoutInflater layoutInflater =

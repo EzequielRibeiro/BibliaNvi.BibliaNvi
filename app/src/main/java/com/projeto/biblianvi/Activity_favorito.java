@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Html;
@@ -71,8 +72,17 @@ public class Activity_favorito extends Activity {
 
     }
 
-    public void deleteFavorite(View v) {
+    public void shareFavorite(View v) {
+        final Biblia biblia = favoritoAdapter.getItem((int) v.getTag(R.string.idPosition));
 
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, biblia.getText() + " (" + biblia.getBooksName() + ' ' + biblia.getChapter() + ':' + biblia.getVersesNum() + ')');
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getString(R.string.compartilhar)));
+    }
+
+    public void deleteFavorite(View v) {
         Button b = (Button) v;
         confirmarDelete((String) b.getTag(R.string.idVerse), (int) b.getTag(R.string.idPosition));
 
@@ -130,21 +140,23 @@ public class Activity_favorito extends Activity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // Get the data item for this position
 
-            // Check if an existing view is being reused, otherwise inflate the view
             if (convertView == null) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_custom_list_favorito, parent, false);
             }
 
-            Biblia b = getItem(position);
+            Biblia biblia = getItem(position);
             Button delete = convertView.findViewById(R.id.buttonDeleteFavorite);
-            delete.setTag(R.string.idVerse, b.getIdVerse());
+            delete.setTag(R.string.idVerse, biblia.getIdVerse());
             delete.setTag(R.string.idPosition, position);
 
+            Button share = convertView.findViewById(R.id.buttonShareFavorite);
+            share.setTag(R.string.idPosition, position);
+
+
             TextView textViewText = convertView.findViewById(R.id.textViewFavorText);
-            textViewText.setText(Html.fromHtml(b.getText() + " " + "<b>" + b.getBooksName() + "</b> " +
-                    b.getChapter() + ':' + b.getVersesNum()));
+            textViewText.setText(Html.fromHtml(biblia.getText() + " " + "<b>" + biblia.getBooksName() + "</b> " +
+                    biblia.getChapter() + ':' + biblia.getVersesNum()));
 
             return convertView;
         }

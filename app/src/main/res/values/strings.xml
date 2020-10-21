@@ -104,7 +104,7 @@
     <string name="limpar_estatistica_title">Clear statistics</string>
     <string name="limpar_estatistica_summary">This option will erase your reading progress</string>
     <string name="versiculo_selecionado_share">No verse was selected!</string>
-    <string name="gostou_do_nosso_app">Did you like our app? \n Please Rate It</string>
+    <string name="gostou_do_nosso_app">"Forgive the interruption - would you mind leaving us a comment ? "</string>
     <string name="sem_conexao">No connection</string>
     <string name="download_fail">It is not possible to download the Bible. Check your connection.</string>
     <string name="noticias">News</string>

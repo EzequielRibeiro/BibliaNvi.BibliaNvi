@@ -98,358 +98,18 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mTitle;
     private String[] menuTitulos;
     private BibliaBancoDadosHelper bibliaHelp;
-    private Button button_sermon, buttonClock, button_biblia, button_dicionario, button_pesquisar;
+    private Button button_sermon, buttonClock, button_biblia, button_dicionario, button_pesquisar, buttonCompartilharMain;
     private ProgressDialog progressDialog;
     private Intent intent;
     private ListView listView;
     private AdView mAdView;
-    private int REQUEST_STORAGE = 200;
-    private TextView textViewAssuntoVers;
+    private final int REQUEST_STORAGE = 200;
     private TextView textViewVersDia;
-    private TextView textViewDeveloper, textViewDailyVerse;
+    private TextView textViewDeveloper;
+    private TextView textViewRecados;
     private FirebaseAnalytics mFirebaseAnalytics;
-    private TextView text_qualificar;
-    private LinearLayout layout_qualificar;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private Toolbar toolbar;
-
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // requestWindowFeature(Window.FEATURE_ACTION_BAR);
-        setContentView(R.layout.activity_main);
-        getSharedPreferences("brilhoAtual", Activity.MODE_PRIVATE).edit().putInt("brilhoAtualValor", Lista_Biblia.getScreenBrightness(getApplicationContext())).commit();
-        PACKAGENAME = getPackageName();
-        sharedPrefDataBasePatch = getSharedPreferences("DataBase", Context.MODE_PRIVATE);
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config);
-        mTitle = mDrawerTitle = getTitle();
-        menuTitulos = getResources().getStringArray(R.array.menu_array);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        mDrawerList = findViewById(R.id.left_drawer);
-        textViewDeveloper = findViewById(R.id.textViewDeveloper);
-        textViewDeveloper.setTextColor(getResources().getColor(R.color.dark));
-        textViewDeveloper.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        textViewDeveloper.setText("");
-        // set a custom shadow that overlays the activity_fragment content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, menuTitulos));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        try {
-            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            VERSIONAPP = pInfo.versionName;
-        } catch (PackageManager.NameNotFoundException exception) {
-            exception.printStackTrace();
-            FirebaseCrashlytics.getInstance().recordException(exception);
-        }
-
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                toolbar,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-            }
-
-            public void onDrawerOpened(View drawerView) {
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        bibliaHelp = new BibliaBancoDadosHelper(this);
-
-        listView = findViewById(R.id.listView);
-
-        buttonClock = findViewById(R.id.buttonClock);
-
-        textViewAssuntoVers = findViewById(R.id.textViewAssuntoVers);
-        textViewAssuntoVers.setText("");
-        textViewVersDia = findViewById(R.id.textViewVersDia);
-        layout_qualificar = findViewById(R.id.layout_qualificar);
-        button_sermon = findViewById(R.id.buttonSermon);
-        button_biblia = findViewById(R.id.button_biblia);
-        button_dicionario = findViewById(R.id.button_dicionario);
-        button_pesquisar = findViewById(R.id.button_pesquisar);
-        text_qualificar = findViewById(R.id.text_qualificar);
-        text_qualificar.setText(getString(R.string.gostou_do_nosso_app));
-        textViewDailyVerse = findViewById(R.id.textViewDailyVerse);
-        textViewDailyVerse.setGravity(Gravity.CENTER);
-
-        button_sermon.setText(getString(R.string.devocional));
-        button_sermon.setMaxLines(1);
-        button_sermon.setBackground(getDrawable(R.drawable.button_sermon_custom));
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_sermon, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        button_biblia.setText(getString(R.string.biblia));
-        button_biblia.setMaxLines(1);
-        button_biblia.setBackground(getDrawable(R.drawable.button_biblia_custom));
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_biblia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        button_dicionario.setText(getString(R.string.dicionario));
-        button_dicionario.setMaxLines(1);
-        button_dicionario.setBackground(getDrawable(R.drawable.button_dicionario_custom));
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_dicionario, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        button_pesquisar.setText(getString(R.string.pesquisar));
-        button_pesquisar.setMaxLines(1);
-        button_pesquisar.setBackground(getDrawable(R.drawable.button_search_custom));
-
-        textViewVersDia.setBackground(getDrawable(R.drawable.background_borders));
-
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_pesquisar, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewDailyVerse, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewAssuntoVers, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-        TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewVersDia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-
-        text_qualificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //   startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                try {
-                    rateApp();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-
-            }
-        });
-
-        layout_qualificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                try {
-                    rateApp();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        });
-
-        button_sermon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isNetworkAvailable(getApplicationContext())) {
-                    intent = new Intent(MainActivity.this, Sermoes.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(getApplication(), "Sem conexão", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        /*
-        textViewVersDia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (bibliaHelp != null) {
-                    //  bibliaHelp.versDoDiaText(textViewAssuntoVers, textViewVersDia,false);
-                }
-            }
-        });
-        */
-
-        buttonClock.setBackgroundResource(R.mipmap.alarm_clock);
-        buttonClock.setText("");
-        buttonClock.setPadding(0, 0, 5, 0);
-        buttonClock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DialogFragment newFragment = new TimeClock();
-                newFragment.show(getSupportFragmentManager(), "datePicker");
-            }
-        });
-
-
-        button_biblia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isDataBaseDownload(getApplicationContext())) {
-                    Intent i = new Intent();
-                    i.setClass(MainActivity.this, MainActivityFragment.class);
-                    i.putExtra("Biblia", "biblia");
-                    startActivity(i);
-                } else {
-                    downloadDataBaseBible();
-                }
-            }
-        });
-
-
-        button_dicionario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                opcaoDicionario(getApplicationContext());
-
-            }
-        });
-
-        button_pesquisar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (isDataBaseDownload(getApplicationContext())) {
-                    startActivity(new Intent(MainActivity.this, Activity_busca_avancada.class));
-                } else {
-                    downloadDataBaseBible();
-                    Log.e("button", "else");
-                }
-            }
-        });
-
-        // MobileAds.initialize(this, getString(R.string.ADMOB_APP_ID));
-        mAdView = findViewById(R.id.adView);
-        mAdView.setVisibility(View.GONE);
-        final AdRequest adRequest = new AdRequest.Builder().build();
-
-        mAdView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Collections.singletonList("4CCDC45D57519669CA4C587B6E896BE8")).build());
-                mAdView.loadAd(adRequest);
-            }
-        }, 500);
-
-        mAdView.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                mAdView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-
-                int orientation = getResources().getConfiguration().orientation;
-                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout_container);
-                    ConstraintSet constraintSet = new ConstraintSet();
-                    constraintSet.clone(constraintLayout);
-                    constraintSet.connect(R.id.layout_escolha_livro, ConstraintSet.BOTTOM, R.id.layout_qualificar, ConstraintSet.TOP, 0);
-                    constraintSet.applyTo(constraintLayout);
-
-                }
-
-
-                // AdRequest.ERROR_CODE_NO_FILL)
-                Log.i("admob", String.valueOf(errorCode));
-                Bundle bundle = new Bundle();
-                bundle.putString("ERRORCODE", String.valueOf(errorCode));
-                bundle.putString("COUNTRY", getResources().getConfiguration().locale.getDisplayCountry());
-                mFirebaseAnalytics.logEvent("ADMOB", bundle);
-
-
-            }
-
-
-        });
-
-        Log.e("Banco:", Boolean.toString(isDataBaseDownload(getApplicationContext())));
-
-        editor = sharedPrefDataBasePatch.edit();
-        editor.putString("language", Locale.getDefault().getLanguage());
-        editor.commit();
-
-
-        getSharedPreferences("seekbar", Activity.MODE_PRIVATE).edit().
-                putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext()))).commit();
-
-        if (!isDataBaseDownload(getApplicationContext())) {
-            downloadDataBaseBible();
-        }
-
-        if (isNetworkAvailable(this)) {
-            int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
-            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
-            if (rated == 5) {
-                showRequestRateApp();
-            }
-        }
-    }
-
-    private void showRequestRateApp() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Feedback");
-        builder.setMessage(getString(R.string.gostou_do_nosso_app));
-        builder.setCancelable(false);
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                try {
-                    rateApp();
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    FirebaseCrashlytics.getInstance().recordException(exception);
-                }
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
-
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private void rateApp() throws Exception {
-        final ReviewManager reviewManager = ReviewManagerFactory.create(this);
-        //reviewManager = new FakeReviewManager(this);
-        com.google.android.play.core.tasks.Task<ReviewInfo> request = reviewManager.requestReviewFlow();
-
-        request.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
-            @Override
-            public void onComplete(com.google.android.play.core.tasks.Task<ReviewInfo> task) {
-                if (task.isSuccessful()) {
-                    Log.e("Rate Task", "Complete");
-                    ReviewInfo reviewInfo = task.getResult();
-                    com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(MainActivity.this, reviewInfo);
-                    flow.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(com.google.android.play.core.tasks.Task<Void> task) {
-                            Log.e("Rate Flow", "Complete");
-                        }
-                    });
-
-                    flow.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(Exception e) {
-                            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
-                            Log.e("Rate Flow", "Fail");
-                            e.printStackTrace();
-                        }
-                    });
-
-                } else {
-                    getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
-                    Log.e("Rate Task", "Fail");
-                }
-            }
-
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(Exception e) {
-                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
-                e.printStackTrace();
-                Log.e("Rate Request", "Fail");
-            }
-        });
-
-    }
 
     static public void openNoticias(Context applicationContext) {
 
@@ -583,6 +243,295 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // requestWindowFeature(Window.FEATURE_ACTION_BAR);
+        setContentView(R.layout.activity_main);
+        getSharedPreferences("brilhoAtual", Activity.MODE_PRIVATE).edit().putInt("brilhoAtualValor", Lista_Biblia.getScreenBrightness(getApplicationContext())).commit();
+        PACKAGENAME = getPackageName();
+        sharedPrefDataBasePatch = getSharedPreferences("DataBase", Context.MODE_PRIVATE);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config);
+        mTitle = mDrawerTitle = getTitle();
+        menuTitulos = getResources().getStringArray(R.array.menu_array);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mDrawerList = findViewById(R.id.left_drawer);
+        textViewDeveloper = findViewById(R.id.textViewDeveloper);
+        textViewDeveloper.setTextColor(getResources().getColor(R.color.dark));
+        textViewDeveloper.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        textViewDeveloper.setText("");
+        textViewRecados = (TextView) findViewById(R.id.textViewRecados);
+
+        // set a custom shadow that overlays the activity_fragment content when the drawer opens
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // set up the drawer's list view with items and click listener
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, menuTitulos));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        try {
+            PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            VERSIONAPP = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException exception) {
+            exception.printStackTrace();
+            FirebaseCrashlytics.getInstance().recordException(exception);
+        }
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                toolbar,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+            }
+
+            public void onDrawerOpened(View drawerView) {
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        bibliaHelp = new BibliaBancoDadosHelper(this);
+
+        listView = findViewById(R.id.listView);
+
+        buttonClock = findViewById(R.id.buttonClock);
+
+        textViewVersDia = findViewById(R.id.textViewVersDia);
+        button_sermon = findViewById(R.id.buttonSermon);
+        button_biblia = findViewById(R.id.button_biblia);
+        button_dicionario = findViewById(R.id.button_dicionario);
+        button_pesquisar = findViewById(R.id.button_pesquisar);
+        buttonCompartilharMain = findViewById(R.id.buttonCompartilharMain);
+        button_sermon.setText(getString(R.string.devocional));
+        button_sermon.setMaxLines(1);
+        button_sermon.setBackground(getDrawable(R.drawable.button_sermon_custom));
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_sermon, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+        button_biblia.setText(getString(R.string.biblia));
+        button_biblia.setMaxLines(1);
+        button_biblia.setBackground(getDrawable(R.drawable.button_biblia_custom));
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_biblia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+        button_dicionario.setText(getString(R.string.dicionario));
+        button_dicionario.setMaxLines(1);
+        button_dicionario.setBackground(getDrawable(R.drawable.button_dicionario_custom));
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_dicionario, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+        button_pesquisar.setText(getString(R.string.pesquisar));
+        button_pesquisar.setMaxLines(1);
+        button_pesquisar.setBackground(getDrawable(R.drawable.button_search_custom));
+
+        textViewVersDia.setBackground(getDrawable(R.drawable.background_borders));
+
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(button_pesquisar, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewVersDia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+
+        button_sermon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isNetworkAvailable(getApplicationContext())) {
+                    intent = new Intent(MainActivity.this, Sermoes.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(getApplication(), "Sem conexão", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        buttonCompartilharMain.setBackground(getDrawable(android.R.drawable.ic_menu_share));
+        buttonClock.setBackground(getDrawable(android.R.drawable.ic_menu_recent_history));
+        buttonClock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment newFragment = new TimeClock();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
+            }
+        });
+
+
+        button_biblia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isDataBaseDownload(getApplicationContext())) {
+                    Intent i = new Intent();
+                    i.setClass(MainActivity.this, MainActivityFragment.class);
+                    i.putExtra("Biblia", "biblia");
+                    startActivity(i);
+                } else {
+                    downloadDataBaseBible();
+                }
+            }
+        });
+
+
+        button_dicionario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                opcaoDicionario(getApplicationContext());
+
+            }
+        });
+
+        button_pesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (isDataBaseDownload(getApplicationContext())) {
+                    startActivity(new Intent(MainActivity.this, Activity_busca_avancada.class));
+                } else {
+                    downloadDataBaseBible();
+                    Log.e("button", "else");
+                }
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        mAdView.setVisibility(View.GONE);
+        final AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //  MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Collections.singletonList("49EB8CE6C2EA8D132E11FA3F75D28D0B")).build());
+                mAdView.loadAd(adRequest);
+            }
+        }, 500);
+
+        mAdView.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdLoaded() {
+                mAdView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+
+                int orientation = getResources().getConfiguration().orientation;
+                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout_container);
+                    ConstraintSet constraintSet = new ConstraintSet();
+                    constraintSet.clone(constraintLayout);
+                    constraintSet.connect(R.id.layout_escolha_livro, ConstraintSet.BOTTOM, R.id.layout_qualificar, ConstraintSet.TOP, 0);
+                    constraintSet.applyTo(constraintLayout);
+
+                }
+
+
+                // AdRequest.ERROR_CODE_NO_FILL)
+                Log.i("admob", String.valueOf(errorCode));
+                Bundle bundle = new Bundle();
+                bundle.putString("ERRORCODE", String.valueOf(errorCode));
+                bundle.putString("COUNTRY", getResources().getConfiguration().locale.getDisplayCountry());
+                mFirebaseAnalytics.logEvent("ADMOB", bundle);
+
+
+            }
+
+
+        });
+
+        Log.e("Banco:", Boolean.toString(isDataBaseDownload(getApplicationContext())));
+
+        editor = sharedPrefDataBasePatch.edit();
+        editor.putString("language", Locale.getDefault().getLanguage());
+        editor.commit();
+
+
+        getSharedPreferences("seekbar", Activity.MODE_PRIVATE).edit().
+                putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext()))).commit();
+
+        if (!isDataBaseDownload(getApplicationContext())) {
+            downloadDataBaseBible();
+        }
+
+        if (isNetworkAvailable(this)) {
+            int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
+            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
+
+            if (rated == 5) {
+                showRequestRateApp();
+            }
+        }
+    }
+
+    private void showRequestRateApp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Feedback");
+        builder.setMessage(getString(R.string.gostou_do_nosso_app));
+        builder.setCancelable(false);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                try {
+                    rateApp();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    FirebaseCrashlytics.getInstance().recordException(exception);
+                }
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private void rateApp() throws Exception {
+        final ReviewManager reviewManager = ReviewManagerFactory.create(this);
+        //reviewManager = new FakeReviewManager(this);
+        com.google.android.play.core.tasks.Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+
+        request.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+                if (task.isSuccessful()) {
+                    Log.e("Rate Task", "Complete");
+                    ReviewInfo reviewInfo = task.getResult();
+                    com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(MainActivity.this, reviewInfo);
+                    flow.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(com.google.android.play.core.tasks.Task<Void> task) {
+                            Log.e("Rate Flow", "Complete");
+                        }
+                    });
+
+                    flow.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                            Log.e("Rate Flow", "Fail");
+                            e.printStackTrace();
+                        }
+                    });
+
+                } else {
+                    getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                    Log.e("Rate Task", "Fail");
+                }
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                e.printStackTrace();
+                Log.e("Rate Request", "Fail");
+            }
+        });
+
+    }
 
     @SuppressLint("WrongConstant")
     private void runDownloadFromDownloadTask() {
@@ -740,23 +689,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences settings;
         settings = getSharedPreferences("versDiaPreference", Activity.MODE_PRIVATE);
-        textViewAssuntoVers.setText(settings.getString("assunto", getString(R.string.peace)));
-        textViewAssuntoVers.setMinLines(2);
-        textViewAssuntoVers.setTextColor(Color.BLACK);
-        //disabling textViewAssuntoVers
-        ViewGroup.LayoutParams layoutparams;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
 
-            layoutparams = (ConstraintLayout.LayoutParams) textViewAssuntoVers.getLayoutParams();
-
-        } else {
-
-            layoutparams = (LinearLayout.LayoutParams) textViewAssuntoVers.getLayoutParams();
-
-        }
-        layoutparams.height = 0;
-        textViewAssuntoVers.setLayoutParams(layoutparams);
-        //disabling
         textViewVersDia.setText(Html.fromHtml("<font color='yellow'>" + settings.getString("assunto", getString(R.string.peace)) + "</font><br>" + settings.getString("versDia", getString(R.string.versiculo_text))
                 + "<br>(" + settings.getString("livroNome", getString(R.string.book_name)) + " " +
                 settings.getString("capVersDia", getString(R.string.capitulo_number)) + ":"
@@ -778,9 +711,9 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             if (!mFirebaseRemoteConfig.getString(MESSAGE_KEY).equals("not")) {
 
-                                textViewDailyVerse.setTextColor(getResources().getColor(R.color.red));
-                                textViewDailyVerse.setMovementMethod(LinkMovementMethod.getInstance());
-                                textViewDailyVerse.setText(Html.fromHtml(mFirebaseRemoteConfig.getString(MESSAGE_KEY)));
+                                textViewRecados.setTextColor(getResources().getColor(R.color.red));
+                                textViewRecados.setMovementMethod(LinkMovementMethod.getInstance());
+                                textViewRecados.setText(Html.fromHtml(mFirebaseRemoteConfig.getString(MESSAGE_KEY)));
 
                             }
                             mFirebaseRemoteConfig.activateFetched();

@@ -168,7 +168,7 @@
 
                     <Button
                         android:id="@+id/buttonCompartilharMain"
-                        android:layout_width="35dp"
+                        android:layout_width="30dp"
                         android:layout_height="35dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
@@ -196,18 +196,6 @@
                         android:layout_height="wrap_content"
                         android:text="@string/reflexao"
                         android:textColor="?android:attr/colorPressedHighlight"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/textViewAssuntoVers"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/cyan"
-                        android:gravity="center"
-                        android:maxLines="1"
-                        android:text="Assunto"
-                        android:textColor="@color/blue"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -256,24 +244,6 @@
                     ads:layout_constraintStart_toStartOf="parent"
                     ads:layout_constraintTop_toBottomOf="@+id/adView">
 
-                    <Button
-                        android:id="@+id/button_qualificar"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/start" />
-
-                    <TextView
-                        android:id="@+id/text_qualificar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif"
-                        android:inputType="textMultiLine"
-                        android:text="@string/gostou_do_nosso_app"
-                        android:textColor="@color/orange"
-                        android:textSize="12sp"
-                        android:textStyle="bold|italic" />
-
                     <TextView
                         android:id="@+id/textViewRecados"
                         android:layout_width="match_parent"
@@ -281,7 +251,7 @@
                         android:gravity="center"
                         android:padding="5dp"
                         android:textColor="@color/red"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 

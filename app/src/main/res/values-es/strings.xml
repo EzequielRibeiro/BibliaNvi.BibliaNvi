@@ -128,7 +128,7 @@
     <string name="limpar_estatistica_title">Estadísticas claras</string>
     <string name="limpar_estatistica_summary">Esta opción borrará tu progreso de lectura</string>
     <string name="versiculo_selecionado_share">¡No se seleccionó ningún verso!</string>
-    <string name="gostou_do_nosso_app">¿Te gustó nuestra aplicación?\n Por favor puntúalo</string>
+    <string name="gostou_do_nosso_app">Perdona la interrupción, ¿te importaría dejarnos un comentario?</string>
     <string name="sem_conexao">Sin conexión</string>
     <string name="download_fail">No es posible descargar la Biblia. Verifica tu conexión.</string>
     <string name="noticias">Noticias</string>

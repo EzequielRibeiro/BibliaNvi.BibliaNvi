@@ -108,11 +108,11 @@ public class ListaAdaptador extends BaseAdapter {
             itemSuporteBiblia.buttonAbrirLivro.setVisibility(View.VISIBLE);
             itemSuporteBiblia.buttonAbrirLivro.setEnabled(true);
             itemSuporteBiblia.textoAberto.setText(Html.fromHtml(biblia.toPesquisarString()));
-
+            itemSuporteBiblia.textoAberto.setTextColor(Color.BLACK);
+            itemSuporteBiblia.textoAberto.setBackgroundColor(context.getResources().getColor(R.color.white));
             itemSuporteBiblia.buttonAbrirLivro.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     chamarLivro(getItem(position));
                     Log.e("teste", "teste");
 

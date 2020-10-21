@@ -72,14 +72,14 @@
 
                     <Button
                         android:id="@+id/buttonClock"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
                         android:background="@mipmap/alarm_clock" />
 
                     <Button
                         android:id="@+id/buttonCompartilharMain"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/share"
@@ -114,22 +114,6 @@
                         ads:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textViewAssuntoVers"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="@color/cyan"
-                        android:gravity="center"
-                        android:maxLines="1"
-
-                        android:text="..."
-                        android:textColor="@color/blue"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        ads:layout_constraintEnd_toEndOf="parent"
-                        ads:layout_constraintStart_toStartOf="parent"
-                        ads:layout_constraintTop_toBottomOf="@+id/textViewDailyVerse" />
-
-                    <TextView
                         android:id="@+id/textViewVersDia"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -144,8 +128,8 @@
                         android:textSize="14sp"
                         ads:layout_constraintBottom_toBottomOf="parent"
                         ads:layout_constraintEnd_toEndOf="parent"
-                        ads:layout_constraintStart_toStartOf="@+id/textViewAssuntoVers"
-                        ads:layout_constraintTop_toBottomOf="@+id/textViewAssuntoVers" />
+                        ads:layout_constraintStart_toStartOf="parent"
+                        ads:layout_constraintTop_toBottomOf="@+id/textViewDailyVerse" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -223,30 +207,19 @@
                     ads:layout_constraintStart_toStartOf="parent"
                     ads:layout_constraintTop_toBottomOf="@+id/layout_escolha_livro">
 
-                    <Button
-                        android:id="@+id/button_qualificar"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/start" />
-
                     <TextView
-                        android:id="@+id/text_qualificar"
+                        android:id="@+id/textViewRecados"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="sans-serif"
-                        android:gravity="center_vertical"
-                        android:inputType="textMultiLine"
-                        android:text="Gostou do nosso app?\n Por favor, Qualifique -o"
-                        android:textColor="@color/orange"
-                        android:textSize="12sp"
-                        android:textStyle="bold|italic" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:padding="5dp"
+                        android:text="TextView"
+                        android:textSize="18sp" />
 
                     <com.google.android.gms.ads.AdView
                         android:id="@+id/adView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         ads:adSize="BANNER"
                         ads:adUnitId="@string/idMob"></com.google.android.gms.ads.AdView>
 

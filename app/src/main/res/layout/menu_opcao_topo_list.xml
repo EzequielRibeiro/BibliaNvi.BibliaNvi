@@ -48,10 +48,10 @@
 
         <Button
             android:id="@+id/buttonChamarLivro"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:background="@mipmap/icon_next"
+            android:background="@android:drawable/ic_menu_send"
             android:singleLine="true" />
     </LinearLayout>
 

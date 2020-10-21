@@ -110,7 +110,7 @@
     <string name="limpar_estatistica_title">Limpar estatística</string>
     <string name="limpar_estatistica_summary">Essa opção apagará o seu progresso de leitura</string>
     <string name="versiculo_selecionado_share">Nenhum versículo foi selecionado !</string>
-    <string name="gostou_do_nosso_app">Gostou do nosso app?\n Por favor, Qualifique -o</string>
+    <string name="gostou_do_nosso_app">Perdoe a interrupção - você se importaria de nos deixar um comentário?</string>
     <string name="sem_conexao">Sem conexão</string>
     <string name="download_fail">Não está sendo possível fazer o download da Bíblia. Verifique sua conexão.</string>
     <string name="noticias">Notícias</string>
