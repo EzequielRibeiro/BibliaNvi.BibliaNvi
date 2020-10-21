@@ -4,11 +4,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -59,6 +57,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -68,6 +67,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -75,10 +75,11 @@ import com.projeto.biblianvi.biblianvi.R;
 
 import java.io.File;
 import java.text.ParseException;
-import java.util.Calendar;
 import java.util.Locale;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.projeto.biblianvi.TimeClock.agendarAlarmeVersiculo;
+import static com.projeto.biblianvi.TimeClock.checarAlarmeExiste;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -111,9 +112,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout layout_qualificar;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private Toolbar toolbar;
-    private ReviewManager reviewManager;
-    private com.google.android.play.core.tasks.Task<ReviewInfo> request;
-    private com.google.android.play.core.tasks.Task<Void> flow;
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -129,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config);
-
-
         mTitle = mDrawerTitle = getTitle();
         menuTitulos = getResources().getStringArray(R.array.menu_array);
         mDrawerLayout = findViewById(R.id.drawer_layout);
@@ -182,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
         textViewAssuntoVers = findViewById(R.id.textViewAssuntoVers);
         textViewAssuntoVers.setText("");
         textViewVersDia = findViewById(R.id.textViewVersDia);
-
         layout_qualificar = findViewById(R.id.layout_qualificar);
         button_sermon = findViewById(R.id.buttonSermon);
         button_biblia = findViewById(R.id.button_biblia);
@@ -192,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
         text_qualificar.setText(getString(R.string.gostou_do_nosso_app));
         textViewDailyVerse = findViewById(R.id.textViewDailyVerse);
         textViewDailyVerse.setGravity(Gravity.CENTER);
-
 
         button_sermon.setText(getString(R.string.devocional));
         button_sermon.setMaxLines(1);
@@ -221,7 +216,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //   startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                rateApp();
+                try {
+                    rateApp();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+
             }
         });
 
@@ -229,7 +229,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                rateApp();
+                try {
+                    rateApp();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
             }
         });
 
@@ -263,7 +267,8 @@ public class MainActivity extends AppCompatActivity {
         buttonClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alterarHoraAlarme();
+                DialogFragment newFragment = new TimeClock();
+                newFragment.show(getSupportFragmentManager(), "datePicker");
             }
         });
 
@@ -353,7 +358,6 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
         Log.e("Banco:", Boolean.toString(isDataBaseDownload(getApplicationContext())));
 
         editor = sharedPrefDataBasePatch.edit();
@@ -361,26 +365,20 @@ public class MainActivity extends AppCompatActivity {
         editor.commit();
 
 
-        SharedPreferences settings = getSharedPreferences("seekbar", Activity.MODE_PRIVATE);
-        editor = settings.edit();
-        editor.putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext())));
-        editor.commit();
+        getSharedPreferences("seekbar", Activity.MODE_PRIVATE).edit().
+                putInt("brilhoAtual", (Lista_Biblia.getScreenBrightness(getApplicationContext()))).commit();
 
         if (!isDataBaseDownload(getApplicationContext())) {
             downloadDataBaseBible();
         }
 
-        int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 1);
-        getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
-
-        if (rated == 3) {
-            if (isNetworkAvailable(this))
+        if (isNetworkAvailable(this)) {
+            int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
+            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
+            if (rated == 5) {
                 showRequestRateApp();
-            else getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
-        } else if (rated == 50) {
-            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+            }
         }
-
     }
 
     private void showRequestRateApp() {
@@ -390,7 +388,12 @@ public class MainActivity extends AppCompatActivity {
         builder.setCancelable(false);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                rateApp();
+                try {
+                    rateApp();
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                    FirebaseCrashlytics.getInstance().recordException(exception);
+                }
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -403,26 +406,46 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void rateApp() {
-        reviewManager = ReviewManagerFactory.create(this);
-        //    reviewManager = new FakeReviewManager(this);
-        request = reviewManager.requestReviewFlow();
+    private void rateApp() throws Exception {
+        final ReviewManager reviewManager = ReviewManagerFactory.create(this);
+        //reviewManager = new FakeReviewManager(this);
+        com.google.android.play.core.tasks.Task<ReviewInfo> request = reviewManager.requestReviewFlow();
 
         request.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
             @Override
             public void onComplete(com.google.android.play.core.tasks.Task<ReviewInfo> task) {
                 if (task.isSuccessful()) {
+                    Log.e("Rate Task", "Complete");
                     ReviewInfo reviewInfo = task.getResult();
                     com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(MainActivity.this, reviewInfo);
                     flow.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(com.google.android.play.core.tasks.Task<Void> task) {
-                            //  Toast.makeText(MainActivity.this,"Thank you !",Toast. LENGTH_SHORT).show();
+                            Log.e("Rate Flow", "Complete");
                         }
                     });
+
+                    flow.addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(Exception e) {
+                            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                            Log.e("Rate Flow", "Fail");
+                            e.printStackTrace();
+                        }
+                    });
+
                 } else {
                     getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                    Log.e("Rate Task", "Fail");
                 }
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                e.printStackTrace();
+                Log.e("Rate Request", "Fail");
             }
         });
 
@@ -713,236 +736,6 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private boolean checarAlarmeExiste() {
-
-      /*  boolean alarmUp = (PendingIntent.getBroadcast(MainActivity.this, 121312131,
-                new Intent("com.projeto.biblianvi.VersiculoDiario"),
-                PendingIntent.FLAG_NO_CREATE) != null);*/
-        Intent tempIntent = new Intent(MainActivity.this, VersiculoDiario.class);
-        tempIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        boolean alarmUp = (PendingIntent.getBroadcast(MainActivity.this, 101015, tempIntent, PendingIntent.FLAG_NO_CREATE) != null);
-
-
-        if (alarmUp)
-            Log.e("alarme ", "ativado");
-        else {
-            Log.e("alarme ", "desativado");
-        }
-        return alarmUp;
-
-    }
-
-    private void cancelarAgendarAlarmeVersiculo() {
-
-
-        Intent intent = new Intent("com.projeto.biblianvi.VersiculoDiario");
-        AlarmManager alarmManager =
-                (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent =
-                PendingIntent.getService(MainActivity.this, 101015, intent,
-                        PendingIntent.FLAG_NO_CREATE);
-        if (pendingIntent != null && alarmManager != null) {
-            alarmManager.cancel(pendingIntent);
-        }
-
-
-    }
-
-    private void agendarAlarmeVersiculo() {
-
-        SharedPreferences settings = getSharedPreferences("alarme", Activity.MODE_PRIVATE);
-
-        if (!settings.contains("hora") || !settings.contains("minuto")) {
-            editor = getSharedPreferences("alarme", Activity.MODE_PRIVATE).edit();
-            editor.putString("hora", "10");
-            editor.putString("minuto", "30");
-            editor.commit();
-        }
-
-        Intent it = new Intent(this, VersiculoDiario.class);
-        PendingIntent p = PendingIntent.getBroadcast(MainActivity.this, 101015, it, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-        int h = Integer.parseInt(settings.getString("hora", "10"));
-        int m = Integer.parseInt(settings.getString("minuto", "30"));
-
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
-        c.set(Calendar.HOUR_OF_DAY, h);
-        c.set(Calendar.MINUTE, m);
-
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, p);
-
-    }
-
-    private void alterarHoraAlarme() {
-
-
-        SharedPreferences settings = getSharedPreferences("alarme", Activity.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = settings.edit();
-
-        String h = settings.getString("hora", "10");
-        String m = settings.getString("minuto", "30");
-
-        AlterarAlarm alterarAlarm;
-
-        TextView title = new TextView(this);
-        title.setText(R.string.confirmar_alarme_aviso);
-        title.setTextColor(getResources().getColor(R.color.white));
-        title.setPadding(5, 5, 5, 5);
-        title.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        // title.setTextColor(getResources().getColor(R.color.greenBG));
-        title.setTextSize(18);
-
-        final TextView horaText = new TextView(this);
-        horaText.setTextColor(getResources().getColor(R.color.blue));
-        // horaText.setBackgroundColor(getResources().getColor(R.color.white));
-        horaText.setText(h);
-        horaText.setTextSize(22);
-
-        //altura comprimento
-        LinearLayout layoutTextHora = new LinearLayout(this);
-        layoutTextHora.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        layoutTextHora.setGravity(Gravity.CENTER);
-        layoutTextHora.addView(horaText);
-
-        final TextView minText = new TextView(this);
-        minText.setTextColor(getResources().getColor(R.color.blue));
-        // horaText.setBackgroundColor(getResources().getColor(R.color.white));
-        minText.setText(m);
-        minText.setTextSize(22);
-
-        alterarAlarm = new AlterarAlarm(horaText, minText);
-
-        LinearLayout layoutTextMin = new LinearLayout(this);
-        layoutTextMin.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        layoutTextMin.setGravity(Gravity.CENTER);
-        layoutTextMin.addView(minText);
-
-        Button horaMaisButton = new Button(this);
-        horaMaisButton.setTag("horaMaisButton");
-        horaMaisButton.setBackgroundResource(R.mipmap.img_mais);
-        horaMaisButton.setLayoutParams(new LinearLayout.LayoutParams(50, 40));
-        horaMaisButton.setOnClickListener(alterarAlarm);
-
-        Button horaMenosButton = new Button(this);
-        horaMenosButton.setTag("horaMenosButton");
-        horaMenosButton.setLayoutParams(new LinearLayout.LayoutParams(50, 40));
-        horaMenosButton.setBackgroundResource(R.mipmap.img_menos);
-        horaMenosButton.setOnClickListener(alterarAlarm);
-
-        Button minMaisButton = new Button(this);
-        minMaisButton.setTag("minMaisButton");
-        minMaisButton.setLayoutParams(new LinearLayout.LayoutParams(50, 40));
-        minMaisButton.setBackgroundResource(R.mipmap.img_mais);
-        minMaisButton.setOnClickListener(alterarAlarm);
-
-        Button minMenosButton = new Button(this);
-        minMenosButton.setTag("minMenosButton");
-        minMenosButton.setLayoutParams(new LinearLayout.LayoutParams(50, 40));
-        minMenosButton.setBackgroundResource(R.mipmap.img_menos);
-        minMenosButton.setOnClickListener(alterarAlarm);
-
-        LinearLayout horaLayout = new LinearLayout(this);
-        horaLayout.setOrientation(LinearLayout.VERTICAL);
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 15, 0);
-
-        TextView txtHora = new TextView(this);
-        txtHora.setText(R.string.hora);
-        txtHora.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        txtHora.setTextColor(getResources().getColor(R.color.white));
-
-        horaLayout.setLayoutParams(params);
-        horaLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        horaLayout.addView(txtHora);
-        horaLayout.addView(horaMaisButton);
-        horaLayout.addView(layoutTextHora);
-        horaLayout.addView(horaMenosButton);
-
-
-        LinearLayout minLayout = new LinearLayout(this);
-        minLayout.setOrientation(LinearLayout.VERTICAL);
-        minLayout.setGravity(Gravity.CENTER_HORIZONTAL);
-        minLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        TextView txtMin = new TextView(this);
-        txtMin.setText(R.string.minuto);
-        txtMin.setTextColor(getResources().getColor(R.color.white));
-        txtMin.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-        minLayout.addView(txtMin);
-        minLayout.addView(minMaisButton);
-        minLayout.addView(layoutTextMin);
-        minLayout.addView(minMenosButton);
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(0, 30, 15, 30);
-
-        LinearLayout content = new LinearLayout(this);
-        content.setOrientation(LinearLayout.HORIZONTAL);
-        content.setGravity(Gravity.CENTER);
-        content.setBackgroundColor(getResources().getColor(R.color.dark));
-        content.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT));
-
-        horaLayout.setLayoutParams(layoutParams);
-        minLayout.setLayoutParams(layoutParams);
-        content.addView(horaLayout);
-        content.addView(minLayout);
-
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                MainActivity.this);
-
-        alertDialogBuilder.setView(content);
-        alertDialogBuilder.setCustomTitle(title);
-
-
-        // set dialog message
-        alertDialogBuilder.setPositiveButton(R.string.redefinir, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-
-                editor.putString("hora", horaText.getText().toString());
-                editor.putString("minuto", minText.getText().toString());
-                editor.commit();
-
-                if (checarAlarmeExiste()) {
-                    cancelarAgendarAlarmeVersiculo();
-                }
-                agendarAlarmeVersiculo();
-
-                Toast.makeText(MainActivity.this, getString(R.string.hora_redefinida)
-                                + horaText.getText().toString() + ":"
-                                + minText.getText().toString() + "h"
-                        , Toast.LENGTH_LONG).show();
-
-            }
-        });
-
-        alertDialogBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                dialog.cancel();
-
-            }
-        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        alertDialog.show();
-
-
-    }
-
     private void versiculoDoDia() throws ParseException {
 
         SharedPreferences settings;
@@ -1017,9 +810,8 @@ public class MainActivity extends AppCompatActivity {
                 textViewDeveloper.setText(getString(R.string.total_lido) + " " +
                         String.format("%.2f", GraficoGeral.quantVersosLidos(getApplicationContext())) + "%");
 
-                if (!checarAlarmeExiste())
-                    agendarAlarmeVersiculo();
-
+                if (!checarAlarmeExiste(getApplicationContext()))
+                    agendarAlarmeVersiculo(getApplicationContext());
             }
         } catch (ParseException exception) {
             exception.printStackTrace();
