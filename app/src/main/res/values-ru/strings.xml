@@ -220,6 +220,7 @@
         <item> Настройки </item>
         <item> Политика конфиденциальности </item>
         <item> информация </item>
+        <item> оцените нас </item>
     </string-array>
     <string name="compartilharWhat" translatable="false">" WhatsApp "</string>
     <string name="peace">мир</string>

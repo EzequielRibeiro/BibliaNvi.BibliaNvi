@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -328,7 +327,13 @@ public class MainActivity extends AppCompatActivity {
         button_pesquisar.setMaxLines(1);
         button_pesquisar.setBackground(getDrawable(R.drawable.button_search_custom));
 
-        textViewVersDia.setBackground(getDrawable(R.drawable.background_borders));
+        int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            textViewVersDia.setBackground(getDrawable(R.drawable.background_borders_land));
+        } else {
+            textViewVersDia.setBackground(getDrawable(R.drawable.background_borders_portrait));
+        }
 
         TextViewCompat.setAutoSizeTextTypeWithDefaults(button_pesquisar, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewVersDia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
@@ -458,20 +463,22 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
 
             if (rated == 5) {
-                showRequestRateApp();
+                showRequestRateApp(getParent());
+            } else if (rated == 50) {
+                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
             }
         }
     }
 
-    private void showRequestRateApp() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+    public static void showRequestRateApp(final Activity activity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Feedback");
-        builder.setMessage(getString(R.string.gostou_do_nosso_app));
+        builder.setMessage(activity.getString(R.string.gostou_do_nosso_app));
         builder.setCancelable(false);
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 try {
-                    rateApp();
+                    rateApp(activity);
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     FirebaseCrashlytics.getInstance().recordException(exception);
@@ -480,7 +487,7 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                activity.getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
 
             }
         });
@@ -488,8 +495,8 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void rateApp() throws Exception {
-        final ReviewManager reviewManager = ReviewManagerFactory.create(this);
+    private static void rateApp(final Activity activity) throws Exception {
+        final ReviewManager reviewManager = ReviewManagerFactory.create(activity);
         //reviewManager = new FakeReviewManager(this);
         com.google.android.play.core.tasks.Task<ReviewInfo> request = reviewManager.requestReviewFlow();
 
@@ -499,7 +506,7 @@ public class MainActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Log.e("Rate Task", "Complete");
                     ReviewInfo reviewInfo = task.getResult();
-                    com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(MainActivity.this, reviewInfo);
+                    com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
                     flow.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(com.google.android.play.core.tasks.Task<Void> task) {
@@ -510,14 +517,14 @@ public class MainActivity extends AppCompatActivity {
                     flow.addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(Exception e) {
-                            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                            activity.getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
                             Log.e("Rate Flow", "Fail");
                             e.printStackTrace();
                         }
                     });
 
                 } else {
-                    getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                    activity.getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
                     Log.e("Rate Task", "Fail");
                 }
             }
@@ -525,7 +532,7 @@ public class MainActivity extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception e) {
-                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+                activity.getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
                 e.printStackTrace();
                 Log.e("Rate Request", "Fail");
             }
@@ -840,90 +847,92 @@ public class MainActivity extends AppCompatActivity {
         args.putInt(MenuLateralTeste.PlanetFragment.ARG_PLANET_NUMBER, position);
         fragment.setArguments(args);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        // FragmentManager fragmentManager = getFragmentManager();
         // fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         // setTitle(menuTitulos[position]);
-        switch (position) {
+        chamarActivity(position, MainActivity.this);
+        mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    public static void chamarActivity(int posicao, Context context) {
+
+        Intent intent;
+
+        switch (posicao) {
+
             case 0:
-                if (isDataBaseDownload(getApplicationContext())) {
-                    intent = new Intent(MainActivity.this, Activity_favorito.class);
-                    startActivity(intent);
-                } else {
-                    downloadDataBaseBible();
-                }
+                intent = new Intent(context, Activity_favorito.class);
+                context.startActivity(intent);
                 break;
             case 1:
-                if (isDataBaseDownload(getApplicationContext())) {
-                    intent = new Intent(MainActivity.this, ActivityAnotacao.class);
-                    startActivity(intent);
-                } else {
-                    downloadDataBaseBible();
-                }
+                intent = new Intent(context, ActivityAnotacao.class);
+                context.startActivity(intent);
                 break;
             case 2:
-                opcaoDicionario(getApplicationContext());
+                MainActivity.opcaoDicionario(context);
                 break;
             case 3:
-                if (isNetworkAvailable(this)) {
-                    intent = new Intent(MainActivity.this, Sermoes.class);
-                    startActivity(intent);
+                if (MainActivity.isNetworkAvailable(context)) {
+                    intent = new Intent(context, Sermoes.class);
+                    context.startActivity(intent);
                 } else {
-                    Toast.makeText(getApplication(), "Sem conexão", Toast.LENGTH_LONG).show();
+
+                    Toast.makeText(context, context.getText(R.string.sem_conexao), Toast.LENGTH_LONG).show();
+
                 }
                 break;
             case 4:
-                if (isDataBaseDownload(getApplicationContext())) {
-                    intent = new Intent(MainActivity.this, GraficoGeral.class);
-                    startActivity(intent);
-                } else {
-                    downloadDataBaseBible();
-                }
+                intent = new Intent(context, GraficoGeral.class);
+                context.startActivity(intent);
                 break;
             case 5:
-                intent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(intent);
+                intent = new Intent(context, SettingsActivity.class);
+                context.startActivity(intent);
                 break;
             case 6:
-                intent = new Intent(MainActivity.this, ActivityPoliticaPrivacidade.class);
-                startActivity(intent);
+                intent = new Intent(context, ActivityPoliticaPrivacidade.class);
+                context.startActivity(intent);
                 break;
             case 7:
-                mostrarAviso();
+                mostrarAviso(context);
+                break;
+            case 8:
+                showRequestRateApp((Activity) context);
                 break;
             default:
                 break;
         }
-        mDrawerLayout.closeDrawer(mDrawerList);
+
     }
 
-    private void mostrarAviso() {
+    public static void mostrarAviso(Context context) {
 
-        TextView title = new TextView(this);
-        title.setText("Informação");
+        TextView title = new TextView(context);
+        title.setText(context.getResources().getStringArray(R.array.menu_array)[7]);
         title.setPadding(5, 5, 5, 5);
         title.setGravity(View.TEXT_ALIGNMENT_CENTER);
         // title.setTextColor(getResources().getColor(R.color.greenBG));
         title.setTextSize(18);
 
-        BibliaBancoDadosHelper db = new BibliaBancoDadosHelper(getApplicationContext());
+        BibliaBancoDadosHelper db = new BibliaBancoDadosHelper(context);
 
         String t;
-        TextView msg = new TextView(this);
-        msg.setTextColor(getResources().getColor(R.color.white));
+        TextView msg = new TextView(context);
+        msg.setTextColor(context.getResources().getColor(R.color.white));
 
         String version = "1.0";
         try {
-            version = getPackageManager()
-                    .getPackageInfo(getPackageName(), 0).versionName;
+            version = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException exception) {
             exception.printStackTrace();
             FirebaseCrashlytics.getInstance().recordException(exception);
         }
 
-        t = getString(R.string.aviso).replace("@app_version@", version);
+        t = context.getString(R.string.aviso).replace("@app_version@", version);
         t = t.replace("@bible_version@", db.getBibleVersion());
         msg.setText(t);
         msg.setPadding(10, 10, 10, 10);
@@ -931,12 +940,12 @@ public class MainActivity extends AppCompatActivity {
         msg.setTextSize(18);
 
 
-        ScrollView scrollView = new ScrollView(getApplicationContext());
-        scrollView.setBackgroundColor(getResources().getColor(R.color.dark));
+        ScrollView scrollView = new ScrollView(context);
+        scrollView.setBackgroundColor(context.getResources().getColor(R.color.dark));
         scrollView.addView(msg);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                MainActivity.this);
+                context);
 
         alertDialogBuilder.setView(scrollView);
         alertDialogBuilder.setCustomTitle(title);
@@ -986,88 +995,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private class AlterarAlarm implements View.OnClickListener {
-
-        TextView textViewhora, textViewMin;
-        int hora, min;
-
-        public AlterarAlarm(TextView horaView, TextView minView) {
-            textViewhora = horaView;
-            textViewMin = minView;
-            hora = Integer.parseInt(horaView.getText().toString());
-            min = Integer.parseInt(minView.getText().toString());
-        }
-
-        @Override
-        public void onClick(View v) {
-
-
-            if (v.getTag().toString().equals("horaMaisButton")) {
-
-                if (hora <= 22) {
-                    ++hora;
-                    setHora(hora);
-                } else {
-                    hora = 0;
-                    setHora(hora);
-                }
-
-            } else if (v.getTag().toString().equals("horaMenosButton")) {
-
-
-                if (hora >= 1) {
-                    --hora;
-                    setHora(hora);
-                } else {
-                    hora = 23;
-                    setHora(hora);
-                }
-            } else if (v.getTag().toString().equals("minMaisButton")) {
-
-                if (min <= 58) {
-                    ++min;
-                    setMin(min);
-                } else {
-                    min = 0;
-                    setMin(min);
-                }
-            } else if (v.getTag().toString().equals("minMenosButton")) {
-
-                if (min >= 1) {
-                    --min;
-                    setMin(min);
-                } else {
-
-                    min = 59;
-                    setMin(min);
-                }
-
-            }
-
-        }
-
-        private void setHora(int h) {
-
-            if (h < 10)
-                textViewhora.setText("0" + h);
-            else
-                textViewhora.setText(Integer.toString(h));
-
-        }
-
-        private void setMin(int m) {
-
-
-            if (m < 10)
-                textViewMin.setText("0" + m);
-            else
-                textViewMin.setText(Integer.toString(m));
-
-
-        }
-
-
-    }
 
     /* The click listner for ListView in the navigation drawer */
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

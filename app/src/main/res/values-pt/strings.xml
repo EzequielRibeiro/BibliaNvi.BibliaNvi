@@ -64,6 +64,7 @@
         <item>Configurações</item>
         <item>Política de Privacidade</item>
         <item>Sobre</item>
+        <item>Avaliar</item>
     </string-array>
 
     <string name="action_websearch">Pesquisa</string>

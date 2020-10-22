@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.projeto.biblianvi.biblianvi.R;
 
 import java.util.ArrayList;
@@ -319,6 +320,8 @@ public class Activity_busca_avancada extends Activity {
                     @Override
                     public void run() {
                         Toast.makeText(getBaseContext(), String.valueOf(ex.getMessage()), Toast.LENGTH_LONG).show();
+                        Log.e("Pesquisar:", ex.getMessage());
+                        FirebaseCrashlytics.getInstance().recordException(ex);
                     }
                 });
 

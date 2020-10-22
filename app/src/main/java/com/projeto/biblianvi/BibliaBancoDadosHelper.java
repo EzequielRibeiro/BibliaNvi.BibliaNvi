@@ -526,7 +526,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = " +
-                "verses.testament and books.id = verses.book and verses.text like " + termo;
+                "verses.testament and books.id = verses.book and verses.text like " + termo + " COLLATE NOCASE ";
 
         openDataBase();
 
@@ -567,7 +567,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = verses.testament " +
-                "and books.id = verses.book and verses.text like " + termo +
+                "and books.id = verses.book and verses.text like " + termo + " COLLATE NOCASE " +
                 "and [testament].[id] = " + testamento;
 
 
@@ -609,7 +609,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         String query = "select testament.name,books.name,verses.chapter,verses.verse,verses.text,verses.lido,verses.rowid " +
                 "from testament,verses,books where testament.id = verses.testament " +
-                "and books.id = verses.book and verses.text like " + termo +
+                "and books.id = verses.book and verses.text like " + termo + " COLLATE NOCASE " +
                 "and books.[name] = '" + livro + "'";
 
         openDataBase();

@@ -158,6 +158,7 @@
         <item> Configuración </item>
         <item> Política de privacidad </item>
         <item> Acerca de </item>
+        <item> Nos califica </item>
     </string-array>
     <string name="hora_redefinida">Nuevo horario</string>
     <string name="minuto">Minuto</string>

@@ -155,8 +155,8 @@ public class Activity_favorito extends Activity {
 
 
             TextView textViewText = convertView.findViewById(R.id.textViewFavorText);
-            textViewText.setText(Html.fromHtml(biblia.getText() + " " + "<b>" + biblia.getBooksName() + "</b> " +
-                    biblia.getChapter() + ':' + biblia.getVersesNum()));
+            textViewText.setText(Html.fromHtml(biblia.getText() + " <b>" + biblia.getBooksName() + " " +
+                    biblia.getChapter() + ':' + biblia.getVersesNum() + "</b>"));
 
             return convertView;
         }

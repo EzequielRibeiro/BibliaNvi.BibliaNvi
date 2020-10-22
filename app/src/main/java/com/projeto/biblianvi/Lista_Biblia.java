@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -58,6 +57,8 @@ import com.projeto.biblianvi.biblianvi.R;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.projeto.biblianvi.MainActivity.chamarActivity;
 
 
 public class Lista_Biblia extends Activity {
@@ -1199,123 +1200,14 @@ public class Lista_Biblia extends Activity {
         args.putInt(MenuLateralTeste.PlanetFragment.ARG_PLANET_NUMBER, position);
         fragment.setArguments(args);
 
-        FragmentManager fragmentManager = getFragmentManager();
+        // FragmentManager fragmentManager = getFragmentManager();
         // fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
         // update selected item and title, then close the drawer
         mDrawerList.setItemChecked(position, true);
         // setTitle(menuTitulos[position]);
-        chamarActivity(position);
+        chamarActivity(position, Lista_Biblia.this);
         mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
-    public void chamarActivity(int posicao) {
-
-
-        switch (posicao) {
-
-
-            case 0:
-
-                intent = new Intent(getApplication(), Activity_favorito.class);
-                startActivity(intent);
-
-                break;
-
-            case 1:
-
-                intent = new Intent(getApplication(), ActivityAnotacao.class);
-                startActivity(intent);
-
-                break;
-            case 2:
-                MainActivity.opcaoDicionario(getApplicationContext());
-                break;
-
-            case 3:
-
-                if (MainActivity.isNetworkAvailable(getApplicationContext())) {
-                    intent = new Intent(getApplication(), Sermoes.class);
-                    startActivity(intent);
-                } else {
-
-                    Toast.makeText(getApplication(), getText(R.string.sem_conexao), Toast.LENGTH_LONG).show();
-
-                }
-                break;
-
-            case 4:
-
-                intent = new Intent(getApplication(), GraficoGeral.class);
-                startActivity(intent);
-                break;
-
-
-            case 5:
-
-                intent = new Intent(getApplicationContext(), SettingsActivity.class);
-                startActivity(intent);
-                break;
-
-            case 6:
-                intent = new Intent(Lista_Biblia.this, ActivityPoliticaPrivacidade.class);
-                startActivity(intent);
-                break;
-            case 7:
-                mostrarAviso();
-                break;
-            default:
-                break;
-
-
-        }
-
-    }
-
-    private void mostrarAviso() {
-
-
-        TextView title = new TextView(this);
-        title.setText("Informação");
-        title.setPadding(5, 5, 5, 5);
-        title.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        // title.setTextColor(getResources().getColor(R.color.greenBG));
-        title.setTextSize(18);
-
-        TextView msg = new TextView(this);
-        msg.setTextColor(getResources().getColor(R.color.white));
-        String t = getString(R.string.aviso);
-        t = t.replace("@app_version@", MainActivity.VERSIONAPP).replace("@bible_version@",
-                new BibliaBancoDadosHelper(getApplicationContext()).getBibleVersion());
-        msg.setText(t);
-        msg.setPadding(10, 10, 10, 10);
-        msg.setGravity(View.TEXT_ALIGNMENT_CENTER);
-        msg.setTextSize(18);
-
-        ScrollView scrollView = new ScrollView(getApplicationContext());
-        scrollView.setBackgroundColor(getResources().getColor(R.color.dark));
-        scrollView.addView(msg);
-
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                Lista_Biblia.this);
-
-        alertDialogBuilder.setView(scrollView);
-        alertDialogBuilder.setCustomTitle(title);
-
-        // set dialog message
-        alertDialogBuilder.setPositiveButton(getText(R.string.fechar_about), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-
-            }
-        });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-
     }
 
     private void changeBright(int i) {

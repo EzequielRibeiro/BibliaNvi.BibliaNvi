@@ -3,6 +3,7 @@ package com.projeto.biblianvi;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+
 /**
  * Created by Ezequiel on 08/07/2015.
  */
@@ -164,10 +165,18 @@ public class Biblia {
     public String toPesquisarString() {
 
         for (String t : getTermoBusca()) {
-            setText(getText().replaceAll(t, "<font color=\"red\">" + t + "</font>"));
+
+            if (t.length() > 1) {
+                t = t.toLowerCase();
+                setText(getText().replace(t, "<font color=\"red\">" + t + "</font>"));
+                t = t.substring(0, 1).toUpperCase() + t.substring(1);
+                setText(getText().replace(t, "<font color=\"red\">" + t + "</font>"));
+                // setText(StringUtils.replaceIgnoreCase(getText(), t, "<font color=\"red\">" + t + "</font>"));
+                // setText(getText().replace(t, "<font color=\"red\">" + t + "</font>"));
+            }
+
         }
-        return "<p>" + booksName + " " + versesChapter + ":" + versesNum + "</p>" +
-                "<p>" + getText() + "</p>";
+        return "<b>" + booksName + " " + versesChapter + ":" + versesNum + "</b><br>" + getText();
     }
 
 }
