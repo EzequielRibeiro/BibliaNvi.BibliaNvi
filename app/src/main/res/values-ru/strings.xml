@@ -234,4 +234,5 @@
     <string name="new_search">Новый поиск</string>
     <string name="sound_off">Звук уведомления отключен.</string>
     <string name="sound_on">Звук уведомления активен.</string>
+    <string name="bug_app">Библия Адоная остановилась. Послать электронное письмо:</string>
 </resources>

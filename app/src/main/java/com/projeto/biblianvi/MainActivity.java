@@ -246,6 +246,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread paramThread, Throwable paramThrowable) {
+                FirebaseCrashlytics.getInstance().recordException(paramThrowable);
+                String log = "Message: " + paramThrowable.getMessage();
+                Log.e("Exception Global: ", Log.getStackTraceString(paramThrowable));
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"aplicativoparamobile@gmail.com"});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Log file");
+                intent.putExtra(android.content.Intent.EXTRA_TEXT, log);
+                startActivity(Intent.createChooser(intent,
+                        getString(R.string.bug_app)));
+                System.exit(2);
+            }
+        });
 
         // requestWindowFeature(Window.FEATURE_ACTION_BAR);
         setContentView(R.layout.activity_main);
@@ -468,6 +485,7 @@ public class MainActivity extends AppCompatActivity {
                 getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
             }
         }
+
     }
 
     public static void showRequestRateApp(final Activity activity) {
@@ -900,7 +918,11 @@ public class MainActivity extends AppCompatActivity {
                 mostrarAviso(context);
                 break;
             case 8:
-                showRequestRateApp((Activity) context);
+                try {
+                    rateApp((Activity) context);
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
                 break;
             default:
                 break;

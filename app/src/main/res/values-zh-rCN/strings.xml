@@ -235,5 +235,6 @@
     <string name="new_search">新搜寻</string>
     <string name="sound_off">通知声音关闭。</string>
     <string name="sound_on">通知音打开。</string>
+    <string name="bug_app">阿多奈圣经停了下来。发送电子邮件：</string>
 
 </resources>

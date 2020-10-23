@@ -56,8 +56,9 @@ public class VersiculoDiario extends BroadcastReceiver {
 
         do {
             versDoDia = bibliaHelp.getVersDoDia();
-        } while (versDoDia.getIdSelecionado() == id);
+        } while (versDoDia.getIdSelecionado() == id || versDoDia.getText().isEmpty());
 
+        editor.clear().commit();
         editor.putInt("id", versDoDia.getIdSelecionado()).commit();
         editor.putString("assunto", versDoDia.getAssunto()).commit();
         editor.putString("versDia", versDoDia.getText()).commit();

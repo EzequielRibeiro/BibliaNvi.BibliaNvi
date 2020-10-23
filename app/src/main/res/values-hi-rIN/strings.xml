@@ -87,6 +87,7 @@
     <string name="sound_off">अधिसूचना ध्वनि बंद।</string>
     <string name="sound_on">अधिसूचना ध्वनि पर।</string>
     <string name="estatistica">सांख्यिकीय</string>
+    <string name="bug_app">अडोनाई बाइबल रुक गई। एक ईमेल भेजो:</string>
 
     <string-array name="menu_array">
         <item>पसंदीदा</item>

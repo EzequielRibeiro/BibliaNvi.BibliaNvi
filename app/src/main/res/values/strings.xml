@@ -161,5 +161,6 @@
     <string name="new_search">New search</string>
     <string name="sound_off">Notification sound off.</string>
     <string name="sound_on">Notification sound on.</string>
+    <string name="bug_app">Adonai Bible stopped. Send an email:</string>
 
 </resources>

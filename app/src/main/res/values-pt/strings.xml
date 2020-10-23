@@ -149,6 +149,7 @@
     <string name="new_search">Nova Pesquisa</string>
     <string name="sound_on">Som de notificação ligado.</string>
     <string name="sound_off">Som de notificação desligado.</string>
+    <string name="bug_app">Bíblia Adonai parou. Envie um email para o desenvolvedor.</string>
 
 
 </resources>
