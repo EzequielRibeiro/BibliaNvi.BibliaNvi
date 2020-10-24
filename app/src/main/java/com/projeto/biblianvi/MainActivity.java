@@ -110,137 +110,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private Toolbar toolbar;
 
-    static public void openNoticias(Context applicationContext) {
 
-        Intent intent = new Intent(applicationContext, ActivityBrowser.class);
-        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-
-        if (isNetworkAvailable(applicationContext)) {
-
-            switch (Locale.getDefault().getLanguage()) {
-
-                case "pt":
-                    intent.putExtra("url", applicationContext.getString(R.string.url_noticias));
-                    applicationContext.startActivity(intent);
-                    break;
-                case "es":
-                    intent.putExtra("url", "https://www.bibliatodo.com/NoticiasCristianas");
-                    applicationContext.startActivity(intent);
-                    break;
-                default:
-                    intent.putExtra("url", "https://www.christianitytoday.com/ct/topics/a/assemblies-of-god");
-                    applicationContext.startActivity(intent);
-                    break;
-
-            }
-
-
-        } else
-            Toast.makeText(applicationContext, R.string.sem_conexao, Toast.LENGTH_LONG).show();
-
-
-    }
-
-    static public boolean isDataBaseDownload(Context context) {
-
-        File folderStorage;
-        String folderDest = "Android/data/" + PACKAGENAME + "/databases/";
-        editor = context.getSharedPreferences("DataBase", Context.MODE_PRIVATE).edit();
-
-        switch (Locale.getDefault().getLanguage()) {
-
-            case "pt":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_PT;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_PT;
-                break;
-            case "es":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_ES;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_ES;
-                break;
-            case "ru":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_RU;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_RU;
-                break;
-            case "zh":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_ZH;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_ZH;
-                break;
-            case "hi":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_HI;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_HI;
-                break;
-            default:
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_EN;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_EN;
-                break;
-        }
-
-        //Get File if SD card is present
-        if (new DownloadTask.CheckForSDCard().isSDCardPresent()) {
-
-            folderStorage = new File(
-                    Environment.getExternalStorageDirectory() + "/"
-                            + folderDest);
-
-            //If File is not present create directory
-            if (folderStorage.exists()) {
-                editor.putString("dataBasePatch", folderStorage.getAbsolutePath());
-                editor.commit();
-                return true;
-            } else {
-                return false;
-            }
-
-        } else {
-
-            folderStorage = new File(
-                    Environment.getDataDirectory() + "/"
-                            + folderDest);
-
-            if (folderStorage.exists()) {
-                editor.putString("dataBasePatch", folderStorage.getAbsolutePath());
-                editor.commit();
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-    }
-
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null;
-    }
-
-    static public void opcaoDicionario(Context context) {
-
-        Intent intent = new Intent(context, ActivityBrowser.class);
-
-        switch (Locale.getDefault().getLanguage()) {
-
-            case "pt":
-                if (isDataBaseDownload(context)) {
-                    context.startActivity(new Intent(context, DicionarioActivity.class)
-                            .setFlags(FLAG_ACTIVITY_NEW_TASK));
-                }
-                break;
-            case "es":
-                intent.putExtra("url", "https://dle.rae.es/biblia");
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                break;
-            default:
-                intent.putExtra("url", "https://www.kingjamesbibleonline.org/Free-Bible-Dictionary.php");
-                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-                break;
-        }
-
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -475,16 +345,147 @@ public class MainActivity extends AppCompatActivity {
             downloadDataBaseBible();
         }
 
-        if (isNetworkAvailable(this)) {
             int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
             getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
 
-            if (rated == 5) {
-                showRequestRateApp(getParent());
-            } else if (rated == 50) {
-                getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+        if (rated == 5) {
+            showRequestRateApp(getParent());
+        } else if (rated == 50) {
+            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
+        }
+       
+
+    }
+
+    static public void openNoticias(Context applicationContext) {
+
+        Intent intent = new Intent(applicationContext, ActivityBrowser.class);
+        intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+
+        if (isNetworkAvailable(applicationContext)) {
+
+            switch (Locale.getDefault().getLanguage()) {
+
+                case "pt":
+                    intent.putExtra("url", applicationContext.getString(R.string.url_noticias));
+                    applicationContext.startActivity(intent);
+                    break;
+                case "es":
+                    intent.putExtra("url", "https://www.bibliatodo.com/NoticiasCristianas");
+                    applicationContext.startActivity(intent);
+                    break;
+                default:
+                    intent.putExtra("url", "https://www.christianitytoday.com/ct/topics/a/assemblies-of-god");
+                    applicationContext.startActivity(intent);
+                    break;
+
+            }
+
+
+        } else
+            Toast.makeText(applicationContext, R.string.sem_conexao, Toast.LENGTH_LONG).show();
+
+
+    }
+
+    static public boolean isDataBaseDownload(Context context) {
+
+        File folderStorage;
+        String folderDest = "Android/data/" + PACKAGENAME + "/databases/";
+        editor = context.getSharedPreferences("DataBase", Context.MODE_PRIVATE).edit();
+
+        switch (Locale.getDefault().getLanguage()) {
+
+            case "pt":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_PT;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_PT;
+                break;
+            case "es":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_ES;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_ES;
+                break;
+            case "ru":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_RU;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_RU;
+                break;
+            case "zh":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_ZH;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_ZH;
+                break;
+            case "hi":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_HI;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_HI;
+                break;
+            default:
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_EN;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_EN;
+                break;
+        }
+
+        //Get File if SD card is present
+        if (new DownloadTask.CheckForSDCard().isSDCardPresent()) {
+
+            folderStorage = new File(
+                    Environment.getExternalStorageDirectory() + "/"
+                            + folderDest);
+
+            //If File is not present create directory
+            if (folderStorage.exists()) {
+                editor.putString("dataBasePatch", folderStorage.getAbsolutePath());
+                editor.commit();
+                return true;
+            } else {
+                return false;
+            }
+
+        } else {
+
+            folderStorage = new File(
+                    Environment.getDataDirectory() + "/"
+                            + folderDest);
+
+            if (folderStorage.exists()) {
+                editor.putString("dataBasePatch", folderStorage.getAbsolutePath());
+                editor.commit();
+                return true;
+            } else {
+                return false;
             }
         }
+
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    static public void opcaoDicionario(Context context) {
+
+        Intent intent = new Intent(context, ActivityBrowser.class);
+
+        switch (Locale.getDefault().getLanguage()) {
+
+            case "pt":
+                if (isDataBaseDownload(context)) {
+                    context.startActivity(new Intent(context, DicionarioActivity.class)
+                            .setFlags(FLAG_ACTIVITY_NEW_TASK));
+                }
+                break;
+            case "es":
+                intent.putExtra("url", "https://dle.rae.es/biblia");
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+            default:
+                intent.putExtra("url", "https://www.kingjamesbibleonline.org/Free-Bible-Dictionary.php");
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+                break;
+        }
+
 
     }
 
