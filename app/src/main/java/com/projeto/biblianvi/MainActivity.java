@@ -349,11 +349,11 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
 
         if (rated == 5) {
-            showRequestRateApp(getParent());
+            showRequestRateApp(MainActivity.this);
         } else if (rated == 50) {
             getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
         }
-       
+
 
     }
 
