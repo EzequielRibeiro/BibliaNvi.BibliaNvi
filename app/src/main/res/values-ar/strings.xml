@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">كتاب مقدس</string>
+    <string name="settings">إعدادات</string>
+    <string name="bibliaLivEp">كتاب مقدس</string>
+    <string name="reflexao">آية اليوم</string>
+    <string name="title_activity_activity_busca_avancada">بحث</string>
+    <string name="title_activity_activity_anotacao">ملاحظات</string>
+    <string name="title_activity_nota_adicionar">أضف تعليقًا توضيحيًا</string>
+    <string name="title_activity_activity_favorito">مفضل</string>
+    <string name="action_websearch">بحث</string>
+    <string name="estatistica">إحصائية</string>
+    <string name="msg_permission">يحتاج التطبيق إلى هذا الإذن لإنشاء قاعدة البيانات.</string>
+    <string name="title_permission">مطلوب إذن هام</string>
+    <string name="confirmar_alarme_aviso">الآية اليومية مجدولة ل:</string>
+    <string name="finished_install">البدء في تنزيل الكتاب المقدس بلغتك. انتظر دقيقة. إذا استغرق الأمر وقتًا طويلاً يرجى التحقق من اتصالك</string>
+    <string name="busca_avancada_title">بحث</string>
+    <string name="velho_testamento">العهد القديم</string>
+    <string name="novo_testamento">العهد الجديد</string>
+    <string name="toda_b_blia">في كل الكتاب المقدس</string>
+    <string name="pesquisar_por">:البحث عن</string>
+    <string name="pesquisar">بحث</string>
+    <string name="pesquisar_somente_em">البحث فقط في:</string>
+    <string name="criar_nota">قم بإنشاء ملاحظة</string>
+    <string name="pesquisar_dicionario">بحث:</string>
+    <string name="favorito">مفضل</string>
+    <string name="devocional">خطب</string>
+    <string name="configura_o">ترتيب</string>
+    <string name="t_tulo">عنوان</string>
+    <string name="anota_o">حاشية. ملاحظة</string>
+    <string name="cancelar">إلغاء</string>
+    <string name="salvar" translatable="false">حفظ</string>
+    <string name="minuto">دقيقة</string>
+    <string name="hora">ساعة</string>
+    <string name="hora_redefinida">جدول جديد:</string>
+    <string name="cancel">إلغاء</string>
+    <string name="versiculo_text">لقد أخبرتك بهذا لكي يكون لك سلام فيّ. في العالم سيكون لديك مصائب ، لكن كن سعيدًا ، لقد تغلبت على العالم.</string>
+    <string name="redefinir">إعادة تعيين</string>
+    <string name="total_lido">تقرأ الآيات:</string>
+    <string name="marcar_versiculos">اعرض الآيات المقروءة بلون آخر.</string>
+    <string name="fonte_texto_title">خط النص</string>
+    <string name="marcar_versiculo_title">علامات مرقس</string>
+    <string name="fonte_text">تغيير خط النص</string>
+    <string name="fonte_size_title">حجم الخط</string>
+    <string name="fonte_text_sumary">اختر حجم النص</string>
+    <string name="modo_noturno_title">الوضع المظلم</string>
+    <string name="modo_noturno_summary">سيتم عرض خلفية الشاشة المظلمة</string>
+    <string name="tela_ativa_title">شاشة نشطة</string>
+    <string name="tela_ativa_summary">استمر في تشغيل الشاشة أثناء القراءة</string>
+    <string name="limpar_estatistica_title">إحصائيات واضحة</string>
+    <string name="limpar_estatistica_summary">سيؤدي هذا الخيار إلى محو تقدم القراءة الخاص بك</string>
+    <string name="versiculo_selecionado_share">لم يتم اختيار آية!</string>
+    <string name="gostou_do_nosso_app">اغفر المقاطعة - هل تمانع في ترك تعليق لنا؟</string>
+    <string name="sem_conexao">لا يوجد اتصال</string>
+    <string name="download_fail">لا يمكن تنزيل الكتاب المقدس. تحقق من اتصالك.</string>
+    <string name="noticias">أخبار</string>
+    <string name="biblia">الكتاب المقدس</string>
+    <string name="dicionario">قاموس</string>
+    <string name="versiculos_favoritos_title">آيات المفضلة</string>
+    <string name="fechar_about">قريب</string>
+    <string name="compartilhar">للمشاركه</string>
+    <string name="prosseguir">التالي</string>
+    <string name="escrever_mensagem_compartilhar">أضف رسالة إلى الآية</string>
+    <string name="versiculos_selecionados">الآية المختارة:</string>
+    <string name="digite_palavra">اكتب كلمة</string>
+    <string name="nada_encontrado">لم يتم العثور على شيء</string>
+    <string name="pesquisando">يبحث ...</string>
+    <string name="aguarde_pesquisando">انتظر لحظة ...</string>
+    <string name="pesquisa_cancelada">تم إلغاء البحث</string>
+    <string name="salvar_nos_favorito">حفظ كمفضلة</string>
+    <string name="salvar_para_compartilhar">حفظ للمشاركة</string>
+    <string name="foram_encontrados">تم ايجادها</string>
+    <string name="versiculo_do_dia">آية اليوم</string>
+    <string name="livro_evangelho_epistola">كتب - أناجيل - رسائل</string>
+    <string name="livro_carta">اقرأ:</string>
+    <string name="peace">سلام</string>
+    <string name="book_name">يوحنا</string>
+    <string name="sermon">خطبة</string>
+    <string name="opcao">خيارات</string>
+    <string name="nota_save">تم حفظ الشرح</string>
+    <string name="digite_algo">اطبع شيئًا!</string>
+    <string name="no_notes">ليس لديك ملاحظات.</string>
+    <string name="new_search">بحث جديد</string>
+    <string name="sound_off">تم إيقاف صوت التنبيه.</string>
+    <string name="sound_on">صوت الإعلام قيد التشغيل.</string>
+    <string name="bug_app">توقف الكتاب المقدس Adonai. أرسل بريدا إلكترونيا:</string>
+
+    <string-array name="menu_array">
+        <item> المفضلة </item>
+        <item> التعليقات التوضيحية </item>
+        <item> قاموس </item>
+        <item> خطب </item>
+        <item> إحصاءات </item>
+        <item> إعدادات </item>
+        <item> سياسة الخصوصية </item>
+        <item> حول </item>
+        <item> قيمنا! </item>
+    </string-array>
+
+</resources>

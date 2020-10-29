@@ -43,7 +43,7 @@
         
     <string name="nviText"> Nueva versión internacional </string>
         
-    <string name="bibliaLivEp"> Biblia </string>
+    <string name="bibliaLivEp">"Sagrada Biblia "</string>
         
     <string name="title_activity_devocional"> Sermones </string>
         

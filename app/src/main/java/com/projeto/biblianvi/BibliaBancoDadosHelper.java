@@ -332,6 +332,7 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
 
         openDataBase();
         cursor = myDataBase.rawQuery(query, null);
+        Log.e("query:", query);
 
         if (cursor.moveToFirst())
             i = cursor.getInt(0);

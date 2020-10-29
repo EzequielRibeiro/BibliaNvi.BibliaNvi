@@ -416,6 +416,10 @@ public class MainActivity extends AppCompatActivity {
                 folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_HI;
                 DATABASENAME = DownloadTask.Utils.DATABASE_NAME_HI;
                 break;
+            case "ar":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_AR;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_AR;
+                break;
             default:
                 folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_EN;
                 DATABASENAME = DownloadTask.Utils.DATABASE_NAME_EN;

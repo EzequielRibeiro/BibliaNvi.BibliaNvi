@@ -85,6 +85,10 @@ public class DownloadTask {
                 downloadUrl = downloadUrl.replace("XXX", Utils.HICL_HI_ZIP);
                 downloadFileName = Utils.HICL_HI_ZIP;
                 break;
+            case "ar":
+                downloadUrl = downloadUrl.replace("XXX", Utils.SAB_AR_ZIP);
+                downloadFileName = Utils.SAB_AR_ZIP;
+                break;
             default:
                 downloadUrl = downloadUrl.replace("XXX", Utils.NVI_EN_ZIP);
                 downloadFileName = Utils.NVI_EN_ZIP;
@@ -125,6 +129,9 @@ public class DownloadTask {
 
         public static final String HICL_HI_ZIP = "hicl_hi.zip";
         public static final String DATABASE_NAME_HI = "hicl_hi.db3";
+
+        public static final String SAB_AR_ZIP = "sab_ar.zip";
+        public static final String DATABASE_NAME_AR = "sab_ar.db3";
 
 
         public static final String DOWNLOAD_FOLDER_NAME = "Download";

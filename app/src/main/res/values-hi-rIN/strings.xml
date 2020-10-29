@@ -100,6 +100,8 @@
         <item>के बारे में</item>
         <item>हमें रेटिंग दें</item>
     </string-array>
+    <string name="sermon">उपदेश</string>
+    <string name="livro_carta">पढ़ें:</string>
 
 
 </resources>
