@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="idMob" translatable="false">ca-app-pub-0822808376839371/3569436819</string>
-    <string name="idMobEstatistica" translatable="false">ca-app-pub-0822808376839371/6865274217</string>
-    <string name="idMobPesquisar" translatable="false">ca-app-pub-0822808376839371/7056845901</string>
-    <string name="idMobSermao" translatable="false">ca-app-pub-0822808376839371/1175486347</string>
-    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-0822808376839371/2224016819</string>
+    <string name="idMobMain" translatable="false">ca-app-pub-0822808376839371/7732350900</string>
+    <string name="idMobEstatistica" translatable="false">ca-app-pub-0822808376839371/1003291022</string>
+    <string name="idMobPesquisar" translatable="false">ca-app-pub-0822808376839371/5269839090</string>
+    <string name="idMobSermao" translatable="false">ca-app-pub-0822808376839371/6391349071</string>
+    <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-0822808376839371/3589269372</string>
     <string name="app_name">Holy Bible Adonai</string>
     <string name="settings">Settings</string>
     <string name="refresh">Refresh</string>

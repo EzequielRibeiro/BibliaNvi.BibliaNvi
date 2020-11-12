@@ -289,47 +289,6 @@ public class MainActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         mAdView.setVisibility(View.GONE);
         final AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //  MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Collections.singletonList("49EB8CE6C2EA8D132E11FA3F75D28D0B")).build());
-                mAdView.loadAd(adRequest);
-            }
-        }, 500);
-
-        mAdView.setAdListener(new AdListener() {
-
-            @Override
-            public void onAdLoaded() {
-                mAdView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-
-                int orientation = getResources().getConfiguration().orientation;
-                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout_container);
-                    ConstraintSet constraintSet = new ConstraintSet();
-                    constraintSet.clone(constraintLayout);
-                    constraintSet.connect(R.id.layout_escolha_livro, ConstraintSet.BOTTOM, R.id.layout_qualificar, ConstraintSet.TOP, 0);
-                    constraintSet.applyTo(constraintLayout);
-
-                }
-
-
-                // AdRequest.ERROR_CODE_NO_FILL)
-                Log.i("admob", String.valueOf(errorCode));
-                Bundle bundle = new Bundle();
-                bundle.putString("ERRORCODE", String.valueOf(errorCode));
-                bundle.putString("COUNTRY", getResources().getConfiguration().locale.getDisplayCountry());
-                mFirebaseAnalytics.logEvent("ADMOB", bundle);
-
-
-            }
-
-
-        });
 
         Log.e("Banco:", Boolean.toString(isDataBaseDownload(getApplicationContext())));
 
@@ -756,6 +715,50 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+
+        mAdView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //  MobileAds.setRequestConfiguration(new RequestConfiguration.Builder().setTestDeviceIds(Collections.singletonList("49EB8CE6C2EA8D132E11FA3F75D28D0B")).build());
+                mAdView.loadAd(adRequest);
+            }
+        }, 500);
+
+        if (mAdView != null)
+            mAdView.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdLoaded() {
+                    mAdView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdFailedToLoad(int errorCode) {
+
+                    int orientation = getResources().getConfiguration().orientation;
+                    if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout_container);
+                        ConstraintSet constraintSet = new ConstraintSet();
+                        constraintSet.clone(constraintLayout);
+                        constraintSet.connect(R.id.layout_escolha_livro, ConstraintSet.BOTTOM, R.id.layout_qualificar, ConstraintSet.TOP, 0);
+                        constraintSet.applyTo(constraintLayout);
+
+                    }
+
+
+                    // AdRequest.ERROR_CODE_NO_FILL)
+                    Log.i("admob", String.valueOf(errorCode));
+                    Bundle bundle = new Bundle();
+                    bundle.putString("ERRORCODE", String.valueOf(errorCode));
+                    bundle.putString("COUNTRY", getResources().getConfiguration().locale.getDisplayCountry());
+                    mFirebaseAnalytics.logEvent("ADMOB", bundle);
+
+
+                }
+
+
+            });
 
 
     }
