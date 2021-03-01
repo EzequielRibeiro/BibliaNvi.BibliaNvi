@@ -58,13 +58,14 @@ public class VersiculoDiario extends BroadcastReceiver {
             versDoDia = bibliaHelp.getVersDoDia();
         } while (versDoDia.getIdSelecionado() == id || versDoDia.getText().isEmpty());
 
-        editor.clear().commit();
-        editor.putInt("id", versDoDia.getIdSelecionado()).commit();
-        editor.putString("assunto", versDoDia.getAssunto()).commit();
-        editor.putString("versDia", versDoDia.getText()).commit();
-        editor.putString("livroNome", versDoDia.getBooksName()).commit();
-        editor.putString("capVersDia", versDoDia.getChapter()).commit();
-        editor.putString("verVersDia", versDoDia.getVersesNum()).commit();
+        editor.clear();
+        editor.putInt("id", versDoDia.getIdSelecionado());
+        editor.putString("assunto", versDoDia.getAssunto());
+        editor.putString("versDia", versDoDia.getText());
+        editor.putString("livroNome", versDoDia.getBooksName());
+        editor.putString("capVersDia", versDoDia.getChapter());
+        editor.putString("verVersDia", versDoDia.getVersesNum());
+        editor.commit();
 
     }
 
