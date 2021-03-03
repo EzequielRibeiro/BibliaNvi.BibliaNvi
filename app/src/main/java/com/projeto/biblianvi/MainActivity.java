@@ -70,6 +70,7 @@ import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.projeto.biblianvi.biblianvi.R;
 
 import java.io.File;
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAnalytics mFirebaseAnalytics;
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private Toolbar toolbar;
+    private AdRequest adRequest;
 
 
 
@@ -141,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefDataBasePatch = getSharedPreferences("DataBase", Context.MODE_PRIVATE);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
         mFirebaseRemoteConfig.setDefaultsAsync(R.xml.remote_config);
         mTitle = mDrawerTitle = getTitle();
         menuTitulos = getResources().getStringArray(R.array.menu_array);
@@ -288,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAdView = findViewById(R.id.adView);
         mAdView.setVisibility(View.GONE);
-        final AdRequest adRequest = new AdRequest.Builder().build();
+        adRequest = new AdRequest.Builder().build();
 
         Log.e("Banco:", Boolean.toString(isDataBaseDownload(getApplicationContext())));
 
@@ -370,14 +376,6 @@ public class MainActivity extends AppCompatActivity {
             case "zh":
                 folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_ZH;
                 DATABASENAME = DownloadTask.Utils.DATABASE_NAME_ZH;
-                break;
-            case "hi":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_HI;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_HI;
-                break;
-            case "ar":
-                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_AR;
-                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_AR;
                 break;
             default:
                 folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_EN;
@@ -693,24 +691,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mFirebaseRemoteConfig.fetch(3600)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(@NonNull Task<Boolean> task) {
                         if (task.isSuccessful()) {
+                            boolean updated = task.getResult();
                             if (!mFirebaseRemoteConfig.getString(MESSAGE_KEY).equals("not")) {
 
                                 textViewRecados.setTextColor(getResources().getColor(R.color.red));
                                 textViewRecados.setMovementMethod(LinkMovementMethod.getInstance());
                                 textViewRecados.setText(Html.fromHtml(mFirebaseRemoteConfig.getString(MESSAGE_KEY)));
-
                             }
-                            mFirebaseRemoteConfig.activateFetched();
-                            Log.e("RemoteConig: ", "valor: " + mFirebaseRemoteConfig.getString(MESSAGE_KEY));
                         } else {
-
-                            Log.e("RemoteConig: ", Boolean.toString(task.isSuccessful()));
-
+                            Toast.makeText(MainActivity.this, "Failed Request Remote Config",
+                                    Toast.LENGTH_SHORT).show();
                         }
 
                     }

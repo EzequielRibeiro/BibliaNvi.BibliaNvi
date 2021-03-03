@@ -121,7 +121,7 @@ public class DetailsFragment extends Fragment {
 
 
         int capitulos = bibliaHelp.getQuantidadeCapitulos(livro[mIndex]);
-
+        Log.e("Capitulo", "valor " + capitulos);
         idColorListChapter = new ArrayList<>();
         for (int i = 0; i < capitulos; i++) {
             idColorListChapter.add(R.color.white);

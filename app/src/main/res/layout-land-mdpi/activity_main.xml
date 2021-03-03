@@ -213,7 +213,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
                         ads:adSize="BANNER"
-                        ads:adUnitId="@string/idMob"></com.google.android.gms.ads.AdView>
+                        ads:adUnitId="@string/idMobMain"></com.google.android.gms.ads.AdView>
 
                     <TextView
                         android:id="@+id/textViewRecados"

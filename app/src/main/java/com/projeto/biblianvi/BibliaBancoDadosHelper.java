@@ -307,10 +307,9 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
     public int getQuantidadeVersos(String livroEpistola, String capitulo) {
 
         int i = 0;
-        String query = "select verses.verse " +
+        String query = "select MAX(verses.verse) " +
                 "from testament,verses,books where testament.id = verses.testament and books.id = verses.book " +
-                "and books.name like '" + livroEpistola + "%' and verses.chapter =" + capitulo +
-                " GROUP BY verses.chapter ";
+                "and books.name = '" + livroEpistola + "' and verses.chapter =" + capitulo;
 
         openDataBase();
         cursor = myDataBase.rawQuery(query, null);
@@ -326,13 +325,12 @@ public class BibliaBancoDadosHelper extends SQLiteOpenHelper {
     public int getQuantidadeCapitulos(String livroEpistola) {
 
         int i = 0;
-        String query = "select verses.chapter from testament,verses,books " +
+        String query = "select MAX(verses.chapter) from testament,verses,books " +
                 "where testament.id = verses.testament and books.id = verses.book " +
-                "and books.name like '" + livroEpistola + "%' GROUP BY books.name";
+                "and books.name = '" + livroEpistola + "'";
 
         openDataBase();
         cursor = myDataBase.rawQuery(query, null);
-        Log.e("query:", query);
 
         if (cursor.moveToFirst())
             i = cursor.getInt(0);

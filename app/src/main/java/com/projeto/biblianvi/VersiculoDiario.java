@@ -42,7 +42,6 @@ public class VersiculoDiario extends BroadcastReceiver {
         try {
             if (MainActivity.isDataBaseDownload(context))
                 versiculoDoDia();
-                criarNotification();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -66,10 +65,11 @@ public class VersiculoDiario extends BroadcastReceiver {
         editor.putString("capVersDia", versDoDia.getChapter());
         editor.putString("verVersDia", versDoDia.getVersesNum());
         editor.commit();
+        criarNotification(versDoDia);
 
     }
 
-    private void criarNotification() throws ParseException {
+    private void criarNotification(VersDoDia versDoDia) throws ParseException {
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         int importance = NotificationManager.IMPORTANCE_LOW;
@@ -112,10 +112,10 @@ public class VersiculoDiario extends BroadcastReceiver {
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .setContentTitle(context.getResources().getString(R.string.app_name))
                         .setSubText(context.getString(R.string.versiculo_do_dia))
-                        .setContentText(settings.getString("assunto", " ") +
-                                " - " + settings.getString("livroNome", " ") +
-                                " " + settings.getString("capVersDia", " ") +
-                                ":" + settings.getString("verVersDia", " ") + " ");
+                        .setContentText(versDoDia.getAssunto() +
+                                " - " + versDoDia.getBooksName() +
+                                " " + versDoDia.getChapter() +
+                                ":" + versDoDia.getVersesNum() + " ");
 
         mBuilder.setContentIntent(resultPendingIntent);
         notificationManager.notify(notifyID, mBuilder.build());

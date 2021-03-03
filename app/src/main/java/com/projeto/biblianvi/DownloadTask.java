@@ -11,6 +11,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -147,6 +148,15 @@ public class DownloadTask {
         }
     }
 
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+
     private class DownloadingTask extends AsyncTask<String, Context, Void> {
 
         File folderStorage = null;
@@ -218,6 +228,7 @@ public class DownloadTask {
         protected Void doInBackground(String... arg0) {
 
             packageName = arg0[0];
+
             //Get File if SD card is present
             if (new CheckForSDCard().isSDCardPresent()) {
 
