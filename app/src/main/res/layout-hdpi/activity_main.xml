@@ -129,7 +129,7 @@
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/icon_dicionario"
                         android:gravity="bottom|center_horizontal"
-                        android:text="@string/dicionario"
+                        android:text="@string/favorito"
                         android:textColor="@color/blue"
                         android:textSize="12sp"
                         android:textStyle="bold" />

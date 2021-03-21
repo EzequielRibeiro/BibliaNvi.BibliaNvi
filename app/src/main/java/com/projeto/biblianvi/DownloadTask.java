@@ -66,6 +66,12 @@ public class DownloadTask {
     private void runTask(String language) {
 
         switch (language) {
+
+            case "de":
+                downloadUrl = downloadUrl.replace("XXX", Utils.KW_DE_ZIP);
+                downloadFileName = Utils.KW_DE_ZIP;
+                break;
+
             case "pt":
                 downloadUrl = downloadUrl.replace("XXX", Utils.NVI_PT_BR_ZIP);
                 downloadFileName = Utils.NVI_PT_BR_ZIP;
@@ -112,6 +118,9 @@ public class DownloadTask {
     //sse_es.zip  sse_es.db3
     public static class Utils {
 
+
+        public static final String KW_DE_ZIP = "kw_de.zip";
+        public static final String DATABASE_NAME_DE = "kw_de.db3";
 
         public static final String NVI_PT_BR_ZIP = "nvi_pt_br.zip";
         public static final String DATABASE_NAME_PT = "nvi_pt_br.db3";

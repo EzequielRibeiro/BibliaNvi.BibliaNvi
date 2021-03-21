@@ -361,6 +361,11 @@ public class MainActivity extends AppCompatActivity {
 
         switch (Locale.getDefault().getLanguage()) {
 
+            case "de":
+                folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_DE;
+                DATABASENAME = DownloadTask.Utils.DATABASE_NAME_DE;
+                break;
+
             case "pt":
                 folderDest = folderDest + DownloadTask.Utils.DATABASE_NAME_PT;
                 DATABASENAME = DownloadTask.Utils.DATABASE_NAME_PT;
