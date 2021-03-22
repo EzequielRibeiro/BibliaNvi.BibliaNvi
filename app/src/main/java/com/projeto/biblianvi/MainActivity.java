@@ -231,16 +231,24 @@ public class MainActivity extends AppCompatActivity {
         TextViewCompat.setAutoSizeTextTypeWithDefaults(button_pesquisar, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textViewVersDia, TextView.AUTO_SIZE_TEXT_TYPE_NONE);
 
+        button_sermon.setText(getString(R.string.favorito));
+        button_sermon.setBackground(getDrawable(R.drawable.button_favorite_custom));
         button_sermon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                intent = new Intent(MainActivity.this, Activity_favorito.class);
+                startActivity(intent);
+               /*
                 if (isNetworkAvailable(getApplicationContext())) {
                     intent = new Intent(MainActivity.this, Sermoes.class);
                     startActivity(intent);
+
+
                 } else {
                     Toast.makeText(getApplication(), "Sem conexão", Toast.LENGTH_LONG).show();
                 }
+                */
             }
         });
         buttonCompartilharMain.setBackground(getDrawable(android.R.drawable.ic_menu_share));
@@ -268,13 +276,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
+        button_dicionario.setText(getString(R.string.anota_o));
+        button_dicionario.setBackground(getDrawable(R.drawable.button_note_custom));
         button_dicionario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                opcaoDicionario(getApplicationContext());
+                // opcaoDicionario(getApplicationContext());
+                intent = new Intent(MainActivity.this, ActivityAnotacao.class);
+                startActivity(intent);
 
             }
         });

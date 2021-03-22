@@ -90,4 +90,7 @@
     <string name="modo_noturno_summary">Zeigt den dunklen Bildschirmhinter grund an</string>
     <string name="title_activity_devocional">Predigten</string>
     <string name="versiculo_text">Ich habe dir das gesagt, damit du Frieden in mir hast. Sie werden Bedrängnisse in der Welt haben, aber seien Sie guten Mutes, ich habe die Welt überwunden.</string>
+    <string name="title_activity_activity_busca_avancada">Erweiterte Suche</string>
+    <string name="aviso">App Name: \nHeilige Bibel Adonai  \n\nAusführung: \n@App Version@  \n\nÜbersetzung: \n@bible_version@  \n\nVielen Dank für den Download!  Wenn Sie Fehler finden oder Vorschläge für die Anwendung haben, kontaktieren Sie uns bitte per E-Mail: aplicativoparamobile@gmail.com \nEntwickelt von: Ezequiel A. Ribeiro</string>
+    <string name="opcao">Optionen</string>
 </resources>
