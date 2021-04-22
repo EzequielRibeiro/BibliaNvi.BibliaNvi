@@ -11,10 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.projeto.biblianvi.biblianvi.R;
+
+import org.jetbrains.annotations.NotNull;
 
 public class GraficoGeral extends TabActivity {
 
@@ -79,8 +84,10 @@ public class GraficoGeral extends TabActivity {
                 // Code to be executed when an ad finishes loading.
             }
 
+
             @Override
-            public void onAdFailedToLoad(int adError) {
+            public void onAdFailedToLoad(@NonNull @NotNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
                 LinearLayout myLayoutBase = findViewById(R.id.linearLayoutGrafAd);
                 LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) myLayoutBase.getLayoutParams();
                 params.height = 0;
@@ -96,11 +103,6 @@ public class GraficoGeral extends TabActivity {
             @Override
             public void onAdClicked() {
                 // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                // Code to be executed when the user has left the app.
             }
 
             @Override

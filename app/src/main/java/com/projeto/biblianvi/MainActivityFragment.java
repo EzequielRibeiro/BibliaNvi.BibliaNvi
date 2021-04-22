@@ -9,10 +9,13 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.projeto.biblianvi.biblianvi.R;
 
 public class MainActivityFragment extends Activity {
@@ -26,9 +29,30 @@ public class MainActivityFragment extends Activity {
         FragmentManager.enableDebugLogging(true);
         setContentView(R.layout.activity_fragment);
 
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitial_ad_unit_id));
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        loadInterstitialAd();
+
+    }
+
+    private void loadInterstitialAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, getString(R.string.interstitial_ad_unit_id), adRequest, new InterstitialAdLoadCallback() {
+            @Override
+            public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                // The mInterstitialAd reference will be null until
+                // an ad is loaded.
+                mInterstitialAd = interstitialAd;
+                Log.i("Admob", "onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                // Handle the error
+                Log.i("Admob", "Interstitial fail code " + loadAdError.getCode() + ": " + loadAdError.getMessage());
+                mInterstitialAd = null;
+            }
+        });
+
 
     }
 
@@ -60,13 +84,19 @@ public class MainActivityFragment extends Activity {
     }
 
     @Override
-    public void onStop() {
-        Log.v(TAG, "in MainActivity onStop");
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
+    public void onBackPressed() {
+        if (mInterstitialAd != null)
+            mInterstitialAd.show(MainActivityFragment.this);
+        else {
             Log.d("TAG", "The interstitial wasn't loaded yet.");
         }
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onStop() {
+        Log.v(TAG, "in MainActivity onStop");
+
         super.onStop();
     }
 

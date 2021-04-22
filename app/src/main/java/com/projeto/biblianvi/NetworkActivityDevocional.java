@@ -38,7 +38,6 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
 import com.projeto.biblianvi.biblianvi.R;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -71,7 +70,6 @@ public class NetworkActivityDevocional extends Activity {
     // The BroadcastReceiver that tracks network connectivity changes.
     private NetworkReceiver receiver = new NetworkReceiver();
     private ImageView ref;
-    private InterstitialAd mInterstitialAd;
     private FrameLayout frameLayoutDevoc;
     private WebView webViewPop;
     private Context esteContext;
@@ -190,32 +188,8 @@ public class NetworkActivityDevocional extends Activity {
     }
 
     public void onBackPressed() {
-
-
-        if (mInterstitialAd != null)
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            }
-
         finish();
         return;
-    }
-
-
-    private void requestNewInterstitial() {
-
-
-        String id = getResources().getString(R.string.interstitial_ad_unit_id);
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(id);
-
-
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .build();
-
-        mInterstitialAd.loadAd(adRequest);
     }
 
     protected void onStop() {

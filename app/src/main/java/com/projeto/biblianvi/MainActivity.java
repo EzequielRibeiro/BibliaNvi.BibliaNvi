@@ -64,6 +64,7 @@ import androidx.fragment.app.DialogFragment;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.review.ReviewInfo;
@@ -75,6 +76,8 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.projeto.biblianvi.biblianvi.R;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.text.ParseException;
@@ -761,9 +764,10 @@ public class MainActivity extends AppCompatActivity {
                     mAdView.setVisibility(View.VISIBLE);
                 }
 
-                @Override
-                public void onAdFailedToLoad(int errorCode) {
 
+                @Override
+                public void onAdFailedToLoad(@NonNull @NotNull LoadAdError loadAdError) {
+                    super.onAdFailedToLoad(loadAdError);
                     int orientation = getResources().getConfiguration().orientation;
                     if (orientation == Configuration.ORIENTATION_PORTRAIT) {
                         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.layout_container);
@@ -776,9 +780,9 @@ public class MainActivity extends AppCompatActivity {
 
 
                     // AdRequest.ERROR_CODE_NO_FILL)
-                    Log.i("admob", String.valueOf(errorCode));
+                    Log.i("admob", loadAdError.toString());
                     Bundle bundle = new Bundle();
-                    bundle.putString("ERRORCODE", String.valueOf(errorCode));
+                    bundle.putString("ERRORCODE", loadAdError.toString());
                     bundle.putString("COUNTRY", getResources().getConfiguration().locale.getDisplayCountry());
                     mFirebaseAnalytics.logEvent("ADMOB", bundle);
 
