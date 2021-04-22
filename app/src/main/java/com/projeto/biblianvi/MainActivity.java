@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,6 +19,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -84,7 +87,9 @@ import static com.projeto.biblianvi.TimeClock.checarAlarmeExiste;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    public static final String CHANNELNAME = "BibleAdonai";
+    public static final String CHANNELDESCRIPTION = "Bible Adonai Notification";
+    public static final String IDCHANNEL = "com.projeto.biblianvi.biblianvi.ANDROID";
     static public String PACKAGENAME;
     static public String DATABASENAME;
     static public String VERSIONAPP;
@@ -329,7 +334,20 @@ public class MainActivity extends AppCompatActivity {
             getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", 0).commit();
         }
 
+        createNotificationChannel();
 
+    }
+
+    private void createNotificationChannel() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(IDCHANNEL, CHANNELNAME, importance);
+            channel.setDescription(CHANNELDESCRIPTION);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     static public void openNoticias(Context applicationContext) {
@@ -912,8 +930,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 if (MainActivity.isNetworkAvailable(context)) {
-                    intent = new Intent(context, Sermoes.class);
-                    context.startActivity(intent);
+                    //intent = new Intent(context, Sermoes.class);
+                    // context.startActivity(intent);
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.sermonaudio.com/sermonslanguage.asp"));
+                    context.startActivity(browserIntent);
                 } else {
 
                     Toast.makeText(context, context.getText(R.string.sem_conexao), Toast.LENGTH_LONG).show();

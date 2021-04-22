@@ -16,8 +16,8 @@ android {
         applicationId 'com.projeto.biblianvi.biblianvi'
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 72
-        versionName '1.72'
+        versionCode 73
+        versionName '1.73'
         signingConfig signingConfigs.config
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }

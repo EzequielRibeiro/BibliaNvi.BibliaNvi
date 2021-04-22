@@ -84,6 +84,7 @@ public class Sermoes extends Activity {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
 
+        /*
         if (language.equals("es")) {
             SITE = "https://asambleas.net/category/sermones/";
         } else if (language.equals("pt")) {
@@ -92,6 +93,9 @@ public class Sermoes extends Activity {
             SITE = "https://www.biblestudytools.com/sermons/";
 
         }
+         */
+        SITE = "https://www.sermonaudio.com/sermonslanguage.asp";
+
 
         myWebView.setBackgroundColor(Color.TRANSPARENT);
         myWebView.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);

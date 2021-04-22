@@ -104,6 +104,8 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
         c.set(Calendar.MINUTE, minute);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, p);
+
+
     }
 
 

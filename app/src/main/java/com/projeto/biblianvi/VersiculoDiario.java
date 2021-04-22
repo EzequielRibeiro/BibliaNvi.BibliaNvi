@@ -28,7 +28,6 @@ public class VersiculoDiario extends BroadcastReceiver {
     private int notifyID = 125;
     private BibliaBancoDadosHelper bibliaHelp;
     private Context context;
-    public static final String NOTIFICATION_CHANNEL_ID = "101016";
     private SharedPreferences settings;
     private SharedPreferences.Editor editor;
 
@@ -72,7 +71,7 @@ public class VersiculoDiario extends BroadcastReceiver {
     private void criarNotification(VersDoDia versDoDia) throws ParseException {
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        int importance = NotificationManager.IMPORTANCE_LOW;
+        int importance = NotificationManager.IMPORTANCE_HIGH;
         NotificationChannel notificationChannel = null;
         NotificationManager notificationManager;
 
@@ -88,7 +87,7 @@ public class VersiculoDiario extends BroadcastReceiver {
 
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, "Bible", importance);
+            notificationChannel = new NotificationChannel(MainActivity.IDCHANNEL, MainActivity.CHANNELNAME, importance);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
@@ -104,12 +103,12 @@ public class VersiculoDiario extends BroadcastReceiver {
                 R.drawable.large_icon_bible);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
+                new NotificationCompat.Builder(context, MainActivity.IDCHANNEL)
                         .setAutoCancel(true)
                         .setSound(alarmSound)
                         .setSmallIcon(R.drawable.ic_stat_name)
                         .setLargeIcon(bipmap)
-                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                         .setContentTitle(context.getResources().getString(R.string.app_name))
                         .setSubText(context.getString(R.string.versiculo_do_dia))
                         .setContentText(versDoDia.getAssunto() +
