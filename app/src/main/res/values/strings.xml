@@ -5,6 +5,12 @@
     <string name="idMobPesquisar" translatable="false">ca-app-pub-0822808376839371/5269839090</string>
     <string name="idMobSermao" translatable="false">ca-app-pub-0822808376839371/6391349071</string>
     <string name="interstitial_ad_unit_id" translatable="false">ca-app-pub-0822808376839371/3589269372</string>
+    <string name="amazon_ad_key" translatable="false">a3c7991d1b4a4f159c018e1b07801005</string>
+    <!--<string name="idMobMain" translatable="false">xxxxxxx</string>
+    <string name="idMobEstatistica" translatable="false">xxxxxxxxxxxxxx</string>
+    <string name="idMobPesquisar" translatable="false">xxxxxxxxxxxxx</string>
+    <string name="idMobSermao" translatable="false">xxxxxxxxxxx</string>
+    <string name="interstitial_ad_unit_id" translatable="false">xxxxxxxxxxxxxx</string>-->
     <string name="app_name">Holy Bible Adonai</string>
     <string name="settings">Settings</string>
     <string name="refresh">Refresh</string>
@@ -125,17 +131,19 @@
     <string name="salvar_para_compartilhar">Save to share</string>
     <string name="foram_encontrados">were found</string>
     <string name="versiculo_do_dia">Verse of the day </string>
-    <string name="livro_evangelho_epistola">Books - Gospel - Epistles</string>
+    <string name="livro_evangelho_epistola" translatable="false">Books - Gospel - Epistles</string>
     <string name="title_activity_main_fragment" translatable="false">MainFragment</string>
     <string name="drawer_open" translatable="false">Open navigation drawer</string>
     <string name="drawer_close" translatable="false">Close navigation drawer</string>
     <string name="app_not_available" translatable="false">Sorry, there\'s no web browser available</string>
     <string name="capitulo_number" translatable="false">16</string>
     <string name="versiculo_number" translatable="false">33</string>
-    <string name="compartilharWhat">WhatsApp</string>
+    <string name="compartilharWhat" translatable="false">WhatsApp</string>
     <string name="aviso_escolha_book" translatable="false">O aplicativo permite escolher entre 13 traduções da Bíblia.\nSerá preciso estar conectado com a internet para fazer o download da versão escolhida.
     Após o download o aplicativo não mais necessita de conexão para ser utilizado.\nQualquer problema encontrado entre em contado com o desenvolvedor pelo e-mail indicado no MENU->SOBRE.\nObrigado.</string>
-
+    <string name="default_notification_channel_id" translatable="false">com.projeto.biblianvi.biblianvi</string>
+    <string name="fcm_message" translatable="false">Info ShortLink</string>
+    <string name="default_notification_channel_name" translatable="false">BibliaNvi</string>
     <string name="idVerse" translatable="false">idVerse</string>
     <string name="idPosition" translatable="false">idPosition</string>
 

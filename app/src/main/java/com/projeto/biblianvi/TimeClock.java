@@ -24,6 +24,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
 
     private static int hour = 10;
     private static int minute = 30;
+    private static final int requestCode = 0;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -95,7 +96,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
         }
 
         Intent it = new Intent(context, VersiculoDiario.class);
-        PendingIntent p = PendingIntent.getBroadcast(context, 101015, it, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent p = PendingIntent.getBroadcast(context, requestCode, it, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar c = Calendar.getInstance();
@@ -104,7 +105,8 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
         c.set(Calendar.MINUTE, minute);
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, p);
-
+        Log.e("alarme ", "agendarAlarmeVersiculo");
+        checarAlarmeExiste(context);
 
     }
 
@@ -113,7 +115,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
 
         Intent tempIntent = new Intent(context, VersiculoDiario.class);
         tempIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        boolean alarmUp = (PendingIntent.getBroadcast(context, 101015, tempIntent, PendingIntent.FLAG_NO_CREATE) != null);
+        boolean alarmUp = (PendingIntent.getBroadcast(context, requestCode, tempIntent, PendingIntent.FLAG_NO_CREATE) != null);
 
         if (alarmUp)
             Log.e("alarme ", "ativado");
@@ -126,15 +128,17 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
 
     private void cancelarAgendarAlarmeVersiculo() {
 
-        Intent intent = new Intent("com.projeto.biblianvi.VersiculoDiario");
+        Intent intent = new Intent(getActivity(), VersiculoDiario.class);
         AlarmManager alarmManager =
                 (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent =
-                PendingIntent.getService(getContext(), 101015, intent,
+                PendingIntent.getService(getContext(), requestCode, intent,
                         PendingIntent.FLAG_NO_CREATE);
         if (pendingIntent != null && alarmManager != null) {
             alarmManager.cancel(pendingIntent);
-        }
+            Log.e("alarme ", "cancelado");
+        } else
+            Log.e("alarme ", "não cancelado");
 
 
     }

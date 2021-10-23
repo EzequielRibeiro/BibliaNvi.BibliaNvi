@@ -1,5 +1,9 @@
 package com.projeto.biblianvi;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.projeto.biblianvi.TimeClock.agendarAlarmeVersiculo;
+import static com.projeto.biblianvi.TimeClock.checarAlarmeExiste;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -83,16 +87,9 @@ import java.io.File;
 import java.text.ParseException;
 import java.util.Locale;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.projeto.biblianvi.TimeClock.agendarAlarmeVersiculo;
-import static com.projeto.biblianvi.TimeClock.checarAlarmeExiste;
-
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String CHANNELNAME = "BibleAdonai";
-    public static final String CHANNELDESCRIPTION = "Bible Adonai Notification";
-    public static final String IDCHANNEL = "com.projeto.biblianvi.biblianvi.ANDROID";
     static public String PACKAGENAME;
     static public String DATABASENAME;
     static public String VERSIONAPP;
@@ -344,12 +341,13 @@ public class MainActivity extends AppCompatActivity {
     private void createNotificationChannel() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(IDCHANNEL, CHANNELNAME, importance);
-            channel.setDescription(CHANNELDESCRIPTION);
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
+            // Create channel to show notifications.
+            String channelId = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_HIGH));
         }
     }
 

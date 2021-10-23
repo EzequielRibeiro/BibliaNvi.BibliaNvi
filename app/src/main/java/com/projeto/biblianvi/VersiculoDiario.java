@@ -25,7 +25,7 @@ import java.text.ParseException;
  */
 
 public class VersiculoDiario extends BroadcastReceiver {
-    private int notifyID = 125;
+    private int notifyID = 0;
     private BibliaBancoDadosHelper bibliaHelp;
     private Context context;
     private SharedPreferences settings;
@@ -76,18 +76,22 @@ public class VersiculoDiario extends BroadcastReceiver {
         NotificationManager notificationManager;
 
         Intent resultIntent = new Intent(context, MainActivity.class);
+        resultIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
         stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
+                        PendingIntent.FLAG_ONE_SHOT
                 );
 
 
+        String channel = context.getString(R.string.default_notification_channel_id);
+        String channelName = context.getString(R.string.default_notification_channel_name);
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            notificationChannel = new NotificationChannel(MainActivity.IDCHANNEL, MainActivity.CHANNELNAME, importance);
+            notificationChannel = new NotificationChannel(channel, channelName, importance);
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.RED);
             notificationChannel.enableVibration(true);
@@ -103,21 +107,24 @@ public class VersiculoDiario extends BroadcastReceiver {
                 R.drawable.large_icon_bible);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(context, MainActivity.IDCHANNEL)
+                new NotificationCompat.Builder(context, channel)
                         .setAutoCancel(true)
                         .setSound(alarmSound)
                         .setSmallIcon(R.drawable.ic_stat_name)
                         .setLargeIcon(bipmap)
                         .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setContentTitle(context.getResources().getString(R.string.app_name))
-                        .setSubText(context.getString(R.string.versiculo_do_dia))
-                        .setContentText(versDoDia.getAssunto() +
+                        .setContentTitle(versDoDia.getAssunto() +
                                 " - " + versDoDia.getBooksName() +
                                 " " + versDoDia.getChapter() +
-                                ":" + versDoDia.getVersesNum() + " ");
+                                ":" + versDoDia.getVersesNum())
+                        // .setContentTitle(context.getResources().getString(R.string.app_name))
+                        .setSubText(context.getString(R.string.versiculo_do_dia))
+                        .setStyle(new NotificationCompat.BigTextStyle()
+                                .bigText(versDoDia.getText()));
 
         mBuilder.setContentIntent(resultPendingIntent);
         notificationManager.notify(notifyID, mBuilder.build());
 
     }
+
 }
