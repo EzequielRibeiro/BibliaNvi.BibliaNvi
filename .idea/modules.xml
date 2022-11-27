@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/BibliaNvi.BibliaNvi.iml" filepath="$PROJECT_DIR$/.idea/modules/BibliaNvi.BibliaNvi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/BibliaNvi.BibliaNvi.app.unitTest.iml" />
     </modules>
   </component>
 </project>

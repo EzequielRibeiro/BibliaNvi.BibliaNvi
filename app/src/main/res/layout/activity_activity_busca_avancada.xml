@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="top"
     android:orientation="vertical"
-    tools:context=".Activity_busca_avancada">
+    >
 
 
     <ProgressBar
@@ -74,6 +74,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:checked="false"
+                        android:minHeight="48dp"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/velho_testamento"
                         android:textColor="#040404"
@@ -84,6 +85,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:checked="false"
+                        android:minHeight="48dp"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/novo_testamento"
                         android:textColor="#040404"
@@ -94,6 +96,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:checked="false"
+                        android:minHeight="48dp"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/toda_b_blia"
                         android:textColor="#040404"
@@ -104,6 +107,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:checked="true"
+                        android:minHeight="48dp"
                         android:onClick="onRadioButtonClicked"
                         android:text="@string/pesquisar_somente_em"
                         android:textColor="#040404"
@@ -152,7 +156,7 @@
                 <EditText
                     android:id="@+id/editTextAvanc"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:background="@drawable/borda_layout"
@@ -166,7 +170,8 @@
                     android:textSize="18sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <Spinner
                     android:id="@+id/spinnerBuscaAvanc"
@@ -176,8 +181,10 @@
 
                     android:layout_marginStart="8dp"
                     android:gravity="start"
+                    android:minHeight="48dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+                    tools:ignore="SpeakableTextPresentCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

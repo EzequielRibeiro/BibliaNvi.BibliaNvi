@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
@@ -10,15 +12,15 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
     defaultConfig {
         applicationId 'com.projeto.biblianvi.biblianvi'
 //        applicationId 'com.projeto.biblianvi'
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 75
-        versionName '1.75'
+        targetSdkVersion 33
+        versionCode 78
+        versionName '1.78'
         signingConfig signingConfigs.config
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
@@ -52,27 +54,28 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation platform('com.google.firebase:firebase-bom:28.3.1')
+    implementation platform('com.google.firebase:firebase-bom:30.4.1')
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.core:core:1.6.0'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.core:core:1.9.0'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-crashlytics'
    // implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.google.android.play:core:1.10.2'
-    implementation 'com.google.android.gms:play-services-base:17.6.0'
-    implementation 'com.google.android.gms:play-services-ads:20.4.0'
+  //  implementation 'com.google.android.play:core:1.10.3'
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
+    implementation 'com.google.android.play:review:2.0.1'
+    // implementation 'com.google.android.gms:play-services-base:18.1.0'
+   // implementation 'com.google.android.gms:play-services-ads:21.3.0'
     // implementation 'org.apache.commons:commons-lang3:3.11'
 
 }
 
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+

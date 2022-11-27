@@ -96,7 +96,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
         }
 
         Intent it = new Intent(context, VersiculoDiario.class);
-        PendingIntent p = PendingIntent.getBroadcast(context, requestCode, it, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent p = PendingIntent.getBroadcast(context, requestCode, it, PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar c = Calendar.getInstance();
@@ -115,7 +115,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
 
         Intent tempIntent = new Intent(context, VersiculoDiario.class);
         tempIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        boolean alarmUp = (PendingIntent.getBroadcast(context, requestCode, tempIntent, PendingIntent.FLAG_NO_CREATE) != null);
+        boolean alarmUp = (PendingIntent.getBroadcast(context, requestCode, tempIntent, PendingIntent.FLAG_IMMUTABLE) != null);
 
         if (alarmUp)
             Log.e("alarme ", "ativado");
@@ -133,7 +133,7 @@ public class TimeClock extends DialogFragment implements TimePickerDialog.OnTime
                 (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent =
                 PendingIntent.getService(getContext(), requestCode, intent,
-                        PendingIntent.FLAG_NO_CREATE);
+                        PendingIntent.FLAG_IMMUTABLE);
         if (pendingIntent != null && alarmManager != null) {
             alarmManager.cancel(pendingIntent);
             Log.e("alarme ", "cancelado");

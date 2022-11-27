@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -65,14 +66,22 @@ public class UnZip {
                 String fileName = ze.getName();
                 File newFile = new File(getFileDestDirectory() + File.separator + fileName);
                 Log.e(TAG, "Unzipping to " + newFile.getAbsolutePath());
+
                 //create directories for sub directories in zip
-                new File(newFile.getParent()).mkdirs();
+                new File(Objects.requireNonNull(newFile.getParent())).mkdirs();
                 FileOutputStream fos = new FileOutputStream(newFile);
                 int len, lenCurrent = 0;
                 long totalSize = ze.getSize();
                 while ((len = zis.read(buffer)) > 0) {
                     fos.write(buffer, 0, len);
                     lenCurrent += len;
+
+                    try {
+                        ensureZipPathSafety(newFile, newFile.getParent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                    }
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         progressBar.setProgress((lenCurrent * 100) / (int) totalSize, true);
@@ -114,6 +123,14 @@ public class UnZip {
             e.printStackTrace();
         }
 
+    }
+
+    private void ensureZipPathSafety(final File outputFile, final String destDirectory) throws Exception {
+        String destDirCanonicalPath = (new File(destDirectory)).getCanonicalPath();
+        String outputFilecanonicalPath = outputFile.getCanonicalPath();
+        if (!outputFilecanonicalPath.startsWith(destDirCanonicalPath)) {
+            throw new Exception(String.format("Found Zip Path Traversal Vulnerability with %s", destDirCanonicalPath));
+        }
     }
 
     private String getFileDestDirectory() {

@@ -421,7 +421,7 @@ public class NetworkActivityDevocional extends Activity {
             settings.setSupportZoom(true);
             settings.setBuiltInZoomControls(true);
             settings.setJavaScriptEnabled(true);
-            settings.setAppCacheEnabled(true);
+            settings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
             settings.setJavaScriptCanOpenWindowsAutomatically(true);
             settings.setSupportMultipleWindows(true);
 

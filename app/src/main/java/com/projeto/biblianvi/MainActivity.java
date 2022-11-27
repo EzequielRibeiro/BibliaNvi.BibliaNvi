@@ -52,7 +52,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -70,11 +69,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -119,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -512,18 +510,18 @@ public class MainActivity extends AppCompatActivity {
     private static void rateApp(final Activity activity) throws Exception {
         final ReviewManager reviewManager = ReviewManagerFactory.create(activity);
         //reviewManager = new FakeReviewManager(this);
-        com.google.android.play.core.tasks.Task<ReviewInfo> request = reviewManager.requestReviewFlow();
+        Task<ReviewInfo> request = reviewManager.requestReviewFlow();
 
-        request.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
+        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
             @Override
-            public void onComplete(com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+            public void onComplete(Task<ReviewInfo> task) {
                 if (task.isSuccessful()) {
                     Log.e("Rate Task", "Complete");
                     ReviewInfo reviewInfo = task.getResult();
-                    com.google.android.play.core.tasks.Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
-                    flow.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<Void>() {
+                    Task<Void> flow = reviewManager.launchReviewFlow(activity, reviewInfo);
+                    flow.addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(com.google.android.play.core.tasks.Task<Void> task) {
+                        public void onComplete(Task<Void> task) {
                             Log.e("Rate Flow", "Complete");
                         }
                     });
@@ -615,6 +613,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void downloadDataBaseBible() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -629,7 +628,9 @@ public class MainActivity extends AppCompatActivity {
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NOTIFICATION_POLICY}, REQUEST_STORAGE);
+                        //  PermissionCheck.checkPermission(MainActivity.this);
+
+                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NOTIFICATION_POLICY}, REQUEST_STORAGE);
 
                     }
                 });
@@ -657,6 +658,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         try {
 
             if (requestCode == REQUEST_STORAGE) {
