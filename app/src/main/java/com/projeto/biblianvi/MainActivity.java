@@ -323,8 +323,8 @@ public class MainActivity extends AppCompatActivity {
             downloadDataBaseBible();
         }
 
-            int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
-            getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
+        int rated = getSharedPreferences("rated", MODE_PRIVATE).getInt("time", 0);
+        getSharedPreferences("rated", MODE_PRIVATE).edit().putInt("time", rated + 1).commit();
 
         if (rated == 5) {
             showRequestRateApp(MainActivity.this);
@@ -333,6 +333,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         createNotificationChannel();
+        //test notification
+        // VersiculoDiario  vers = new VersiculoDiario();
+        // vers.onReceive(getApplicationContext(),null);
+
 
     }
 

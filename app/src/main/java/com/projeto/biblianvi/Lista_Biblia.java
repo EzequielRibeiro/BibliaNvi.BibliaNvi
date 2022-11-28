@@ -1,5 +1,7 @@
 package com.projeto.biblianvi;
 
+import static com.projeto.biblianvi.MainActivity.chamarActivity;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -58,8 +60,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.projeto.biblianvi.MainActivity.chamarActivity;
-
 
 public class Lista_Biblia extends Activity {
 
@@ -111,6 +111,7 @@ public class Lista_Biblia extends Activity {
     private boolean flag = true;
     private FloatingActionButton fab1, fab2, fab3;
     private int position = 0;
+    View view;
 
     // Get the screen current brightness
     static public int getScreenBrightness(Context context) {
@@ -142,7 +143,7 @@ public class Lista_Biblia extends Activity {
         setContentView(R.layout.activity_list_view);
         bibliaHelp = new BibliaBancoDadosHelper(getApplicationContext());
         dbAdapterFavoritoNota = new DBAdapterFavoritoNota(getApplicationContext());
-
+        this.view = findViewById(android.R.id.content).getRootView();
         textViewComp = findViewById(R.id.textViewComp);
         textViewCap = findViewById(R.id.textViewCapit);
         textViewLivro = findViewById(R.id.textViewLivro);
@@ -489,12 +490,15 @@ public class Lista_Biblia extends Activity {
             if (setMute) {
                 buttonSound.setBackgroundResource(R.mipmap.sound_off);
                 if (showMessage)
-                    Toast.makeText(Lista_Biblia.this, R.string.sound_off, Toast.LENGTH_LONG).show();
+                    Snackbar.make(view, R.string.sound_off, Snackbar.LENGTH_LONG).show();
+                //  Toast.makeText(Lista_Biblia.this, R.string.sound_off, Toast.LENGTH_LONG).show();
 
             } else {
                 buttonSound.setBackgroundResource(R.mipmap.sound_on);
-                if (showMessage)
-                    Toast.makeText(Lista_Biblia.this, R.string.sound_on, Toast.LENGTH_LONG).show();
+                if (showMessage) {
+                    // Snackbar.make(view, R.string.sound_on, Snackbar.LENGTH_LONG).show();
+                    // Toast.makeText(Lista_Biblia.this, R.string.sound_on, Toast.LENGTH_LONG).show();
+                }
             }
 
         } catch (SecurityException securityException) {

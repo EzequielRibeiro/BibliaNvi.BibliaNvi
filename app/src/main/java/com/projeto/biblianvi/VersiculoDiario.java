@@ -46,7 +46,7 @@ public class VersiculoDiario extends BroadcastReceiver {
         }
     }
 
-    private void versiculoDoDia() throws ParseException {
+    public void versiculoDoDia() throws ParseException {
 
         bibliaHelp = new BibliaBancoDadosHelper(context);
         VersDoDia versDoDia;
@@ -83,7 +83,7 @@ public class VersiculoDiario extends BroadcastReceiver {
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
                         0,
-                        PendingIntent.FLAG_ONE_SHOT
+                        PendingIntent.FLAG_MUTABLE
                 );
 
 
