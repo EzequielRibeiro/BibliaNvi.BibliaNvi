@@ -146,6 +146,7 @@
     <string name="default_notification_channel_name" translatable="false">BibliaNvi</string>
     <string name="idVerse" translatable="false">idVerse</string>
     <string name="idPosition" translatable="false">idPosition</string>
+    <string name="notification_ask">Please. Allow the app to send you notifications so you can use all its features.</string>
 
     <string-array name="menu_array">
         <item> Favorite </item>

@@ -60,6 +60,7 @@ public class UnZip {
         byte[] buffer = new byte[1024];
         try {
             fis = new FileInputStream(zipFilePath);
+            Log.e("caminho", zipFilePath);
             ZipInputStream zis = new ZipInputStream(fis);
             ZipEntry ze = zis.getNextEntry();
             while (ze != null) {

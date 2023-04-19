@@ -239,7 +239,7 @@ public class DownloadTask {
             packageName = arg0[0];
 
             //Get File if SD card is present
-            if (new CheckForSDCard().isSDCardPresent()) {
+           /* if (new CheckForSDCard().isSDCardPresent()) {
 
                 folderStorage = new File(
                         Environment.getExternalStorageDirectory() + "/"
@@ -262,21 +262,31 @@ public class DownloadTask {
                     folderStorage.mkdir();
                     Log.e(TAG, "Directory Created.");
                 }
-            }
+            }*/
+
+            folderStorage = new File(String.valueOf(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)));
+
+            //If File is not present create directory
+           /* if (!folderStorage.exists()) {
+                folderStorage.mkdir();
+                Log.e(TAG, folderStorage.getAbsolutePath());
+                Log.e(TAG, "Directory Created.");
+            }*/
 
             outputFile = new File(folderStorage, downloadFileName);//Create Output file in Main File
 
             //Create New File if not present
-            if (!outputFile.exists()) {
+           /* if (!outputFile.exists()) {
                 try {
                     outputFile.createNewFile();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
                 Log.e(TAG, "File Created");
+                Log.e(TAG,outputFile.getAbsolutePath());
 
             }
-            Log.e(TAG, outputFile.getAbsolutePath());
+            Log.e(TAG, outputFile.getAbsolutePath());*/
 
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
@@ -319,7 +329,7 @@ public class DownloadTask {
 
                 inputStream = response.body().byteStream();
 
-                outputStream = new FileOutputStream(outputFile);
+                outputStream = new FileOutputStream(outputFile.getAbsolutePath());
                 int totalCount = (int) response.body().contentLength();
                 Log.e(TAG, "totalCount: " + totalCount);
                 byte[] buffer = new byte[2 * 1024];

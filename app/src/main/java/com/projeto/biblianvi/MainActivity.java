@@ -4,7 +4,6 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.projeto.biblianvi.TimeClock.agendarAlarmeVersiculo;
 import static com.projeto.biblianvi.TimeClock.checarAlarmeExiste;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
@@ -27,6 +26,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Layout;
 import android.text.method.LinkMovementMethod;
@@ -57,8 +57,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -107,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
     private Intent intent;
     private ListView listView;
     private AdView mAdView;
-    private final int REQUEST_STORAGE = 200;
+    private final int REQUEST_STORAGE = 1;
     private TextView textViewVersDia;
     private TextView textViewDeveloper;
     private TextView textViewRecados;
@@ -259,8 +258,13 @@ public class MainActivity extends AppCompatActivity {
         buttonClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new TimeClock();
-                newFragment.show(getSupportFragmentManager(), "datePicker");
+
+                if (!isNotificationEnable(MainActivity.this)) {
+                    notificationPermission(MainActivity.this);
+                } else {
+                    DialogFragment newFragment = new TimeClock();
+                    newFragment.show(getSupportFragmentManager(), "datePicker");
+                }
             }
         });
 
@@ -619,8 +623,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void downloadDataBaseBible() {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        runDownloadFromDownloadTask();
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_NOTIFICATION_POLICY) != PackageManager.PERMISSION_GRANTED) {
@@ -634,7 +638,8 @@ public class MainActivity extends AppCompatActivity {
 
                         //  PermissionCheck.checkPermission(MainActivity.this);
 
-                        requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NOTIFICATION_POLICY}, REQUEST_STORAGE);
+                        ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_NOTIFICATION_POLICY},
+                                REQUEST_STORAGE);
 
                     }
                 });
@@ -656,36 +661,17 @@ public class MainActivity extends AppCompatActivity {
 
             runDownloadFromDownloadTask();
         }
-
+*/
 
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        try {
-
             if (requestCode == REQUEST_STORAGE) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (!isDataBaseDownload(getApplicationContext())) {
-                        if (isNetworkAvailable(this)) {
-                            runDownloadFromDownloadTask();
-                        } else {
-                            Toast.makeText(getApplicationContext(), R.string.not_internet_avaliable, Toast.LENGTH_LONG).show();
-                        }
-                    }
-                } else {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                            || ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_NOTIFICATION_POLICY)) {
+                if (grantResults[0] != PackageManager.PERMISSION_GRANTED) {
 
-                    }
                 }
-            }
-
-        } catch (ArrayIndexOutOfBoundsException exception) {
-            exception.printStackTrace();
-            FirebaseCrashlytics.getInstance().recordException(exception);
 
         }
 
@@ -1041,6 +1027,59 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    private static boolean isNotificationEnable(Context context) {
+        NotificationManagerCompat notification = NotificationManagerCompat.from(context);
+        return notification.areNotificationsEnabled();
+    }
+
+    public static void notificationPermission(Context context) {
+
+        //Unopened Notice
+        AlertDialog alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Permission notification")
+                .setCancelable(false)
+                .setMessage(context.getString(R.string.notification_ask))
+                /* .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialog, int which) {
+                         dialog.cancel();
+                     }
+                 })*/
+                .setPositiveButton("To set up", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                        Intent intent = new Intent();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                            intent.putExtra("android.provider.extra.APP_PACKAGE", context.getPackageName());
+
+                        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {  //5.0
+                            intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+                            intent.putExtra("app_package", context.getPackageName());
+                            intent.putExtra("app_uid", context.getApplicationInfo().uid);
+                            context.startActivity(intent);
+
+                        } else if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {  //4.4
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            intent.setData(Uri.parse("package:" + context.getPackageName()));
+
+                        } else if (Build.VERSION.SDK_INT >= 15) {
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+                            intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+                        }
+                        context.startActivity(intent);
+                    }
+                })
+                .create();
+        alertDialog.show();
+        // alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+
+    }
+
     public static class PlanetFragment extends Fragment {
         public static final String ARG_PLANET_NUMBER = "planet_number";
 
@@ -1071,5 +1110,6 @@ public class MainActivity extends AppCompatActivity {
             selectItem(position);
         }
     }
+
 
 }
