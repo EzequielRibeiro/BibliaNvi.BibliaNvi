@@ -39,6 +39,12 @@ public class Grafico_Um extends Activity {
 
     }
 
+
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

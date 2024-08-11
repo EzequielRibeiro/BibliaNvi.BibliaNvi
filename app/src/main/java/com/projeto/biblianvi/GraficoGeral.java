@@ -150,6 +150,11 @@ public class GraficoGeral extends TabActivity {
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

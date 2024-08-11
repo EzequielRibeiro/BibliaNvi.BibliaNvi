@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
     private Button button_sermon, buttonClock, button_biblia, button_dicionario, button_pesquisar, buttonCompartilharMain;
     private ProgressDialog progressDialog;
     private Intent intent;
-    private ListView listView;
+
     private AdView mAdView;
     private final int REQUEST_STORAGE = 1;
     private TextView textViewVersDia;
@@ -196,7 +196,6 @@ public class MainActivity extends AppCompatActivity {
 
         bibliaHelp = new BibliaBancoDadosHelper(this);
 
-        listView = findViewById(R.id.listView);
 
         buttonClock = findViewById(R.id.buttonClock);
 
@@ -821,10 +820,9 @@ public class MainActivity extends AppCompatActivity {
         // Sync the toggle state after onRestoreInstanceState has occurred.
         mDrawerToggle.syncState();
     }
-
     public void onBackPressed() {
         super.onBackPressed();
-        return;
+
     }
 
     protected void onPause() {
@@ -936,10 +934,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 intent = new Intent(context, GraficoGeral.class);
+                intent.setFlags(FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
                 break;
             case 5:
                 intent = new Intent(context, SettingsActivity.class);
+
                 context.startActivity(intent);
                 break;
             case 6:

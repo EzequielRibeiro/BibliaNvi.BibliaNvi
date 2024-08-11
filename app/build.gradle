@@ -4,24 +4,21 @@ apply plugin: 'com.google.firebase.crashlytics'
 
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'key'
-            keyPassword '123456'
-            storeFile file('D:\\Projeto-Android\\BibliaNvi.BibliaNvi\\keystorebiblia.jks')
-            storePassword '123456'
-        }
-    }
-    compileSdkVersion 33
-    buildToolsVersion '30.0.3'
+
+
     defaultConfig {
         applicationId 'com.projeto.biblianvi.biblianvi'
 //        applicationId 'com.projeto.biblianvi'
-        minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 80
-        versionName '1.80'
-        signingConfig signingConfigs.config
+
+        compileSdk = 35
+        targetSdk 33
+        minSdk 21
+        versionCode 81
+        versionName "1.81"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        proguardFiles 'proguard-rules.pro'
+
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -31,7 +28,7 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+
 
 
         }
@@ -39,10 +36,10 @@ android {
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
 
         }
     }
+    namespace 'com.projeto.biblianvi.biblianvi'
 
 
     defaultConfig {
@@ -54,23 +51,23 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation platform('com.google.firebase:firebase-bom:30.4.1')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'com.google.firebase:firebase-core'
+    //  implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
-    implementation 'com.google.android.material:material:1.8.0'
-    implementation 'androidx.core:core:1.10.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.core:core:1.13.1'
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-crashlytics'
    // implementation 'androidx.recyclerview:recyclerview:1.1.0'
   //  implementation 'com.google.android.play:core:1.10.3'
-    implementation 'com.google.android.gms:play-services-ads:22.0.0'
+    implementation 'com.google.firebase:firebase-ads:23.2.0'
     implementation 'com.google.android.play:review:2.0.1'
     // implementation 'com.google.android.gms:play-services-base:18.1.0'
    // implementation 'com.google.android.gms:play-services-ads:21.3.0'

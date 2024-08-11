@@ -44,6 +44,11 @@ public class Grafico_Dois extends Activity {
         return true;
     }
 
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
