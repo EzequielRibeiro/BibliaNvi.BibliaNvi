@@ -11,10 +11,10 @@ android {
 //        applicationId 'com.projeto.biblianvi'
 
         compileSdk = 35
-        targetSdk 33
-        minSdk 21
-        versionCode 81
-        versionName "1.81"
+        targetSdk 35
+        minSdk 23
+        versionCode 85
+        versionName "1.85"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         proguardFiles 'proguard-rules.pro'
@@ -41,7 +41,6 @@ android {
     }
     namespace 'com.projeto.biblianvi.biblianvi'
 
-
     defaultConfig {
         multiDexEnabled true
     }
@@ -51,24 +50,24 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    implementation platform('com.google.firebase:firebase-bom:33.13.0')
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-analytics'
     //  implementation 'com.google.firebase:firebase-core'
     implementation 'com.google.firebase:firebase-inappmessaging-display'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.core:core:1.16.0'
     implementation 'com.google.firebase:firebase-analytics'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.1.0'
     implementation 'com.google.firebase:firebase-config'
     implementation 'com.google.firebase:firebase-crashlytics'
    // implementation 'androidx.recyclerview:recyclerview:1.1.0'
   //  implementation 'com.google.android.play:core:1.10.3'
-    implementation 'com.google.firebase:firebase-ads:23.2.0'
-    implementation 'com.google.android.play:review:2.0.1'
+    implementation 'com.google.firebase:firebase-ads:23.6.0'
+    implementation 'com.google.android.play:review:2.0.2'
     // implementation 'com.google.android.gms:play-services-base:18.1.0'
    // implementation 'com.google.android.gms:play-services-ads:21.3.0'
     // implementation 'org.apache.commons:commons-lang3:3.11'

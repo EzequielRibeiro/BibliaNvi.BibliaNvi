@@ -21,3 +21,4 @@
 #-keep class com.amazon.** {*;}
 #-keepattributes *Annotation*
 #-optimizationpasses 1
+-keep class com.google.android.gms.internal.ads.**{ *; }
